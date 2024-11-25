@@ -92,7 +92,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-maven-plugin</artifactId>
             <configuration>
-                <mainClass>com.places.Main</mainClass>
+                <mainClass>com.joa.springboot.SpringbootApplication</mainClass>
             </configuration>
 
             <executions>
