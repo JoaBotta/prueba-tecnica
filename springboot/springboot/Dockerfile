@@ -17,7 +17,7 @@ COPY src ./src
 RUN mvn package -DskipTests
 
 # Usa una imagen de OpenJDK para ejecutar la aplicación
-FROM openjdk:8-jdk-alpine
+FROM openjdk:21-jdk-alpine
 
 # Establece el archivo JAR como un argumento
 ARG JAR_FILE=target/*.jar
