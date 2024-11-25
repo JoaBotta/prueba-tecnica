@@ -4,13 +4,14 @@ FROM eclipse-temurin:17-jdk AS builder
 # Set the working directory
 WORKDIR /app
 
-# Copy the application code
-COPY . .
+# Copy the pom.xml and the source code (this helps to leverage Docker caching)
+COPY pom.xml .
+COPY src ./src
 
-# Given permissions to mvnw
-RUN chmod +x mvnw
+# Install Maven dependencies
+RUN ./mvnw clean install -DskipTests
 
-# Build the application (requires Maven or Gradle)
+# Package the application
 RUN ./mvnw clean package -DskipTests
 
 # Stage 2: Run the application
