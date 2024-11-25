@@ -26,6 +26,7 @@ const routes: Routes = [
       { path: 'historico-planta', component: HistoricosPlantasComponent },
       { path: 'personal-details', component: PersonalDetailsComponent },
 
+      { path: '', redirectTo: 'planta', pathMatch: 'full' },
     ],
   },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
