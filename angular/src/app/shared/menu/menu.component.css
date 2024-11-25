@@ -1,0 +1,60 @@
+/* Navbar principal */
+.navbar {
+  display: flex;
+  justify-content: end; /* Para separar el título y los iconos */
+  align-items: center;
+  padding: 0 1rem;
+  background-color: #e9f1f4; /* Color de fondo */
+  color: black; /* Color del texto */
+  position: sticky;
+  top: 0; /* Fija el navbar en la parte superior */
+  z-index: 1; /* Asegura que esté por encima de otros elementos */
+  width: 100%; /* Asegura que ocupe todo el ancho */
+}
+
+
+
+/* Contenedor de iconos y nombre de usuario */
+.navbar-icons {
+  display: flex;
+  align-items: center;
+}
+
+/* Estilos de los botones de los íconos */
+.navbar-icons button {
+  margin: 0 0.5rem;
+}
+
+/* Estilos de los íconos */
+.navbar-icons mat-icon {
+  color: black; /* Color de los íconos */
+}
+
+/* Estilo del nombre del usuario */
+.navbar-username {
+  margin-left: 1rem;
+  font-weight: 500;
+  font-size: 1rem;
+  color: black; /* Color del nombre de usuario */
+}
+
+/* Media query para dispositivos móviles */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 0.5rem; /* Menos espacio en los márgenes en pantallas pequeñas */
+  }
+
+  .navbar-icons {
+    display: block; /* Pone los elementos en bloque en lugar de flex */
+    text-align: right; /* Alinea a la derecha en pantallas pequeñas */
+  }
+
+  .navbar-icons button {
+    margin: 0.5rem 0; /* Da un margen en bloque a los botones */
+  }
+
+  .navbar-username {
+    font-size: 0.9rem; /* Reduce el tamaño de fuente en pantallas pequeñas */
+    margin-left: 0; /* Elimina el margen izquierdo */
+  }
+}

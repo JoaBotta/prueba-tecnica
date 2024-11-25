@@ -1,0 +1,268 @@
+/* Estilo base */
+:host {
+  font-family: 'Poppins', sans-serif;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body, html {
+    height: 100%;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    height: 100vh;
+  }
+  /*ESTILO LETRAS*/
+
+h3 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold; /* Puedes cambiar el grosor */
+}
+
+p {
+  font-family: 'Poppins', sans-serif;
+}
+h3 {
+  font-size: 24px; /* Tamaño más grande para títulos */
+}
+
+p {
+  font-size: 16px; /* Tamaño normal para párrafos */
+}
+
+h3 {
+  font-weight: 700; /* Negrita para títulos */
+}
+
+
+
+h3 {
+  color: #333; /* Un gris oscuro */
+}
+
+h3 {
+  line-height: 1.5; /* Espaciado entre líneas */
+  letter-spacing: 1px; /* Espacio entre letras */
+
+}
+
+p {
+  line-height: 1.6; /* Un poco más de espaciado en párrafos */
+}
+
+  
+  /* Contenedor principal */
+  .container {
+    display: flex;
+    height: 100vh;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+  }
+  
+  .left-section {
+    flex: 1;
+    background: linear-gradient(rgba(51, 163, 170, 0.8), rgba(51, 163, 170, 0.8)),
+                url('../../../assets/images/image 3.png') no-repeat center center/cover;
+    color: white;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 300px;
+    position: relative;
+  }
+  
+  
+  
+  .left-section, .right-section {
+    width: 45%;
+  }
+  
+  .right-section form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .left-section * {
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* Sección derecha */
+  .right-section {
+    flex: 1;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 300px;
+  }
+  select {
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  .flag-icon {
+    width: 20px;
+    height: 15px;
+    margin-right: 5px;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 14px;
+  }
+  
+  .warning-message {
+    color: orange;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  /* Elementos generales */
+  h1, h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+  }
+  
+  p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+  
+  .feature {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .feature-icon {
+    margin-right: 10px;
+    font-size: 1.5em;
+  }
+  
+  .login-form {
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .login-form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+  }
+  
+  .login-form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #0db3a7;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .login-form button:hover {
+    background-color: #0a9285;
+  }
+  
+  .forgot-password {
+    text-align: center;
+    margin-top: -15px;
+    margin-bottom: 20px;
+    font-size: 0.9em;
+  }
+  
+  .forgot-password a {
+    color: #0db3a7;
+    text-decoration: none;
+  }
+  
+  .forgot-password a:hover {
+    text-decoration: underline;
+  }
+  
+  .privacy {
+    font-size: 0.8em;
+    text-align: center;
+    color: #888;
+    margin-top: 20px;
+  }
+  
+  .privacy a {
+    color: #0db3a7;
+    text-decoration: none;
+  }
+  
+  .privacy a:hover {
+    text-decoration: underline;
+  }
+  .error-message {
+    color: red; /* Color rojo para los mensajes de error */
+    font-size: 12px; /* Ajusta el tamaño del texto si es necesario */
+  }
+  
+  input.ng-invalid.ng-touched {
+    border-color: red; /* Cambia el color del borde del campo a rojo cuando es inválido */
+  }
+  .warning-message {
+    color: red;  /* Texto en color rojo */
+    font-size: 14px;  /* Tamaño de fuente adecuado */
+    margin-bottom: 10px;  /* Separación entre el mensaje y el formulario */
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 12px;
+  }
+  
+  input.ng-invalid.ng-touched {
+    border-color: red;
+  }
+    
+  
+  /* Media Queries para pantallas pequeñas */
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+    }
+  
+    .left-section, .right-section {
+      flex: none;
+      width: 100%;
+      padding: 30px;
+    }
+  
+    h1, h2 {
+      font-size: 2em;
+    }
+  
+    p {
+      font-size: 1em;
+    }
+  
+    .feature-icon {
+      font-size: 1.2em;
+    }
+  
+    .login-form {
+      max-width: 100%;
+    }
+  }
+  
+  @media (min-width: 1400px) {
+    .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
+        max-width: 1519.2px;
+    }
+  }
+  

@@ -1,0 +1,544 @@
+:host {
+  font-family: 'Poppins', sans-serif;
+}
+h1 {
+  
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+    color: #000;
+    /*tenga una distancia de 20px del costado izquierdo*/
+    margin-right: 20px;
+  
+}
+
+h2 {
+  font-family: 'Poppins', sans-serif; /* Fuente definida */
+  font-weight: bold; /* Negrita */
+  font-size: 2.5em; /* Tamaño grande */
+  margin-bottom: 20px; /* Espaciado inferior */
+  color: #333; /* Color gris oscuro */
+  line-height: 1.5; /* Espaciado entre líneas */
+}
+.planta-container {
+  display: flex;
+  flex-direction: column; /* Coloca los elementos en columna */
+  gap: 20px; /* Espaciado entre los elementos */
+  background-color: #E9F1F4;
+  padding: 20px;
+}
+
+.cards-container {
+  display: flex; /* Muestra los cards en fila */
+  gap: 20px; /* Espaciado entre los cards */
+  justify-content: space-between;
+}
+.cards2-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Por defecto 4 columnas */
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.card {
+  width: 290px;
+  height: 110px;
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.icon-circle {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 24px;
+}
+
+.icon-circle.success {
+  background-color: #dff0d8;
+  color: #3c763d;
+}
+
+.icon-circle.warning {
+  background-color: #fcf8e3;
+  color: #8a6d3b;
+}
+
+.icon-circle.danger {
+  background-color: #f2dede;
+  color: #a94442;
+}
+
+.info h2 {
+  margin: 0;
+  font-size: 24px;
+  color: #000000;
+}
+/*------------------------*/
+
+.card2 {
+  width: 333px;
+  height: 100px;
+  background-color: white;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card2-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 14px;
+  color: #8e8ea1;
+  margin-bottom: 5px;
+}
+
+.values {
+  display: flex;
+  gap: 10px;
+}
+
+.value {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  
+}
+
+.value.green .material-icons {
+  background-color: #dff0d8;
+  color: #3c763d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 24px;
+}
+
+.value.yellow .material-icons {
+  color: #ffc107;
+}
+
+.value.red .material-icons {
+  color: #f44336;
+}
+
+.icon2-container {
+  width: 60px;
+  height: 60px;
+  background-color: #eff2f7;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon2-container .material-icons {
+  font-size: 30px;
+  color: #33a3aa;
+}
+
+/*------------------*/
+
+.btn-primary{
+  background-color: #ffffff;
+  width: 170px;
+  height: 28px;
+  border-radius: 5px;
+  /*color de los bordes*/
+  border: 1px solid #B0CAD1;
+
+
+}
+.info p {
+  margin: 0;
+  font-size: 14px;
+  color: #666666;
+}
+
+.plantas-container {
+  margin-top: 20px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.plantas-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  /*diferencia de distancia de 23px*/
+  padding-bottom: 23px;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 20px;
+
+}
+
+.plantas-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  color: #000;
+  /*tenga una distancia de 20px del costado izquierdo*/
+  margin-right: 20px;
+}
+
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+
+
+.styled-table th {
+  text-align: left;
+  padding: 10px;
+  font-weight: 500;
+  color: #000;
+}
+
+.styled-table td {
+  padding: 10px;
+  color: #333;
+  
+}
+
+.styled-table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+
+
+.popup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+}
+
+/* Contenido del popup */
+.popup-content {
+  background-color: #fff;
+  border-radius: 8px;
+  width: 380px;
+  height: 290px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Contenedor para las etiquetas e inputs */
+.popup-content form {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Alineación central de todo */
+}
+
+/* Estilo de las etiquetas */
+.popup-content label {
+  width: 320px; /* Mismo ancho que los inputs */
+  margin-bottom: 5px;
+  color: #838B9E;
+  font-size: 14px;
+  text-align: left; /* Alineación a la izquierda */
+}
+
+/* Estilo de los inputs y el select */
+.popup-content input,
+.popup-content select {
+  width: 320px;
+  height: 42px;
+  margin-bottom: 20px;
+  padding: 0 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Título del popup */
+.popup-content h3 {
+  margin: 0;
+  margin-bottom: 20px;
+  color: #000;
+  font-size: 18px;
+}
+
+/* Estilo de las etiquetas */
+.popup-content label {
+  display: block;
+  margin-bottom: 5px;
+  color: #838B9E;
+  font-size: 14px;
+  text-align: left;
+}
+
+/* Estilo de los inputs y el select */
+.popup-content input,
+.popup-content select {
+  width: 320px;
+  height: 42px;
+  margin-bottom: 20px;
+  padding: 0 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Botones */
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 9px;
+}
+
+.btn-cancelar {
+  width: 100px;
+  height: 36px;
+  border: 2px solid #33A3AA;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #33A3AA;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-cancelar:hover {
+  background-color: #e6f7f8;
+}
+
+.btn-crear {
+  width: 100px;
+  height: 36px;
+  border: none;
+  border-radius: 4px;
+  background-color: #33A3AA;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-crear:hover {
+  background-color: #2b8c92;
+}
+
+/*popup 2*/
+.popup2-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+.mat-menu-panel {
+  z-index: 2000; /* Ajusta el valor según lo necesario */
+}
+/* Contenido del popup */
+.popup2-content {
+  background-color: #fff;
+  border-radius: 8px;
+  width: 720px;
+  height: 380px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Título */
+.popup-content h3 {
+  margin: 0 0 20px 0;
+  color: #000;
+  font-size: 18px;
+}
+
+/* Filas del formulario */
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+/* Grupo de cada input */
+.form-group {
+  width: 48%;
+}
+
+/* Etiquetas */
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #838B9E;
+  font-size: 14px;
+  text-align: left;
+}
+
+/* Inputs */
+.form-group input {
+  width: 100%;
+  height: 42px;
+  padding: 0 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.form-input {
+  background-color: #f4f4f4;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* General styling for small devices */
+@media (max-width: 768px) {
+  .planta-container {
+    padding: 10px; /* Reduce padding */
+  }
+
+  .cards-container {
+    flex-direction: column;
+    gap: 15px; /* Reduce espacio */
+  }
+
+  .card {
+    width: 100%; /* Ocupa todo el ancho disponible */
+  }
+
+  .plantas-container {
+    padding: 10px; /* Reduce padding */
+  }
+
+  .popup-content,
+  .popup2-content {
+    width: 90%; /* Asegura que los popups no se desborden */
+    height: auto; /* Ajusta la altura automáticamente */
+  }
+
+  .form-row {
+    flex-direction: column; /* Apila los elementos verticalmente */
+    gap: 10px;
+  }
+
+  .form-group {
+    width: 100%; /* Ocupa todo el ancho */
+  }
+
+  .cards2-container {
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 15px; /* Reduce el espacio entre cards */
+    padding: 0 10px; /* Ajusta los márgenes laterales */
+
+  }
+  .card2 {
+    width: 100%; /* Ocupa todo el ancho disponible */
+    height: 90px; /* Reduce la altura */
+    padding: 10px; /* Reduce el padding interno */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Sombras más sutiles */
+  }
+
+  .icon2-container {
+    width: 50px; /* Ajusta tamaño del ícono */
+    height: 50px;
+  }
+
+  .icon2-container .material-icons {
+    font-size: 20px; /* Tamaño más pequeño para el ícono */
+  }
+
+  .styled-table {
+    width: 100%;
+    max-width: 100%; /* Asegura que la tabla no se desborde */
+    overflow-x: auto; /* Permite el desplazamiento horizontal */
+    display: block; /* Hace que la tabla se vuelva bloqueable, permitiendo el desplazamiento */
+    -webkit-overflow-scrolling: touch; /* Mejora el desplazamiento en dispositivos táctiles */
+  }
+
+  .styled-table th,
+  .styled-table td {
+    font-size: 12px; /* Ajusta el tamaño de la fuente */
+    padding: 8px; /* Reduce el padding */
+  }
+}
+
+/* Extra small devices (smartphones) */
+@media (max-width: 480px) {
+
+    .styled-table th,
+    .styled-table td {
+      font-size: 11px; /* Ajusta aún más el tamaño de la fuente */
+      padding: 5px; /* Reduce el padding aún más */
+    }
+
+  h1 {
+    font-size: 1.2rem; /* Reduce el tamaño del título */
+  }
+
+  .card-content {
+    flex-direction: column; /* Reorganiza contenido en columna */
+    align-items: center;
+  }
+
+  .icon-circle {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+
+  .cards2-container {
+    grid-template-columns: repeat(1, 1fr); /* 1 columna para pantallas muy pequeñas */
+    gap: 10px; /* Reduce espacio entre cards */
+    padding: 0 5px; /* Asegura que no se desborde */
+  }
+
+  .card2 {
+    height: 80px; /* Reduce más la altura */
+    padding: 8px; /* Ajusta padding interno */
+  }
+
+  .icon2-container {
+    width: 40px; /* Íconos aún más pequeños */
+    height: 40px;
+  }
+
+  .icon2-container .material-icons {
+    font-size: 18px; /* Ajusta tamaño del ícono */
+  }
+}
+
+
+

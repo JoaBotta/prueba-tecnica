@@ -1,0 +1,67 @@
+<p *ngIf="errorMessage.length != 0" class="text-danger">{{ errorMessage }}</p>
+<div class="perfil-container">
+  <div class="header">
+    <h3>Mi Perfil</h3>
+  </div>
+  <div class="perfil-list">
+    <!-- Vista de perfil (sin edición) -->
+    <div *ngIf="(isAuthenticated && !editMode) || !isAuthenticated" class="perfil">
+      <div class="perfil-header">
+        <img alt="Avatar" class="perfil-avatar" />
+        <div class="perfil-info">
+          <h3 class="perfil-nombre">
+            {{ Usuario?.firstname }} {{ Usuario?.lastname }}
+          </h3>
+          <p class="perfil-username">Usuario: {{ Usuario?.username }}</p>
+        </div>
+      </div>
+      <div class="perfil-email">
+        <p><b>Email:</b> {{ Usuario?.email }}</p>
+      </div>
+      <div class="perfil-country">
+        <p><b>País:</b> {{ Usuario?.country }}</p>
+      </div>
+      <button class="btn btn-primary" *ngIf="isAuthenticated" (click)="enableEditMode()">
+        Editar Perfil
+      </button>
+    </div>
+
+    <!-- Formulario para editar el perfil -->
+    <form *ngIf="editMode" [formGroup]="registerForm" (ngSubmit)="savePersonalDetailsData()">
+        <div class="form-group">
+          <label for="firstname">Nombre</label>
+          <input id="firstname" formControlName="firstname" class="form-control" />
+          <p *ngIf="firstname.invalid && firstname.touched" class="text-danger">
+            El nombre es obligatorio.
+          </p>
+        </div>
+        <div class="form-group">
+          <label for="lastname">Apellido</label>
+          <input id="lastname" formControlName="lastname" class="form-control" />
+          <p *ngIf="lastname.invalid && lastname.touched" class="text-danger">
+            El apellido es obligatorio.
+          </p>
+        </div>
+        <div class="form-group">
+          <label for="country">País</label>
+          <input id="country" formControlName="country" class="form-control" />
+          <p *ngIf="country.invalid && country.touched" class="text-danger">
+            El país es obligatorio.
+          </p>
+        </div>
+        
+        <!-- Campos no editables (desactivados) -->
+        <input type="hidden" formControlName="email" />
+        <input type="hidden" formControlName="username" />
+      
+        <div class="form-actions">
+          <button type="submit" class="btn btn-success" [disabled]="registerForm.invalid">
+            Guardar
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="cancelEdit()">
+            Cancelar
+          </button>
+        </div>
+      </form>
+  </div>
+</div>

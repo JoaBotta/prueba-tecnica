@@ -1,0 +1,386 @@
+<div class="planta-container">
+  <h1>Monitoreo Global</h1>
+  <div class="cards-container">
+    <mat-card class="card">
+      <div class="card-content">
+        <div class="info">
+          <p>Lecturas OK</p>
+          <h2>{{ lecturasOkTotal }}</h2>
+        </div>
+        <div class="icon-circle success">
+          <mat-icon>check_circle</mat-icon>
+        </div>
+      </div>
+    </mat-card>
+
+    <mat-card class="card">
+      <div class="card-content">
+        <div class="info">
+          <p>Alertas medias</p>
+          <h2>{{ alertasMediasTotal }}</h2>
+        </div>
+        <div class="icon-circle warning">
+          <mat-icon>warning</mat-icon>
+        </div>
+      </div>
+    </mat-card>
+
+    <mat-card class="card">
+      <div class="card-content">
+        <div class="info">
+          <p>Alertas rojas</p>
+          <h2>{{ alertasRojasTotal }}</h2>
+        </div>
+        <div class="icon-circle danger">
+          <mat-icon>error</mat-icon>
+        </div>
+      </div>
+    </mat-card>
+    <mat-card class="card">
+      <div class="card-content">
+        <div class="info">
+          <p>Sensores deshabilitados</p>
+          <h2>{{ sensoresDeshabilitadosTotal }}</h2>
+        </div>
+        <div class="icon-circle danger">
+          <mat-icon>close</mat-icon>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+  <div class="plantas-container">
+    <div class="plantas-header">
+      <h2>Plantas</h2>
+      <button class="btn-primary" (click)="abrirPrimerPopup()">+ Crear nueva planta</button>
+    </div>
+
+    <table class="styled-table plantas-table">
+      <thead>
+        <tr>
+          <th>País</th>
+          <th>Nombre de la planta</th>
+          <th>Lecturas</th>
+          <th>Alertas medias</th>
+          <th>Alertas rojas</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let planta of plantas">
+          <td>{{ planta.pais }}</td>
+          <td>{{ planta.nombre }}</td>
+          <td>{{ planta.lecturasOk }}</td>
+          <td>{{ planta.alertasMedias }}</td>
+          <td>{{ planta.alertasRojas }}</td>
+          <td class="actions">
+            <button mat-icon-button (click)="abrirPopupEdicion(planta)">
+              <mat-icon>edit</mat-icon>
+            </button>
+          
+            <!-- Ícono de eliminar -->
+            <button mat-icon-button (click)="eliminarPlanta(planta.id!)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+          
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="cards2-container"> 
+    <div class="card2">
+      <div class="card2-content">
+        <span class="label">Temperatura</span>
+        <div class="values">
+          <span class="value green"><span class="material-icons">check_circle</span>100</span>
+          <span class="value yellow"><span class="material-icons">warning</span>20</span>
+          <span class="value red"><span class="material-icons">error</span>3</span>
+        </div>
+      </div>
+      <div class="icon2-container">
+        <span class="material-icons">thermostat</span>
+      </div>
+    </div>
+
+    <!-- card2 2 -->
+    <div class="card2">
+      <div class="card2-content">
+        <span class="label">Presión</span>
+        <div class="values">
+          <span class="value green"><span class="material-icons">check_circle</span>100</span>
+          <span class="value yellow"><span class="material-icons">warning</span>20</span>
+          <span class="value red"><span class="material-icons">error</span>3</span>
+        </div>
+      </div>
+      <div class="icon2-container">
+        <span class="material-icons">speed</span>
+      </div>
+    </div>
+
+    <!-- card2 3 -->
+    <div class="card2">
+      <div class="card2-content">
+        <span class="label">Viento</span>
+        <div class="values">
+          <span class="value green"><span class="material-icons">check_circle</span>100</span>
+          <span class="value yellow"><span class="material-icons">warning</span>20</span>
+          <span class="value red"><span class="material-icons">error</span>3</span>
+        </div>
+      </div>
+      <div class="icon2-container">
+        <span class="material-icons">air</span>
+      </div>
+    </div>
+
+    <!-- card2 4 -->
+    <div class="card2">
+      <div class="card2-content">
+        <span class="label">Niveles</span>
+        <div class="values">
+          <span class="value green"><span class="material-icons">check_circle</span>100</span>
+          <span class="value yellow"><span class="material-icons">warning</span>20</span>
+          <span class="value red"><span class="material-icons">error</span>3</span>
+        </div>
+      </div>
+      <div class="icon2-container">
+        <span class="material-icons">waves</span>
+      </div>
+    </div>
+
+    <!-- card2 5 -->
+    <div class="card2">
+      <div class="card2-content">
+        <span class="label">Energía</span>
+        <div class="values">
+          <span class="value green"><span class="material-icons">check_circle</span>100</span>
+          <span class="value yellow"><span class="material-icons">warning</span>20</span>
+          <span class="value red"><span class="material-icons">error</span>3</span>
+        </div>
+      </div>
+      <div class="icon2-container">
+        <span class="material-icons">bar_chart</span>
+      </div>
+    </div>
+
+    <!-- card2 6 -->
+    <div class="card2">
+      <div class="card2-content">
+        <span class="label">Tensión</span>
+        <div class="values">
+          <span class="value green"><span class="material-icons">check_circle</span>100</span>
+          <span class="value yellow"><span class="material-icons">warning</span>20</span>
+          <span class="value red"><span class="material-icons">error</span>3</span>
+        </div>
+      </div>
+      <div class="icon2-container">
+        <span class="material-icons">bolt</span>
+      </div>
+    </div>
+
+    <!-- card2 7 -->
+    <div class="card2">
+      <div class="card2-content">
+        <span class="label">Monóxido de carbono</span>
+        <div class="values">
+          <span class="value green"><span class="material-icons">check_circle</span>100</span>
+          <span class="value yellow"><span class="material-icons">warning</span>20</span>
+          <span class="value red"><span class="material-icons">error</span>3</span>
+        </div>
+      </div>
+      <div class="icon2-container">
+        <span class="material-icons">masks</span>
+      </div>
+    </div>
+
+    <!-- card2 8 -->
+    <div class="card2">
+      <div class="card2-content">
+        <span class="label">Otros gases</span>
+        <div class="values">
+          <span class="value green"><span class="material-icons">check_circle</span>100</span>
+          <span class="value yellow"><span class="material-icons">warning</span>20</span>
+          <span class="value red"><span class="material-icons">error</span>3</span>
+        </div>
+      </div>
+      <div class="icon2-container">
+        <span class="material-icons">cloud</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Popup 1 -->
+<div class="popup-container" *ngIf="mostrarPrimerPopup">
+  <div class="popup-content">
+    <h3>Crear nueva planta</h3>
+    <form (submit)="irASegundoPopup()">
+      <label for="nombre-planta">Nombre planta</label>
+      <input type="text" id="nombre-planta" [(ngModel)]="nuevaPlanta.nombre" placeholder="Ingrese nombre" name="nombre" />
+
+      <label for="pais">País</label>
+    <select [(ngModel)]="nuevaPlanta.pais" name="pais" required>
+      <option *ngFor="let pais of listaPaises" [value]="pais.name">{{ pais.name }}</option>
+    </select>
+    
+
+      <div class="button-group">
+        <button type="button" class="btn-cancelar" (click)="cerrarPopup()">Cancelar</button>
+        <button type="submit" class="btn-crear">Siguiente</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Popup 2 -->
+<div class="popup2-container" *ngIf="mostrarSegundoPopup">
+  <div class="popup2-content">
+    <h3>Detalles de la planta</h3>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="nombre-planta">Nombre de la planta</label>
+        <div class="form-input">{{ nuevaPlanta.nombre }}</div>
+      </div>
+      <div class="form-group">
+        <label for="pais">País</label>
+        <div class="form-input">{{ nuevaPlanta.pais }}</div>
+      </div>
+    </div>
+
+    <!-- Formulario -->
+    <form (submit)="crearPlanta()">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="cantidad-lecturas">Cantidad de lecturas</label>
+          <input
+            type="number"
+            id="cantidad-lecturas"
+            [(ngModel)]="nuevaPlanta.lecturasOk"
+            placeholder="Ingrese"
+            name="cantidadLecturas"
+          />
+        </div>
+        <div class="form-group">
+          <label for="sensores-deshabilitados">Sensores deshabilitados</label>
+          <input
+            type="number"
+            id="sensores-deshabilitados"
+            [(ngModel)]="nuevaPlanta.sensoresDeshabilitados"
+            placeholder="Ingrese"
+            name="sensoresDeshabilitados"
+          />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="alertas-medias">Alertas medias</label>
+          <input
+            type="number"
+            id="alertas-medias"
+            [(ngModel)]="nuevaPlanta.alertasMedias"
+            placeholder="Ingrese"
+            name="alertasMedias"
+          />
+        </div>
+        <div class="form-group">
+          <label for="alertas-rojas">Alertas rojas</label>
+          <input
+            type="number"
+            id="alertas-rojas"
+            [(ngModel)]="nuevaPlanta.alertasRojas"
+            placeholder="Ingrese"
+            name="alertasRojas"
+          />
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button type="button" class="btn-cancelar" (click)="cerrarPopup()">Cancelar</button>
+        <button type="submit" class="btn-crear">Crear</button>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- Popup 2 (Detalles de la planta) -->
+<div class="popup2-container" *ngIf="mostrarPopupEdicion">
+  <div class="popup2-content">
+    <h3>Editar planta</h3>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="nombre-planta">Nombre de la planta</label>
+        <input
+          type="text"
+          id="nombre-planta"
+          [(ngModel)]="plantaEditando.nombre"
+          placeholder="Ingrese nombre"
+          name="nombre"
+          disabled 
+        />
+      </div>
+      <div class="form-group">
+        <label for="pais">País</label>
+        <input
+          type="text"
+          id="nombre-planta"
+          [(ngModel)]="plantaEditando.pais"
+          placeholder="Ingrese nombre"
+          name="nombre"
+          disabled 
+        />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="cantidad-lecturas">Cantidad de lecturas</label>
+        <input
+          type="number"
+          id="cantidad-lecturas"
+          [(ngModel)]="plantaEditando.lecturasOk"
+          placeholder="Ingrese"
+          name="cantidadLecturas"
+        />
+      </div>
+      <div class="form-group">
+        <label for="sensores-deshabilitados">Sensores deshabilitados</label>
+        <input
+          type="number"
+          id="sensores-deshabilitados"
+          [(ngModel)]="plantaEditando.sensoresDeshabilitados"
+          placeholder="Ingrese"
+          name="sensoresDeshabilitados"
+        />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="alertas-medias">Alertas medias</label>
+        <input
+          type="number"
+          id="alertas-medias"
+          [(ngModel)]="plantaEditando.alertasMedias"
+          placeholder="Ingrese"
+          name="alertasMedias"
+        />
+      </div>
+      <div class="form-group">
+        <label for="alertas-rojas">Alertas rojas</label>
+        <input
+          type="number"
+          id="alertas-rojas"
+          [(ngModel)]="plantaEditando.alertasRojas"
+          placeholder="Ingrese"
+          name="alertasRojas"
+        />
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button type="button" class="btn-cancelar" (click)="cerrarPopup()">Cancelar</button>
+      <button type="button" class="btn-crear" (click)="editarPlanta(); cerrarPopup()">Guardar</button>
+    </div>
+  </div>
+</div>

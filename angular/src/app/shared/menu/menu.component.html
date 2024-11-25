@@ -1,0 +1,17 @@
+<div class="navbar">
+
+  <!-- Iconos e información del usuario -->
+  <div class="navbar-icons">
+    <button mat-icon-button>
+      <mat-icon>notifications</mat-icon>
+      
+    </button>
+    <button mat-icon-button [routerLink]="['/personal-details']">
+      <mat-icon>settings</mat-icon>
+      <!-- que vaya al componetne de perfil-details--> 
+
+
+    </button>
+    <span class="navbar-username">{{ usuario?.firstname }} {{ usuario?.lastname }}</span>
+  </div>
+</div>

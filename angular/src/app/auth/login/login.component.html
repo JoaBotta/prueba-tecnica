@@ -1,0 +1,91 @@
+<div class="container">
+  <!-- Sección izquierda -->
+  <div class="left-section">
+    <h1>Iniciar sesión</h1>
+    <p>
+      Nos alegra tenerte de vuelta y estamos listos para <br />atender tus necesidades.
+      Inicia sesión y continúa <br />aprovechando al máximo nuestra plataforma.
+    </p>
+    <div class="feature">
+      <div class="feature-icon">🔧</div>
+      <div>
+        <strong>Monitoreo integral</strong><br />
+        Administra, monitorea múltiples plantas de forma centralizada.
+      </div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">⭐</div>
+      <div>
+        <strong>Notificaciones en tiempo real</strong><br />
+        Recibe notificaciones en tiempo real sobre las mediciones.
+      </div>
+    </div>
+  </div>
+
+  <!-- Sección derecha -->
+  <div class="right-section">
+    <h2>Portal de monitoreo</h2>
+    <p>Iniciar Sesión</p>
+    <p>
+      ¿No tienes una cuenta?
+      <a class="register-link" routerLink="/register">Crear cuenta</a>
+    </p>
+
+    <!-- Formulario de inicio de sesión -->
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <!-- Mensaje de error -->
+      <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+
+      <!-- Campo Email -->
+      <input
+        formControlName="email"
+        type="email"
+        placeholder="Correo electrónico"
+        class="form-control"
+      />
+      <p *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid" class="error-message">
+        <!-- Validaciones de email -->
+        <span *ngIf="loginForm.get('email')?.errors?.['required']">
+          El correo electrónico es obligatorio.
+        </span>
+        <span *ngIf="loginForm.get('email')?.errors?.['email']">
+          El correo electrónico no tiene un formato válido.
+        </span>
+      </p>
+
+      <!-- Campo Contraseña -->
+      <input
+        formControlName="password"
+        type="password"
+        placeholder="Contraseña"
+        class="form-control"
+      />
+      <p *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid" class="error-message">
+        <!-- Validaciones de contraseña -->
+        <span *ngIf="loginForm.get('password')?.errors?.['required']">
+          La contraseña es obligatoria.
+        </span>
+        <span *ngIf="loginForm.get('password')?.errors?.['minlength']">
+          La contraseña debe tener al menos 8 caracteres.
+        </span>
+      </p>
+
+      <!-- Acciones del formulario -->
+      <div class="login-actions">
+        <div class="forgot-password">
+          <a href="#">¿Olvidaste tu contraseña?</a>
+        </div>
+        <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary">
+          Iniciar sesión
+        </button>
+      </div>
+    </form>
+
+    <!-- Política de privacidad -->
+    <div class="privacy">
+      Protegido por reCAPTCHA y sujeto a la
+      <a href="#">Política de Privacidad</a> y
+      <a href="#">Condiciones</a>.
+    </div>
+  </div>
+</div>
