@@ -11,7 +11,7 @@ export class BodyComponent {
   @Input() screenWidth = 0;
   getBodyClass(): string {
     let styleClass = '';
-    if (this.screenWidth <= 768) {
+    if (this.screenWidth <= 768 && this.screenWidth > 0) {
       // En pantallas pequeñas, el body debería ocupar todo el ancho si el sidenav está oculto
       styleClass = this.collapsed ? 'body-md-screen' : 'body-full-width';
     } else {

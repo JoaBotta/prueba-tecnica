@@ -1,11 +1,10 @@
 <!-- Botón hamburguesa para dispositivos móviles -->
-<button
-  class="btn-hamburger"
-  (click)="toggleCollapse()"
-  *ngIf="screenWidth <= 768 && !collapsed"
->
-  <i class="fal fa-bars"></i>
-</button>
+
+<div class="btn-hamburger" *ngIf="screenWidth <= 768">
+  <button class="btn-hamburger i" (click)="toggleCollapse()">
+    <i class="fal fa-bars"></i>
+  </button>
+</div>
 
 <div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed' : ''">
   <div class="logo-container">

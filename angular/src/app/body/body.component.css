@@ -1,35 +1,71 @@
+/* Diseño completo para pantallas grandes */
 .body {
-    width: calc(100% - 5rem);
     height: 100vh;
     margin-left: 5rem;
+    width: calc(100% - 5rem);
     position: relative;
     top: 0;
     transition: all 0.5s ease;
-    background: #E9F1F4;
+    background: #e9f1f4;
   }
   
+  /* Sidenav colapsado en pantallas medianas */
+  .body-md-screen {
+    width: calc(100% - 5rem);
+    margin-left: 5rem;
+  }
+  
+  /* Sidenav expandido en pantallas medianas */
   .body-full-width {
-    width: 100%;
-    margin-left: 0;
+
+    transition: all 0.5s ease;
+
+    width: 100%
   }
   
   /* Sidenav colapsado en pantallas grandes */
   .body-trimmed {
+    margin-left: 16.5625rem; /* Ancho del sidenav */
     width: calc(100% - 16.5625rem);
-    margin-left: 16.5625rem;
   }
   
-  /* Diseño por defecto */
+  /* Diseño completo con el sidenav expandido */
   .body-default {
     width: calc(100% - 16.5625rem);
     margin-left: 16.5625rem;
   }
   
-  /* Diseño completo para dispositivos móviles */
-  .body-full-mobile {
-    width: 100%; /* Ocupa todo el ancho */
-    margin-left: 0; /* Sin margen para el sidenav */
-    height: 100vh; /* Altura completa */
-    background: #E9F1F4; /* Conserva el fondo */
-    transition: all 0.5s ease;
+
+  @media screen and (max-width: 768px) {
+    .body {
+      margin-left: 0;
+      width: 100%;
+
+
+    }
+  
+    .body-trimmed {
+      margin-left: 0;
+      width: 100%;
+    }
+  
+    .body-default {
+      margin-left: 0;
+      width: 100%;
+    }
   }
+
+
+  @media screen and (max-width: 480px) {
+    .body {
+      margin-left: 0;    
+    }
+  
+    .body-trimmed {
+      margin-left: 0;
+    }
+  
+    .body-default {
+      margin-left: 0;
+    }
+  } 

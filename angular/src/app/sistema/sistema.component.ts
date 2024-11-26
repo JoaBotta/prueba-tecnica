@@ -7,7 +7,8 @@ import { Component } from '@angular/core';
 })
 export class SistemaComponent {
   title = 'frontend';
-  isSideNavCollapsed = true;
+
+  isSideNavCollapsed = false;
   screenWidth = 0;
 
   getBodyClass(): string {
