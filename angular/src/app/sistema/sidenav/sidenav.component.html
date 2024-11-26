@@ -1,6 +1,9 @@
 <!-- Botón hamburguesa para dispositivos móviles -->
-
-<button class="btn-hamburger" (click)="toggleCollapse()" *ngIf="screenWidth <= 768 && !collapsed">
+<button
+  class="btn-hamburger"
+  (click)="toggleCollapse()"
+  *ngIf="screenWidth <= 768 && !collapsed"
+>
   <i class="fal fa-bars"></i>
 </button>
 

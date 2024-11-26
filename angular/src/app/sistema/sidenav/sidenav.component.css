@@ -6,7 +6,7 @@
     top: 1rem;
     left: 1rem;
     z-index: 2;
-    background: #e9f1f4;
+    background: #000000;
     border: none;
     border-radius: 50%;
     width: 3rem;
@@ -84,7 +84,7 @@
     border: none;
 }
 .fa-times{
-    color: #fff;
+    color: #0c0b0b;
     font-size: 24px;
 
 }
@@ -130,7 +130,7 @@
 }
 
 .sidenav-nav-item :hover .sidenav-nav-link{
-    background-color: #fff;
+    background-color: #080808;
     color: #000;
     
 }
