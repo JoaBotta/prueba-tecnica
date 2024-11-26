@@ -12,24 +12,24 @@ Este repositorio contiene el código fuente del Proyecto Prueba Tecnica.
   
 ##  Contenidos Back end
  Autenticación de Usuario:
-  o POST /auth/login: Endpoint para la autenticación de usuarios con 
+  - POST /auth/login: Endpoint para la autenticación de usuarios con 
   verificación de credenciales y generación de token JWT.
-  o POST /auth/register: Endpoint para registrar nuevos usuarios con 
+  - POST /auth/register: Endpoint para registrar nuevos usuarios con 
   validación de datos y cifrado de contraseñas.
 2. Obtención de Datos Dinámicos:
-  o GET /api/planta/lecturas-ok: Obtención de las lecturas de sensores.
-  o GET /api/planta/alertas-medias: Obtención de alertas medias.
-  o GET /api/planta/alertas-rojas: Obtención de alertas rojas.
-  o GET /api/planta/sensores/deshabilitados: Obtención de sensores 
+ - GET /api/planta/lecturas-ok: Obtención de las lecturas de sensores.
+  - GET /api/planta/alertas-medias: Obtención de alertas medias.
+  - GET /api/planta/alertas-rojas: Obtención de alertas rojas.
+ - GET /api/planta/sensores/deshabilitados: Obtención de sensores 
   deshabilitados.
-  o GET /api/planta: Obtención de información de plantas y sus datos 
+  - GET /api/planta: Obtención de información de plantas y sus datos 
   asociados.
 3. Gestión de Plantas:
-  o POST /api/planta: Endpoint para crear nuevas plantas.
-  o PUT /api/planta/{id}: Endpoint para editar una planta existente.
-  o DELETE /api/planta/{id}: Endpoint para eliminar una planta.
+  - POST /api/planta: Endpoint para crear nuevas plantas.
+  - PUT /api/planta/{id}: Endpoint para editar una planta existente.
+  - DELETE /api/planta/{id}: Endpoint para eliminar una planta.
 4. Gestion de Usuario: 
-  o  GET y PUT de usuario
+  -  GET y PUT de usuario
 
 
 
