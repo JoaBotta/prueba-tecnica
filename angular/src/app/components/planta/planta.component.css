@@ -32,6 +32,7 @@ h2 {
   display: flex; /* Muestra los cards en fila */
   gap: 20px; /* Espaciado entre los cards */
   justify-content: space-between;
+  flex-wrap: wrap; /* Permite que las tarjetas se envuelvan cuando no hay espacio */
 }
 .cards2-container {
   display: grid;
@@ -90,8 +91,7 @@ h2 {
 /*------------------------*/
 
 .card2 {
-  width: 333px;
-  height: 100px;
+
   background-color: white;
   border-radius: 8px;
   display: flex;
@@ -509,7 +509,6 @@ h2 {
   }
 
   .card-content {
-    flex-direction: column; /* Reorganiza contenido en columna */
     align-items: center;
   }
 
