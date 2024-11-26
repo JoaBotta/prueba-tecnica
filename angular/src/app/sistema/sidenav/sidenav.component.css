@@ -16,7 +16,7 @@
     justify-content: center;
     
     cursor: pointer;
-  }
+}
   
   .btn-hamburger i {
     font-size: 1.5rem;
@@ -42,6 +42,8 @@
   position: absolute;
 
   }
+
+  
   
   @media (min-width: 768px) {
     .sidenav {
