@@ -30,7 +30,7 @@ h2 {
 
 .cards-container {
   display: flex; /* Muestra los cards en fila */
-  gap: 20px; /* Espaciado entre los cards */
+
   justify-content: space-between;
   flex-wrap: wrap; /* Permite que las tarjetas se envuelvan cuando no hay espacio */
 }
