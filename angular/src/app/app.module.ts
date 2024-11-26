@@ -21,21 +21,21 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { PersonalDetailsComponent } from './components/personal-details/personal-details.component';
-import { SensoresInactivosComponent } from './components/sensores-inactivos/sensores-inactivos.component';
+import { PersonalDetailsComponent } from './modules/personal-details/personal-details.component';
+import { SensoresInactivosComponent } from './modules/sensores-inactivos/sensores-inactivos.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { PlantaComponent } from './components/planta/planta.component';
+import { PlantaComponent } from './modules/planta/planta.component';
 import { FormsModule } from '@angular/forms';
 import { BodyComponent } from './body/body.component';
 /*import { SidenavComponent } from './sidenav/sidenav.component';*/
 import { SidenavComponent } from './sistema/sidenav/sidenav.component';
 import { SistemaComponent } from './sistema/sistema.component';
 import { MenuComponent } from './shared/menu/menu.component';
-import { MonitoreoPorPlantaComponent } from './components/monitoreo-por-planta/monitoreo-por-planta.component';
-import { HistoricosPlantasComponent } from './components/historicos-sensores/historicos-plantas.component';
+import { MonitoreoPorPlantaComponent } from './modules/monitoreo-por-planta/monitoreo-por-planta.component';
+import { HistoricosPlantasComponent } from './modules/historicos-sensores/historicos-plantas.component';
 
 
 

@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
-import { PersonalDetailsComponent } from './components/personal-details/personal-details.component';
+import { PersonalDetailsComponent } from './modules/personal-details/personal-details.component';
 import { AuthGuard } from '../app/core/services/auth.guard';
 import { PlantaComponent } from './components/planta/planta.component';
 import { SistemaComponent } from './sistema/sistema.component';
-import { MonitoreoPorPlantaComponent } from './components/monitoreo-por-planta/monitoreo-por-planta.component';
-import { SensoresInactivosComponent } from './components/sensores-inactivos/sensores-inactivos.component';
-import { HistoricosPlantasComponent } from './components/historicos-sensores/historicos-plantas.component';
+import { MonitoreoPorPlantaComponent } from './modules/monitoreo-por-planta/monitoreo-por-planta.component';
+import { SensoresInactivosComponent } from './modules/sensores-inactivos/sensores-inactivos.component';
+import { HistoricosPlantasComponent } from './modules/historicos-sensores/historicos-plantas.component';
 
 
 
