@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, HostListener, EventEmitter, Output } from '@angular/core';
 import { navbarData } from './nav-data';
 import { Router } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
@@ -15,13 +15,21 @@ interface SideNavToggle {
   styleUrls: ['./sidenav.component.css']
 })
 export class SidenavComponent {
-
   @Output() onToggleSideNav: EventEmitter<SideNavToggle> = new EventEmitter();
   collapsed = false;
-  screenWidth = 0;
+  screenWidth = window.innerWidth;
   navData = navbarData;
 
   constructor(private router: Router, private AuthService: AuthService) {}
+
+  @HostListener('window:resize', [])
+  onResize(): void {
+    this.screenWidth = window.innerWidth;
+    if (this.screenWidth > 768 && !this.collapsed) {
+      this.collapsed = true; // Expandir automáticamente en pantallas grandes
+      this.onToggleSideNav.emit({ collapsed: this.collapsed, screenWidth: this.screenWidth });
+    }
+  }
 
   toggleCollapse(): void {
     this.collapsed = !this.collapsed;
@@ -33,7 +41,6 @@ export class SidenavComponent {
     this.onToggleSideNav.emit({ collapsed: this.collapsed, screenWidth: this.screenWidth });
   }
 
-  // Lógica para el logout
   handleLogout(): void {
     Swal.fire({
       text: '¿Está seguro de que desea cerrar su sesión?',
@@ -45,8 +52,8 @@ export class SidenavComponent {
       confirmButtonText: 'Cerrar Sesión',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.AuthService.logout(); // Método para borrar la sesión
-        this.router.navigate(['/login']); // Redirige al login
+        this.AuthService.logout();
+        this.router.navigate(['/login']);
       }
     });
   }

@@ -7,22 +7,23 @@ import { Component } from '@angular/core';
 })
 export class SistemaComponent {
   title = 'frontend';
-  isSideNavCollapsed = false;
+  isSideNavCollapsed = true;
   screenWidth = 0;
 
   getBodyClass(): string {
     let styleClass = '';
     if (this.isSideNavCollapsed && this.screenWidth > 768) {
       styleClass = 'body-trimmed';
+      
     } else if (this.isSideNavCollapsed && this.screenWidth <= 768 && this.screenWidth > 0) {
       styleClass = 'body-md-screen';
     }
     return styleClass;
   }
 
-  onToggleSideNav(data: { screenWidth: number; collapsed: boolean }): void {
-    this.screenWidth = data.screenWidth;
+  onToggleSideNav(data: { collapsed: boolean; screenWidth: number }) {
     this.isSideNavCollapsed = data.collapsed;
+    this.screenWidth = data.screenWidth;
   }
 }
 

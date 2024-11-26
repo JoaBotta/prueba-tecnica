@@ -38,6 +38,9 @@
   
   .sidenav-collapsed {
     display: block; /* Mostrar cuando está colapsado (abierto) */
+
+  position: absolute;
+
   }
   
   @media (min-width: 768px) {
