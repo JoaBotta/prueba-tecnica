@@ -1,16 +1,51 @@
-.sidenav{
+
+
+/* Botón hamburguesa para móviles */
+.btn-hamburger {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 2;
+    background: #e9f1f4;
+    border: none;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    cursor: pointer;
+  }
+  
+  .btn-hamburger i {
+    font-size: 1.5rem;
+    color: #000;
+  }
+  
+  .sidenav {
     background: #ECECEC;
-    transition: all .5s ease;
+    transition: all 0.5s ease;
     position: fixed;
     z-index: 1;
     top: 0;
+    left: 0;
     width: 5rem;
     height: 100vh;
-    box-shadow: 0.036 rem 0 1.25rem 0 #000;
-    
 
-    
-}
+    display: none; /* Ocultar por defecto en móviles */
+  }
+  
+  .sidenav-collapsed {
+    display: block; /* Mostrar cuando está colapsado (abierto) */
+  }
+  
+  @media (min-width: 768px) {
+    .sidenav {
+      display: block; /* Mostrar en pantallas más grandes */
+    }
+  }
+
 .logo-container{
     display: flex;
     align-items: center;
