@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://prueba-tecnica-h1pebnymq-joabottas-projects.vercel.app/")
 public class AuthController {
     
     private final AuthService authService;

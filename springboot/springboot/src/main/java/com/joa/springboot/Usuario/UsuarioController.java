@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping(value = "/api/v1/Usuario")
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = {"https://prueba-tecnica-h1pebnymq-joabottas-projects.vercel.app/"})
 public class UsuarioController {
     private final UsuarioService UsuarioService;
     
