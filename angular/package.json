@@ -20,6 +20,7 @@
     "@angular/platform-browser": "^16.2.12",
     "@angular/platform-browser-dynamic": "^16.2.12",
     "@angular/router": "^16.2.12",
+    "@vercel/speed-insights": "^1.1.0",
     "bootstrap": "^5.2.3",
     "firebase": "^11.0.2",
     "rxjs": "~7.5.0",
