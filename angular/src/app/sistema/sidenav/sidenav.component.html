@@ -6,7 +6,7 @@
 
 <div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed' : ''">
   <div class="logo-container">
-    <button class="logo" (click)="toggleCollapse()">A</button>
+    <img src="../../../assets/images/Icono.png" alt="Logo" class="logo" (click)="toggleCollapse()" />
     <div class="logo-text" *ngIf="collapsed"></div>
     <button class="btn-close" *ngIf="collapsed" (click)="closeSidenav()">
       <i class="fal fa-times close-icon"></i>

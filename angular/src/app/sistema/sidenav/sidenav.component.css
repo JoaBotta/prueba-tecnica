@@ -24,7 +24,7 @@
   }
   
   .sidenav {
-    background: #ECECEC;
+    background: #ffffff;
     transition: all 0.5s ease;
     position: fixed;
     z-index: 1;
@@ -32,7 +32,7 @@
     left: 0;
     width: 5rem;
     height: 100vh;
-
+    
     display: none; /* Ocultar por defecto en móviles */
   }
   
