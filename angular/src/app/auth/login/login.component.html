@@ -31,6 +31,8 @@
       <a class="register-link" routerLink="/register">Crear cuenta</a>
     </p>
 
+  
+
     <!-- Formulario de inicio de sesión -->
     <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onLogin()">
       <!-- Mensaje de error -->
@@ -44,7 +46,6 @@
         class="form-control"
       />
       <p *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid" class="error-message">
-        <!-- Validaciones de email -->
         <span *ngIf="loginForm.get('email')?.errors?.['required']">
           El correo electrónico es obligatorio.
         </span>
@@ -61,7 +62,6 @@
         class="form-control"
       />
       <p *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid" class="error-message">
-        <!-- Validaciones de contraseña -->
         <span *ngIf="loginForm.get('password')?.errors?.['required']">
           La contraseña es obligatoria.
         </span>

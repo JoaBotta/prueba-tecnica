@@ -2,11 +2,14 @@ import { Component } from '@angular/core';
 import { AuthService } from '@core/services/auth.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+/*agregar mat-progress-bar*/
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
+
 })
 export class LoginComponent {
   loginForm: FormGroup;
