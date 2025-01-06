@@ -4,10 +4,10 @@
 
 export const environment = {
   production: false,
-  urlHost: 'http://localhost:8080/',  // URL del backend en Render
-  urlApi: 'http://localhost:8080//api/v1/',  // API base en Render
+  urlHost: 'http://localhost:8080',  // URL del backend en Render
+  urlApi: 'http://localhost:8080/api/v1/',  // API base en Render
   urlApi2: 'http://localhost:8080/api/',  // Segunda URL de API
-  apiUrl: 'http://localhost:8080/',  // URL base del backend en Render
+  apiUrl: 'http://localhost:8080',  // URL base del backend en Render
   userId: 1
 };
 
