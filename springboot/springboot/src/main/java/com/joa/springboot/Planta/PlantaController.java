@@ -8,7 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/planta")
-@CrossOrigin(origins = "*") // Permitir peticiones desde el frontend
+/*@CrossOrigin(origins = "*") // Permitir peticiones desde el frontend*/
 public class PlantaController {
     private final PlantaService plantaService;
 
