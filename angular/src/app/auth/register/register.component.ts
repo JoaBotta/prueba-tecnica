@@ -3,7 +3,6 @@ import { AuthService } from '@core/services/auth.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegisterRequest } from '@core/model/auth/register-request.model';
-import { CountryService } from '@core/services/country.service';
 
 @Component({
   selector: 'app-register',
@@ -14,13 +13,17 @@ export class RegisterComponent implements OnInit {
 
   registerForm!: FormGroup;
   formSubmitted = false;
-  countries: any[] = []; // Arreglo para almacenar los países
+
+  // Lista estática de países
+  countries = [
+    { name: 'Argentina', flag: 'https://flagcdn.com/w320/ar.png' },
+    { name: 'Brasil', flag: 'https://flagcdn.com/w320/br.png' }
+  ];
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router,
-    private countryService: CountryService 
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -33,18 +36,6 @@ export class RegisterComponent implements OnInit {
       lastname: ['', Validators.required],
       country: ['', Validators.required]
     });
-    
-
-    // Obtener la lista de países
-    this.countryService.getCountries().subscribe(
-      data => {
-        this.countries = data.map(country => ({
-          name: country.name.common,
-          flag: country.flags.svg
-        }));
-      },
-      error => console.error('Error fetching countries:', error)
-    );
   }
 
   get email() { return this.registerForm.get('email'); }
