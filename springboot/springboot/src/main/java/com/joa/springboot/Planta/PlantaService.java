@@ -15,7 +15,7 @@ public class PlantaService {
         this.plantaRepository = plantaRepository;
     }
 
-    // Obtener todas las plantas y sus datos
+    // Obtener todas las plantas y sus datos AAA
     public List<Planta> obtenerPlantas() {
         return plantaRepository.findAll();
     }
