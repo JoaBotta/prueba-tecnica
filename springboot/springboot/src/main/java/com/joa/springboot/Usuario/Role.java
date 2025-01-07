@@ -2,5 +2,9 @@ package com.joa.springboot.Usuario;
 
 public enum Role {
     ADMIN,
-    USER  
+    USER,
+    PUBLICA,
+    Barra,
+    VentaEntrada,
+    Seguridad
 }

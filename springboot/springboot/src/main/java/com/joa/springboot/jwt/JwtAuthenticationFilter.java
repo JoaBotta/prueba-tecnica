@@ -28,50 +28,46 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-       
-        final String token = getTokenFromRequest(request);
-        final String email;
 
-        if (token==null)
-        {
+        final String token = getTokenFromRequest(request);
+        if (token == null) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        email=jwtService.getUsernameFromToken(token);
+        String email;
+        try {
+            email = jwtService.getUsernameFromToken(token);
+        } catch (Exception e) {
+            // Log para depuración
+            System.out.println("Token inválido: " + e.getMessage());
+            filterChain.doFilter(request, response);
+            return;
+        }
 
-        if (email!=null && SecurityContextHolder.getContext().getAuthentication()==null)
-        {
-            UserDetails userDetails=userDetailsService.loadUserByUsername(email);
+        if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
-            if (jwtService.isTokenValid(token, userDetails))
-            {
-                UsernamePasswordAuthenticationToken authToken= new UsernamePasswordAuthenticationToken(
+            if (jwtService.isTokenValid(token, userDetails)) {
+                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                     userDetails,
                     null,
-                    userDetails.getAuthorities());
+                    userDetails.getAuthorities()
+                );
 
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
-
         }
-        
+
         filterChain.doFilter(request, response);
     }
 
     private String getTokenFromRequest(HttpServletRequest request) {
-        final String authHeader=request.getHeader(HttpHeaders.AUTHORIZATION);
-
-        if(StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer "))
-        {
+        final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+        if (StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ")) {
             return authHeader.substring(7);
         }
         return null;
     }
-
-
-
-    
 }

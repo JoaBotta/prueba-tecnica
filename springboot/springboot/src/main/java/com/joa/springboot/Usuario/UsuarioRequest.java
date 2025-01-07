@@ -1,5 +1,7 @@
 package com.joa.springboot.Usuario;
 
+import java.time.LocalDate;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,10 +12,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UsuarioRequest {
-    int id;
-    String email;
-    String username;
-    String firstname;
-    String lastname;
-    String country;
+    private int id;
+    private String email;
+    private String username;
+    private String firstname;
+    private String lastname;
+    private String country;
+    private String dni;
+    private LocalDate fechaNacimiento; 
+    private Role role; // Un solo rol
 }

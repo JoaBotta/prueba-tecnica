@@ -9,7 +9,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("https://prueba-tecnica-neon-eight.vercel.app")  // Permite solicitudes desde tu frontend
+                .allowedOrigins("http://localhost:4200")  // Permite solicitudes desde tu frontend
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowedHeaders("*");
     }
