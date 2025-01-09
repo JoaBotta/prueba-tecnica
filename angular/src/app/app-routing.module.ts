@@ -9,6 +9,9 @@ import { SistemaComponent } from './sistema/sistema.component';
 import { MonitoreoPorPlantaComponent } from './modules/monitoreo-por-planta/monitoreo-por-planta.component';
 import { SensoresInactivosComponent } from './modules/sensores-inactivos/sensores-inactivos.component';
 import { HistoricosPlantasComponent } from './modules/historicos-sensores/historicos-plantas.component';
+import { ProductoListaComponent } from './modules/productos/producto-lista/producto-lista.component';
+import {ProductoFormComponent} from './modules/productos/producto-form/producto-form.component';
+import {UsuarioDetalleComponent} from './modules/usuario-detalle/usuario-detalle.component'
 
 
 
@@ -25,6 +28,12 @@ const routes: Routes = [
       { path: 'historicos-sensores', component: SensoresInactivosComponent },
       { path: 'historico-planta', component: HistoricosPlantasComponent },
       { path: 'personal-details', component: PersonalDetailsComponent },
+      { path: 'usuario/:id', component: UsuarioDetalleComponent },
+       // Rutas de productos
+       { path: 'productos', component: ProductoListaComponent },
+       { path: 'productos/agregar', component: ProductoFormComponent },
+       { path: 'productos/editar/:id', component: ProductoFormComponent },
+       { path: '', redirectTo: 'planta', pathMatch: 'full' },
 
       { path: '', redirectTo: 'planta', pathMatch: 'full' },
     ],
