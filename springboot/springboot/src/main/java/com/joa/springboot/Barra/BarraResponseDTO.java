@@ -1,18 +1,49 @@
 package com.joa.springboot.Barra;
 
-import lombok.Data;
-
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
-@Data
 public class BarraResponseDTO {
     private Long id;
-    private String producto;
-    private Integer cantidad;
-    private BigDecimal precioUnitario;
-    private BigDecimal total; // Total = precioUnitario * cantidad
-    private String metodoPago;
-    private String numeroTransaccion;
-    private LocalDateTime fechaHora;
+    private String nombre;
+    private int cantidadVentas;
+    private double ganancias;
+
+    // Constructor
+    public BarraResponseDTO(Long id, String nombre, int cantidadVentas, double ganancias) {
+        this.id = id;
+        this.nombre = nombre;
+        this.cantidadVentas = cantidadVentas;
+        this.ganancias = ganancias;
+    }
+
+    // Getters y Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getCantidadVentas() {
+        return cantidadVentas;
+    }
+
+    public void setCantidadVentas(int cantidadVentas) {
+        this.cantidadVentas = cantidadVentas;
+    }
+
+    public double getGanancias() {
+        return ganancias;
+    }
+
+    public void setGanancias(double ganancias) {
+        this.ganancias = ganancias;
+    }
 }

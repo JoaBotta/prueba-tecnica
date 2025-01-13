@@ -1,4 +1,4 @@
-package com.joa.springboot.producto;
+package com.joa.springboot.Producto;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -13,18 +13,19 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "producto")
-public class producto {
+@Table(name = "Producto")
+public class Producto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String nombre; // Nombre del producto, e.g., "Cerveza", "Whisky"
+    private String nombre;
 
     @Column(nullable = false)
-    private BigDecimal precioUnitario; // Precio por unidad
+    private BigDecimal precioUnitario;
 
-    private String descripcion; // Descripción del producto, e.g., "Cerveza artesanal"
+    private String descripcion;
 
+    // Getters y Setters
 }

@@ -1,12 +1,12 @@
-package com.joa.springboot.Barra;
+package com.joa.springboot.FormaDePago;
 
 import jakarta.persistence.*;
 import java.util.List;
 import com.joa.springboot.VentaBarra.*;
 
 @Entity
-@Table(name = "barra")
-public class Barra {
+@Table(name = "formas_de_pago")
+public class FormaDePago {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,24 +15,15 @@ public class Barra {
     @Column(nullable = false, unique = true)
     private String nombre;
 
-    @OneToMany(mappedBy = "barra", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "formaDePago", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<VentaBarra> ventas;
 
     // Constructor por defecto
-    public Barra() {}
+    public FormaDePago() {}
 
     // Constructor con parámetros
-    public Barra(String nombre) {
+    public FormaDePago(String nombre) {
         this.nombre = nombre;
-    }
-
-    // Métodos
-    public int getCantidadVentas() {
-        return ventas != null ? ventas.size() : 0;
-    }
-
-    public double getGanancias() {
-        return ventas != null ? ventas.stream().mapToDouble(VentaBarra::getTotal).sum() : 0.0;
     }
 
     // Getters y Setters
@@ -63,11 +54,9 @@ public class Barra {
 
     @Override
     public String toString() {
-        return "Barra{" +
+        return "FormaDePago{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
-                ", cantidadVentas=" + getCantidadVentas() +
-                ", ganancias=" + getGanancias() +
                 '}';
     }
 }

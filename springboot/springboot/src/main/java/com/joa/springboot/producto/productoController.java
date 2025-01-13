@@ -1,4 +1,4 @@
-package com.joa.springboot.producto;
+package com.joa.springboot.Producto;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,29 +8,29 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/producto")
-public class productoController {
+public class ProductoController {
     @Autowired
-    private productoService productoService;
+    private ProductoService productoService;
 
     @PostMapping
-    public ResponseEntity<producto> crearproducto(@RequestBody producto producto) {
+    public ResponseEntity<Producto> crearproducto(@RequestBody Producto producto) {
         return ResponseEntity.ok(productoService.crearProducto(producto));
     }
 
     @GetMapping
-    public ResponseEntity<List<producto>> listarproductos() {
+    public ResponseEntity<List<Producto>> listarproductos() {
         return ResponseEntity.ok(productoService.listarProductos());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<producto> obtenerproductoPorId(@PathVariable Long id) {
+    public ResponseEntity<Producto> obtenerproductoPorId(@PathVariable Long id) {
         return ResponseEntity.ok(productoService.obtenerProductoPorId(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<producto> actualizarproducto(
+    public ResponseEntity<Producto> actualizarproducto(
             @PathVariable Long id,
-            @RequestBody producto productoActualizado
+            @RequestBody Producto productoActualizado
     ) {
         return ResponseEntity.ok(productoService.actualizarProducto(id, productoActualizado));
     }

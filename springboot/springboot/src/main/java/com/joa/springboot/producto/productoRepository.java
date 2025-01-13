@@ -1,9 +1,9 @@
-package com.joa.springboot.producto;
+package com.joa.springboot.Producto;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface productoRepository extends JpaRepository<producto, Long> {
+public interface ProductoRepository extends JpaRepository<Producto, Long> {
     // Métodos personalizados si es necesario
 }

@@ -1,6 +1,6 @@
-package com.joa.springboot.Barra;
+package com.joa.springboot.FormaDePago;
 
-public class BarraRequestDTO {
+public class FormaDePagoRequestDTO {
     private String nombre;
 
     // Getters y Setters

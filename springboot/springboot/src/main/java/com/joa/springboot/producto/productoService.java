@@ -1,4 +1,4 @@
-package com.joa.springboot.producto;
+package com.joa.springboot.Producto;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -6,25 +6,25 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class productoService {
+public class ProductoService {
     @Autowired
-    private productoRepository productoRepository;
+    private ProductoRepository productoRepository;
 
-    public producto crearProducto(producto producto) {
+    public Producto crearProducto(Producto producto) {
         return productoRepository.save(producto);
     }
 
-    public List<producto> listarProductos() {
+    public List<Producto> listarProductos() {
         return productoRepository.findAll();
     }
 
-    public producto obtenerProductoPorId(Long id) {
+    public Producto obtenerProductoPorId(Long id) {
         return productoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
     }
 
-    public producto actualizarProducto(Long id, producto productoActualizado) {
-        producto producto = obtenerProductoPorId(id);
+    public Producto actualizarProducto(Long id, Producto productoActualizado) {
+        Producto producto = obtenerProductoPorId(id);
         producto.setNombre(productoActualizado.getNombre());
         producto.setPrecioUnitario(productoActualizado.getPrecioUnitario());
         producto.setDescripcion(productoActualizado.getDescripcion());
