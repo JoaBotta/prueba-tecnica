@@ -3,7 +3,7 @@ package com.joa.springboot.Producto;
 import lombok.Data;
 
 import java.math.BigDecimal;
-
+//
 @Data
 public class ProductoResponseDTO {
     private Long id; // Identificador del producto
