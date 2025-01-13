@@ -11,8 +11,8 @@ import com.joa.springboot.Usuario.Usuario;
 import com.joa.springboot.Usuario.UsuarioRepository;
 import com.joa.springboot.FormaDePago.FormaDePago;
 import com.joa.springboot.FormaDePago.FormaDePagoRepository;
-import com.joa.springboot.Producto.Producto;
 import com.joa.springboot.Producto.ProductoRepository;
+import com.joa.springboot.Producto.Producto;
 import com.joa.springboot.DetalleVentaBarra.DetalleVentaBarra;
 import com.joa.springboot.DetalleVentaBarra.DetalleVentaBarraResponseDTO;
 
