@@ -3,7 +3,7 @@ package com.joa.springboot.DetalleVentaBarra;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 
-import com.joa.springboot.Producto.Producto;
+import com.joa.springboot.Producto.*;
 import com.joa.springboot.VentaBarra.VentaBarra;
 
 @Entity
