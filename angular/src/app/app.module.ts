@@ -39,6 +39,9 @@ import { SistemaComponent } from './sistema/sistema.component';
 import { MenuComponent } from './shared/menu/menu.component';
 import { MonitoreoPorPlantaComponent } from './modules/monitoreo-por-planta/monitoreo-por-planta.component';
 import { HistoricosPlantasComponent } from './modules/historicos-sensores/historicos-plantas.component';
+import { ProductoListaComponent } from './modules/productos/producto-lista/producto-lista.component';
+import { ProductoFormComponent } from './modules/productos/producto-form/producto-form.component';
+import { UsuarioDetalleComponent } from './modules/usuario-detalle/usuario-detalle.component';
 
 
 
@@ -55,7 +58,10 @@ import { HistoricosPlantasComponent } from './modules/historicos-sensores/histor
     SistemaComponent,
     MenuComponent,
     MonitoreoPorPlantaComponent,
-    HistoricosPlantasComponent
+    HistoricosPlantasComponent,
+    ProductoListaComponent,
+    ProductoFormComponent,
+    UsuarioDetalleComponent
     
   ],
   imports: [
