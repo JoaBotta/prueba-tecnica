@@ -5,16 +5,26 @@ public class BarraResponseDTO {
     private String nombre;
     private int cantidadVentas;
     private double ganancias;
+    private String bolicheNombre;
+    
 
     // Constructor
-    public BarraResponseDTO(Long id, String nombre, int cantidadVentas, double ganancias) {
+    public BarraResponseDTO(Long id, String nombre, int cantidadVentas, double ganancias, String bolicheNombre) {
         this.id = id;
         this.nombre = nombre;
         this.cantidadVentas = cantidadVentas;
         this.ganancias = ganancias;
+        this.bolicheNombre = bolicheNombre;
     }
 
     // Getters y Setters
+    public String getbolicheNombre() {
+        return bolicheNombre;
+    }
+
+    public void setbolicheNombre(String bolicheNombre) {
+        this.bolicheNombre = bolicheNombre;
+    }
     public Long getId() {
         return id;
     }

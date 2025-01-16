@@ -1,46 +1,41 @@
-package com.joa.springboot.Barra;
+package com.joa.springboot.Servicios;
 
 import jakarta.persistence.*;
-import java.util.List;
 import com.joa.springboot.Boliche.Boliche;
-import com.joa.springboot.VentaBarra.VentaBarra;
+import java.math.BigDecimal;
 
 @Entity
-@Table(name = "barra")
-public class Barra {
+@Table(name = "servicio")
+public class Servicio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String nombre;
 
-    @OneToMany(mappedBy = "barra", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<VentaBarra> ventas;
+    @Column(nullable = false)
+    private BigDecimal precio;
+
+    private String descripcion;
 
     @ManyToOne
     @JoinColumn(name = "boliche_id", nullable = false) // Relación con Boliche
     private Boliche boliche;
 
     // Constructor por defecto
-    public Barra() {}
+    public Servicio() {}
 
     // Constructor con parámetros
-    public Barra(String nombre, Boliche boliche) {
+    public Servicio(String nombre, BigDecimal precio, String descripcion, Boliche boliche) {
         this.nombre = nombre;
+        this.precio = precio;
+        this.descripcion = descripcion;
         this.boliche = boliche;
     }
 
-    // Métodos
-    public int getCantidadVentas() {
-        return ventas != null ? ventas.size() : 0;
-    }
-
-    public double getGanancias() {
-        return ventas != null ? ventas.stream().mapToDouble(VentaBarra::getTotal).sum() : 0.0;
-    }
-
+    // Getters y Setters
     // Getters y Setters
     public Long getId() {
         return id;
@@ -58,12 +53,20 @@ public class Barra {
         this.nombre = nombre;
     }
 
-    public List<VentaBarra> getVentas() {
-        return ventas;
+    public BigDecimal getPrecio() {
+        return precio;
     }
 
-    public void setVentas(List<VentaBarra> ventas) {
-        this.ventas = ventas;
+    public void setPrecio(BigDecimal precio) {
+        this.precio = precio;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public Boliche getBoliche() {
@@ -73,15 +76,16 @@ public class Barra {
     public void setBoliche(Boliche boliche) {
         this.boliche = boliche;
     }
+    // Métodos omitidos para brevedad...
 
     @Override
     public String toString() {
-        return "Barra{" +
+        return "Servicio{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
-                ", cantidadVentas=" + getCantidadVentas() +
-                ", ganancias=" + getGanancias() +
-                ", boliche=" + (boliche != null ? boliche.getNombre() : "null") +
+                ", precio=" + precio +
+                ", descripcion='" + descripcion + '\'' +
+                ", boliche=" + (boliche != null ? boliche.getNombre() : null) +
                 '}';
     }
 }
