@@ -1,12 +1,32 @@
-<div *ngIf="usuario; else loading">
-  <h2>Detalles del Usuario</h2>
-  <p><strong>Nombre:</strong> {{ usuario.firstname }} {{ usuario.lastname }}</p>
-  <p><strong>Email:</strong> {{ usuario.email }}</p>
-  <p><strong>País:</strong> {{ usuario.country }}</p>
-  <p><strong>Usuario:</strong> {{ usuario.username }}</p>
-  <p><strong>DNI:</strong> {{ usuario.dni }}</p>
-</div>
 
+
+
+<div class="perfil-container">
+  <div class="header">
+    <h3>Mi Perfil</h3>
+  </div>
+  <div *ngIf="usuario" class="perfil-list">
+    <div class="perfil">
+      <div class="perfil-header">
+        <img alt="Avatar" class="perfil-avatar" />
+        <div class="perfil-info">
+          <h3 class="perfil-nombre">
+            {{ usuario.firstname }} {{ usuario.lastname }}
+          </h3>
+          <p class="perfil-username">Usuario: {{ usuario.username }}</p>
+        </div>
+      </div>
+      <div class="perfil-email">
+        <p><b>Email:</b> {{ usuario.email }}</p>
+      </div>
+      <div class="perfil-email">
+        <p><b>Rol:</b> {{ usuario.role }}</p>
+      </div>
+
+
+    </div>
+    </div>
+  </div>
 <ng-template #loading>
   <p>Cargando detalles del usuario...</p>
 </ng-template>

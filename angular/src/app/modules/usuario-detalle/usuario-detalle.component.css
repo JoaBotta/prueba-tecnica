@@ -1,0 +1,202 @@
+:host {
+    font-family: 'Poppins', sans-serif;
+    background: #E9F1F4;
+  }
+
+/* Mensajes de error */
+.text-danger {
+    color: #dc3545; /* Rojo peligro */
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  
+  h3 {
+    font-size: 24px; /* Tamaño más grande para títulos */
+  }
+  
+  p, span {
+    font-size: 16px; /* Tamaño normal para párrafos */
+  }
+  
+  h3 {
+    font-weight: 700; /* Negrita para títulos */
+  }
+  
+  h3 {
+    color: #333; /* Un gris oscuro */
+  }
+  
+  p, span {
+    color: #666; /* Un gris más claro para el texto secundario */
+  }
+  
+  h3 {
+    line-height: 1.5; /* Espaciado entre líneas */
+    letter-spacing: 1px; /* Espacio entre letras */
+  }
+  
+  p {
+    line-height: 1.6; /* Un poco más de espaciado en párrafos */
+  }
+  
+  
+  /*ESTILO BOTON*/
+  .back-button {
+    border: none;
+   
+    color: rgb(0, 0, 0);
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 15px;
+    font-size: 16px;
+    text-decoration: none;
+  }
+  
+  .back-button:hover {
+    background-color: #9f9f9f;
+  }
+  
+  .perfil h3.header-title-text {
+    font-family: 'Roboto', sans-serif;
+    font-size: 24px;
+    color: #333;
+    letter-spacing: 1px;
+  }
+  
+  .perfil p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: #666;
+  }
+  
+  .perfil-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .perfil{
+    background-color: #fff; /* Fondo blanco */
+    border-radius: 20px; /* Bordes redondeados */
+    padding: 20px; /* Espaciado interno */
+    color: #000; /* Texto en color negro */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra los elementos en el eje vertical */
+    max-width: 850px;
+    margin: 20px auto; /* Centra el contenedor en la pantalla */
+  }
+  
+  .perfil-header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .perfil-avatar {
+    border-radius: 50%; /* Redondea la imagen */
+    width: 80px; /* Ajusta el ancho */
+    height: 80px; /* Ajusta la altura */
+    object-fit: cover; /* Asegura que la imagen no se deforme */
+    border: 2px solid #000; /* Borde negro */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    margin-right: 15px; /* Espaciado entre imagen y texto */
+  }
+  
+  .perfil-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    flex-grow: 1;
+  }
+  
+  .perfil-info h3 {
+    margin: 0;
+    font-size: 22px;
+    color: #000; /* Texto principal en negro */
+  }
+  
+  .perfil-info p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #666; /* Texto secundario en gris oscuro */
+  }
+  
+  /* Asegura que estos atributos no estén subrayados ni en negrita */
+
+  .perfil-email, .perfil-country {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 16px;
+    border-top: 1px solid #ddd; /* Línea divisoria en gris claro */
+    padding-top: 10px;
+    text-decoration: none; /* Quita el subrayado */
+    font-weight: normal; /* Quita la negrita */
+  }
+  
+  .perfil-email span, .perfil-country span {
+    color: #666; /* Color del valor en gris oscuro */
+    font-weight: normal; /* Quita la negrita */
+    text-decoration: none; /* Quita el subrayado */
+  }
+  
+  .perfil-email p, .perfil-country p
+  {
+    color: #000000; /* Color del valor en gris oscuro */
+    /*marcado en negro la letra*/
+    font-weight: bold; /* Pone la negrita */
+  
+  }
+  
+  .perfil-username {
+    border: 1px solid #ddd; /* Borde gris claro */
+    padding: 5px 10px;
+    border-radius: 50px; /* Redondeado */
+    color: #000; /* Texto negro */
+  }
+  
+  .form-actions{
+    display: flex;
+    justify-content: center;
+    margin: 20px 0px;
+  }
+  
+  @media only screen and (max-width: 480px) {
+    .perfil-header {
+      flex-direction: column; /* Cambia la dirección a columna en pantallas muy pequeñas */
+      align-items: center;
+    }
+  
+    .perfil-info {
+      align-items: center;
+    }
+  
+    .perfil-documento,
+    .perfil-telefono,
+    .perfil-direccion {
+      flex-direction: column; /* Columnas en lugar de filas */
+      align-items: center;
+    }
+  
+    .perfil-documento p,
+    .perfil-telefono p,
+    .perfil-direccion p {
+      margin-bottom: 5px;
+    }
+  }
+  
+  

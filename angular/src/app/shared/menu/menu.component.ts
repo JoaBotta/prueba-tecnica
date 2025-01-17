@@ -22,14 +22,14 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
     // Obtener usuario logueado
-    this.usuarioService.getUsuario(environment.userId).subscribe({
-      next: (usuarioData) => {
-        this.usuario = usuarioData;
+    this.usuarioService.getUsuarioActual().subscribe(
+      (data: Usuario) => {
+        this.usuario = data;
       },
-      error: (error) => {
-        console.error('Error al obtener usuario:', error);
-      },
-    });
+      (error) => {
+        console.error('Error al obtener el usuario actual:', error);
+      }
+    );
 
   }
   
