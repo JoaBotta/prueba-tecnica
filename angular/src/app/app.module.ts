@@ -25,7 +25,6 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { PersonalDetailsComponent } from './modules/personal-details/personal-details.component';
 import { SensoresInactivosComponent } from './modules/sensores-inactivos/sensores-inactivos.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { MatListModule } from '@angular/material/list';
@@ -45,14 +44,16 @@ import { ProductoFormComponent } from './modules/productos/producto-form/product
 import { UsuarioDetalleComponent } from './modules/usuario-detalle/usuario-detalle.component';
 import { BolicheComponent } from './modules/boliche/boliche.component';
 import { GestionBolicheComponent } from './modules/gestion-boliche/gestion-boliche.component';
+import { BolicheFormComponent } from './modules/boliche/boliche-form/boliche-form.component';
+import { BarrasComponent } from './modules/barras/barras.component';
 
 
 
 @NgModule({
   declarations: [
+    
     AppComponent,
     LoginComponent,
-    PersonalDetailsComponent,
     RegisterComponent,
     SensoresInactivosComponent,
     PlantaComponent,
@@ -66,7 +67,9 @@ import { GestionBolicheComponent } from './modules/gestion-boliche/gestion-bolic
     ProductoFormComponent,
     UsuarioDetalleComponent,
     BolicheComponent,
-    GestionBolicheComponent
+    GestionBolicheComponent,
+    BolicheFormComponent,
+    BarrasComponent
     
   ],
   imports: [

@@ -35,14 +35,7 @@ export class BolicheComponent implements OnInit {
   addBoliche(): void {
     if (this.newBoliche.nombre && this.newBoliche.provincia) {
       this.bolicheService.createBoliche(this.newBoliche).subscribe(() => {
-        this.loadBoliches(); // Recargar la lista
-        this.newBoliche = {
-          nombre: '',
-          provincia: '',
-          ciudad: '',
-          calle: '',
-          capacidadMaxima: 0,
-        };
+        this.router.navigate(['/boliches']); // Redirigir a /boliches
       });
     }
   }

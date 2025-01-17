@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
-import { PersonalDetailsComponent } from './modules/personal-details/personal-details.component';
 import { AuthGuard } from '../app/core/services/auth.guard';
 import { PlantaComponent } from './modules/planta/planta.component';
 import { SistemaComponent } from './sistema/sistema.component';
@@ -14,7 +13,8 @@ import {ProductoFormComponent} from './modules/productos/producto-form/producto-
 import {UsuarioDetalleComponent} from './modules/usuario-detalle/usuario-detalle.component';
 import { BolicheComponent } from './modules/boliche/boliche.component';
 import { GestionBolicheComponent } from './modules/gestion-boliche/gestion-boliche.component';
-
+import { BolicheFormComponent } from './modules/boliche/boliche-form/boliche-form.component';
+import { BarrasComponent } from './modules/barras/barras.component';
 
 
 const routes: Routes = [
@@ -29,7 +29,6 @@ const routes: Routes = [
       {path: 'monitoreo-por-planta', component: MonitoreoPorPlantaComponent},
       { path: 'historicos-sensores', component: SensoresInactivosComponent },
       { path: 'historico-planta', component: HistoricosPlantasComponent },
-      { path: 'personal-details', component: PersonalDetailsComponent },
       { path: 'perfil', component: UsuarioDetalleComponent },
        // Rutas de productos
        { path: 'productos', component: ProductoListaComponent },
@@ -37,7 +36,8 @@ const routes: Routes = [
        { path: 'productos/editar/:id', component: ProductoFormComponent },
        {path: 'boliches', component: BolicheComponent}, 
        { path: 'boliche/:id/gestion', component: GestionBolicheComponent },
-      // { path: 'boliche/:id/barras', component: BarrasComponent },
+       {path: 'boliche/agregar', component: BolicheFormComponent},
+       { path: 'boliche/:id/barras', component: BarrasComponent },
        { path: '', redirectTo: 'planta', pathMatch: 'full' },
 
       { path: '', redirectTo: 'planta', pathMatch: 'full' },

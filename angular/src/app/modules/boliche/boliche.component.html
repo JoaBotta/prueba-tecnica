@@ -13,6 +13,7 @@
           <tr>
             <th>Nombre</th>
             <th>Provincia</th>
+            <th>Ciudad</th>
             <th>Capacidad Máxima</th>
             <th>Acciones</th>
           </tr>
@@ -21,6 +22,7 @@
           <tr *ngFor="let boliche of boliches">
             <td data-label="Nombre">{{ boliche.nombre }}</td>
             <td data-label="Provincia">{{ boliche.provincia }}</td>
+            <td data-label="Ciudad">{{ boliche.ciudad }}</td>
             <td data-label="Capacidad Máxima">{{ boliche.capacidadMaxima }}</td>
             <td data-label="Acciones">
               <button

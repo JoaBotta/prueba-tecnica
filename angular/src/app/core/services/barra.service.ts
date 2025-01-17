@@ -19,4 +19,8 @@ import { environment } from 'src/environments/environment';
     createBarra(barra: { nombre: string; bolicheId: number }): Observable<Barra> {
       return this.http.post<Barra>(this.apiUrl, barra);
     }
+
+    getBarrasByBoliche(bolicheId: number): Observable<any[]> {
+      return this.http.get<any[]>(`${this.apiUrl}/boliches/${bolicheId}/barras`);
+  }
   }

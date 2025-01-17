@@ -6,6 +6,7 @@ import com.joa.springboot.Boliche.Boliche;
 import com.joa.springboot.Boliche.BolicheRepository;
 
 import java.util.List;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -76,5 +77,15 @@ public class BarraService {
 
     public void deleteBarra(Long id) {
         barraRepository.deleteById(id);
+    }
+    public List<BarraResponseDTO> getBarrasByBolicheId(Long bolicheId) {
+        return barraRepository.findByBolicheId(bolicheId).stream()
+                .map(barra -> new BarraResponseDTO(
+                        barra.getId(),
+                        barra.getNombre(),
+                        barra.getCantidadVentas(),
+                        barra.getGanancias(),
+                        barra.getBoliche() != null ? barra.getBoliche().getNombre() : null))
+                .collect(Collectors.toList());
     }
 }

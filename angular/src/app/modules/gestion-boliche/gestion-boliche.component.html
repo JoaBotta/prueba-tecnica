@@ -1,7 +1,57 @@
 <!-- gestion-boliche.component.html -->
+<div class="perfil-container">
+  <div class="container mt-4">
+    <div class="header">
+      <h2>Gestión de {{ boliche?.nombre }}</h2>
+      <button routerLink="/boliches" class="btn btn-primary mb-3">
+        Atras
+      </button>
+    </div>
+    
 
-<h2>Gestión de {{ boliche?.nombre }}</h2>
-<ul>
-  <li><a [routerLink]="['/boliche', bolicheId, 'productos']">Productos</a></li>
-  <li><a [routerLink]="['/boliche', bolicheId, 'barras']">Crear/Ver Barras</a></li>
-</ul>
+    <div class="monitoring-section">
+      <a class="monitoring-card ok" [routerLink]="['/boliche', bolicheId, 'productos']">
+        <div class="icon">✔️</div>
+        <h3>Productos</h3>
+        <p>Gestiona los productos del boliche</p>
+      </a>
+      <a class="monitoring-card warning" [routerLink]="['/boliche', bolicheId, 'barras']">
+        <div class="icon">⚠️</div>
+        <h3>Barras</h3>
+        <p>Crea o administra barras</p>
+      </a>
+      <a class="monitoring-card ok" [routerLink]="['/boliche', bolicheId, 'productos']">
+        <div class="icon">✔️</div>
+        <h3>Productos</h3>
+        <p>Gestiona los productos del boliche</p>
+      </a>
+      <a class="monitoring-card warning" [routerLink]="['/boliche', bolicheId, 'barras']">
+        <div class="icon">⚠️</div>
+        <h3>Barras</h3>
+        <p>Crea o administra barras</p>
+      </a>
+    </div>
+    <div class="monitoring-section">
+      <a class="monitoring-card ok" [routerLink]="['/boliche', bolicheId, 'productos']">
+        <div class="icon">✔️</div>
+        <h3>Productos</h3>
+        <p>Gestiona los productos del boliche</p>
+      </a>
+      <a class="monitoring-card warning" [routerLink]="['/boliche', bolicheId, 'barras']">
+        <div class="icon">⚠️</div>
+        <h3>Barras</h3>
+        <p>Crea o administra barras</p>
+      </a>
+      <a class="monitoring-card ok" [routerLink]="['/boliche', bolicheId, 'productos']">
+        <div class="icon">✔️</div>
+        <h3>Productos</h3>
+        <p>Gestiona los productos del boliche</p>
+      </a>
+      <a class="monitoring-card warning" [routerLink]="['/boliche', bolicheId, 'barras']">
+        <div class="icon">⚠️</div>
+        <h3>Barras</h3>
+        <p>Crea o administra barras</p>
+      </a>
+    </div>
+  </div>
+</div>

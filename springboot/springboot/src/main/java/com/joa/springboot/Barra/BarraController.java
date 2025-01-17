@@ -42,4 +42,9 @@ public class BarraController {
         barraService.deleteBarra(id);
         return ResponseEntity.noContent().build();
     }
+    @GetMapping("/boliches/{bolicheId}/barras")
+    public ResponseEntity<List<BarraResponseDTO>> getBarrasByBolicheId(@PathVariable Long bolicheId) {
+        List<BarraResponseDTO> responseDTOs = barraService.getBarrasByBolicheId(bolicheId);
+        return ResponseEntity.ok(responseDTOs);
+    }
 }
