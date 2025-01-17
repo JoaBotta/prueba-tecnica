@@ -5,24 +5,49 @@ import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
+import org.springframework.security.core.Authentication;
+
 @RestController
 @RequestMapping(value = "/api/v1/Usuario")
 @RequiredArgsConstructor
 @CrossOrigin(origins = {"http://localhost:4200"})
 public class UsuarioController {
+
     private final UsuarioService usuarioService;
 
-    @GetMapping(value = "{id}")
-    public ResponseEntity<UsuarioDTO> getUsuario(@PathVariable Integer id) {
-        UsuarioDTO usuarioDTO = usuarioService.getUsuario(id);
-        if (usuarioDTO == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(usuarioDTO);
+    @GetMapping
+    public ResponseEntity<List<Usuario>> obtenerTodosLosUsuarios() {
+        return ResponseEntity.ok(usuarioService.obtenerTodosLosUsuarios());
     }
 
-    @PutMapping()
-    public ResponseEntity<UsuarioResponse> updateUsuario(@RequestBody UsuarioRequest usuarioRequest) {
-        return ResponseEntity.ok(usuarioService.updateUsuario(usuarioRequest));
+    @GetMapping("/{id}")
+    public ResponseEntity<Usuario> obtenerUsuarioPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(usuarioService.obtenerUsuarioPorId(id));
+    }
+
+    @PostMapping
+    public ResponseEntity<Usuario> crearUsuario(@RequestBody Usuario usuario) {
+        return ResponseEntity.ok(usuarioService.crearUsuario(usuario));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Usuario> actualizarUsuario(@PathVariable Long id, @RequestBody Usuario usuario) {
+        return ResponseEntity.ok(usuarioService.actualizarUsuario(id, usuario));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarUsuario(@PathVariable Long id) {
+        usuarioService.eliminarUsuario(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<Usuario> getCurrentUser(Authentication authentication) {
+        String userEmail = authentication.getName();
+        return usuarioService.findByEmail(userEmail)
+                .map(ResponseEntity::ok)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
     }
 }
