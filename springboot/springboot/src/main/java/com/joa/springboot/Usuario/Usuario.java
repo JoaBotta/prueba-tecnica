@@ -33,7 +33,7 @@ public class Usuario implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id; // Cambiar de Integer a Long
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -62,27 +62,18 @@ public class Usuario implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Devuelve una colección con un solo rol
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role.name());
+        return List.of(authority);
     }
 
     @Override
-    public boolean isAccountNonExpired() {
-        return true;
+    public String getUsername() {
+        return this.email;
     }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
+    public void setUsername(String username) {
+        this.email = username;
     }
+    
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 }

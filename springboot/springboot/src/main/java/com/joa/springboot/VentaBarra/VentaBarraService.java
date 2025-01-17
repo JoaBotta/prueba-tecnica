@@ -45,8 +45,8 @@ public class VentaBarraService {
                 .orElseThrow(() -> new RuntimeException("Barra no encontrada"));
 
         // Buscar el usuario vendedor asociado
-        Usuario vendedora = usuarioRepository.findById(requestDTO.getVendedoraId().intValue())
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        Usuario vendedora = usuarioRepository.findById(requestDTO.getVendedoraId())
+        .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
         // Buscar la forma de pago asociada
         FormaDePago formaDePago = formaDePagoRepository.findById(requestDTO.getFormaDePagoId())

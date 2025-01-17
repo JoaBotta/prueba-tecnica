@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UsuarioRequest {
-    private int id;
+    private Long id;
     private String email;
     private String username;
     private String firstname;

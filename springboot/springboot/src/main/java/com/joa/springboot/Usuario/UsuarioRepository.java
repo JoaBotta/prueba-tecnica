@@ -9,12 +9,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
+public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
     // Buscar usuario por username o email
     Optional<Usuario> findByUsername(String username);
     Optional<Usuario> findByEmail(String email);
     Optional<Usuario> findByEmailAndRole(String email, Role role);
+    Optional<Usuario> findById(Long id);
 
 
     // Buscar usuario por DNI
@@ -28,7 +29,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     @Transactional
     @Query("UPDATE Usuario u SET u.firstname = :firstname, u.lastname = :lastname, u.country = :country, u.role = :role, u.email = :email WHERE u.id = :id")
     void updateUsuario(
-        @Param("id") Integer id, 
+        @Param("id") Long id, 
         @Param("firstname") String firstname, 
         @Param("lastname") String lastname, 
         @Param("country") String country,
@@ -44,7 +45,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     @Modifying
     @Transactional
     @Query("DELETE FROM Usuario u WHERE u.id = :id")
-    void deleteUsuarioById(@Param("id") Integer id);
+    void deleteUsuarioById(@Param("id") Long id);
 
     // Contar usuarios por rol
     @Query("SELECT COUNT(u) FROM Usuario u WHERE u.role = :role")
