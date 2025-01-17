@@ -11,7 +11,9 @@ import { SensoresInactivosComponent } from './modules/sensores-inactivos/sensore
 import { HistoricosPlantasComponent } from './modules/historicos-sensores/historicos-plantas.component';
 import { ProductoListaComponent } from './modules/productos/producto-lista/producto-lista.component';
 import {ProductoFormComponent} from './modules/productos/producto-form/producto-form.component';
-import {UsuarioDetalleComponent} from './modules/usuario-detalle/usuario-detalle.component'
+import {UsuarioDetalleComponent} from './modules/usuario-detalle/usuario-detalle.component';
+import { BolicheComponent } from './modules/boliche/boliche.component';
+import { GestionBolicheComponent } from './modules/gestion-boliche/gestion-boliche.component';
 
 
 
@@ -33,6 +35,9 @@ const routes: Routes = [
        { path: 'productos', component: ProductoListaComponent },
        { path: 'productos/agregar', component: ProductoFormComponent },
        { path: 'productos/editar/:id', component: ProductoFormComponent },
+       {path: 'boliches', component: BolicheComponent}, 
+       { path: 'boliche/:id/gestion', component: GestionBolicheComponent },
+      // { path: 'boliche/:id/barras', component: BarrasComponent },
        { path: '', redirectTo: 'planta', pathMatch: 'full' },
 
       { path: '', redirectTo: 'planta', pathMatch: 'full' },

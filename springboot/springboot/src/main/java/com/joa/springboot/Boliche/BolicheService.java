@@ -74,4 +74,18 @@ public class BolicheService {
                 ))
                 .collect(Collectors.toList());
     }
+
+    public BolicheResponseDTO getBolicheById(Long id) {
+        return bolicheRepository.findById(id)
+                .map(boliche -> new BolicheResponseDTO(
+                        boliche.getId(),
+                        boliche.getNombre(),
+                        boliche.getProvincia(),
+                        boliche.getCiudad(),
+                        boliche.getCalle(),
+                        boliche.getCapacidadMaxima(),
+                        null // Puede incluir servicios o barras si es necesario
+                ))
+                .orElse(null);
+    }
 }

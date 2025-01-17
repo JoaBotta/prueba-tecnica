@@ -1,0 +1,38 @@
+<div class="perfil-container">
+    <div class="container mt-4">
+      <div class="header">
+        <h2>Listado de Boliches</h2>
+      </div>
+  
+      <button routerLink="/boliche/agregar" class="btn btn-primary mb-3">
+        Agregar Boliche
+      </button>
+  
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Provincia</th>
+            <th>Capacidad Máxima</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let boliche of boliches">
+            <td data-label="Nombre">{{ boliche.nombre }}</td>
+            <td data-label="Provincia">{{ boliche.provincia }}</td>
+            <td data-label="Capacidad Máxima">{{ boliche.capacidadMaxima }}</td>
+            <td data-label="Acciones">
+              <button
+                class="btn btn-warning"
+                [routerLink]="['/boliche', boliche.id, 'gestion']"
+              >
+                Gestionar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

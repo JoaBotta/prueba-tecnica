@@ -24,4 +24,10 @@ public class BolicheController {
         List<BolicheResponseDTO> responseDTOs = bolicheService.getAllBoliches();
         return ResponseEntity.ok(responseDTOs);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<BolicheResponseDTO> getBolicheById(@PathVariable Long id) {
+        BolicheResponseDTO responseDTO = bolicheService.getBolicheById(id);
+        return ResponseEntity.ok(responseDTO);
+    }
 }

@@ -1,0 +1,7 @@
+<!-- gestion-boliche.component.html -->
+
+<h2>Gestión de {{ boliche?.nombre }}</h2>
+<ul>
+  <li><a [routerLink]="['/boliche', bolicheId, 'productos']">Productos</a></li>
+  <li><a [routerLink]="['/boliche', bolicheId, 'barras']">Crear/Ver Barras</a></li>
+</ul>

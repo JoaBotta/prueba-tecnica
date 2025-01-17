@@ -43,6 +43,8 @@ import { HistoricosPlantasComponent } from './modules/historicos-sensores/histor
 import { ProductoListaComponent } from './modules/productos/producto-lista/producto-lista.component';
 import { ProductoFormComponent } from './modules/productos/producto-form/producto-form.component';
 import { UsuarioDetalleComponent } from './modules/usuario-detalle/usuario-detalle.component';
+import { BolicheComponent } from './modules/boliche/boliche.component';
+import { GestionBolicheComponent } from './modules/gestion-boliche/gestion-boliche.component';
 
 
 
@@ -62,7 +64,9 @@ import { UsuarioDetalleComponent } from './modules/usuario-detalle/usuario-detal
     HistoricosPlantasComponent,
     ProductoListaComponent,
     ProductoFormComponent,
-    UsuarioDetalleComponent
+    UsuarioDetalleComponent,
+    BolicheComponent,
+    GestionBolicheComponent
     
   ],
   imports: [
