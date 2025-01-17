@@ -28,7 +28,7 @@ const routes: Routes = [
       { path: 'historicos-sensores', component: SensoresInactivosComponent },
       { path: 'historico-planta', component: HistoricosPlantasComponent },
       { path: 'personal-details', component: PersonalDetailsComponent },
-      { path: 'usuario/:id', component: UsuarioDetalleComponent },
+      { path: 'perfil', component: UsuarioDetalleComponent },
        // Rutas de productos
        { path: 'productos', component: ProductoListaComponent },
        { path: 'productos/agregar', component: ProductoFormComponent },

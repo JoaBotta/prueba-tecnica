@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { Usuario } from '@core/model/usuario/usuario.model';
 import { UsuarioService } from '@core/services/usuario.service';
 
+
 @Component({
   selector: 'app-usuario-detalle',
   templateUrl: './usuario-detalle.component.html',
@@ -18,13 +19,13 @@ export class UsuarioDetalleComponent implements OnInit {
   constructor(private usuarioService: UsuarioService) {}
 
   ngOnInit(): void {
-    this.obtenerUsuario();
-  }
-
-  obtenerUsuario(): void {
-    this.usuarioService.getUsuarioActual().subscribe({
-      next: (data) => (this.usuario = data),
-      error: (err) => console.error('Error al obtener el usuario:', err),
-    });
+    this.usuarioService.getUsuarioActual().subscribe(
+      (data: Usuario) => {
+        this.usuario = data;
+      },
+      (error) => {
+        console.error('Error al obtener el usuario actual:', error);
+      }
+    );
   }
 }

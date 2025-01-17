@@ -48,23 +48,20 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class UsuarioService {
-  private apiUrl = `${environment.apiUrl}/api/v1/Usuario`;
+  private apiUrl = `${environment.apiUrl}/api/usuario`;
 
   constructor(private http: HttpClient) {}
 
   getUsuario(id: number): Observable<Usuario> {
     return this.http.get<Usuario>(`${this.apiUrl}/${id}`);
   }
-  getUsuarioActual(): Observable<Usuario> {
-    const headers = {
-      Authorization: `Bearer ${localStorage.getItem('token')}`, // O usa sessionStorage si aplicable
-    };
-    return this.http.get<Usuario>(`${this.apiUrl}/current`, { headers });
-  }
-  
 
   updateUsuario(usuario: Usuario): Observable<any> {
     return this.http.put(this.apiUrl, usuario);
+  }
+  
+  getUsuarioActual(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/me`);
   }
 }
 

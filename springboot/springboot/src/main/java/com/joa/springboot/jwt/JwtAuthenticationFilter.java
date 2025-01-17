@@ -37,45 +37,45 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     UserDetailServiceImpl userDetailServiceImpl;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-            throws ServletException, IOException {
+protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+        throws ServletException, IOException {
 
-        final String token = getTokenFromRequest(request);
-        final String username;
+    final String token = getTokenFromRequest(request);
+    if (token == null || !jwtService.validateToken(token)) {
+        // Si no hay token o no es válido, continúa sin establecer el contexto
+        filterChain.doFilter(request, response);
+        return;
+    }
 
-        if (token == null) {
-            filterChain.doFilter(request, response);
-            return;
-        }
+    final String username = jwtService.getUsernameFromToken(token);
 
-        username = jwtService.getUsernameFromToken(token);
+    if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+        UserDetails userDetails = userDetailServiceImpl.loadUserByUsername(username);
 
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = userDetailServiceImpl.loadUserByUsername(username);
-
+        if (jwtService.validateToken(token, userDetails)) {
             UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                     userDetails,
                     null,
-                    userDetails.getAuthorities());
+                    userDetails.getAuthorities()
+            );
 
             authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
             SecurityContextHolder.getContext().setAuthentication(authToken);
-
         }
-
-        filterChain.doFilter(request, response);
-
     }
 
+    filterChain.doFilter(request, response);
+}
     private String getTokenFromRequest(HttpServletRequest request) {
-
         final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-
         if (StringUtils.isNotEmpty(authHeader) && authHeader.startsWith("Bearer ")) {
-            return authHeader.substring(7);
+            String token = authHeader.substring(7);
+            logger.info("Token extraído: " + token);
+            return token;
         }
+        logger.warn("Token ausente o malformado");
         return null;
     }
+
 
 }

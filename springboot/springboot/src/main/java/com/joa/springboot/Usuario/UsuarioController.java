@@ -10,9 +10,9 @@ import java.util.List;
 import org.springframework.security.core.Authentication;
 
 @RestController
-@RequestMapping(value = "/api/v1/Usuario")
+@RequestMapping(value = "/api/usuario")
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = "http://localhost:4200")
 public class UsuarioController {
 
     private final UsuarioService usuarioService;

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { JwtInterceptor } from '../app/core/validator/jwt.interceptor';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -89,6 +90,13 @@ import { UsuarioDetalleComponent } from './modules/usuario-detalle/usuario-detal
     MatSortModule,
     MatCheckboxModule,
     MatProgressBarModule
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true,
+    },
   ],
   
   bootstrap: [AppComponent]
