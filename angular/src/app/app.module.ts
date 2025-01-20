@@ -46,12 +46,12 @@ import { BolicheComponent } from './modules/boliche/boliche.component';
 import { GestionBolicheComponent } from './modules/gestion-boliche/gestion-boliche.component';
 import { BolicheFormComponent } from './modules/boliche/boliche-form/boliche-form.component';
 import { BarrasComponent } from './modules/barras/barras.component';
-
+import { VentasBarraComponent } from './modules/venta/VentaBarra/ventas-barra/ventas-barra.component';
+import { CrearVentaBarraComponent } from './modules/venta/VentaBarra/crear-venta-barra/crear-venta-barra.component';
 
 
 @NgModule({
-  declarations: [
-    
+  declarations: [    
     AppComponent,
     LoginComponent,
     RegisterComponent,
@@ -69,7 +69,9 @@ import { BarrasComponent } from './modules/barras/barras.component';
     BolicheComponent,
     GestionBolicheComponent,
     BolicheFormComponent,
-    BarrasComponent
+    BarrasComponent,
+    VentasBarraComponent,
+    CrearVentaBarraComponent
     
   ],
   imports: [

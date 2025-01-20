@@ -1,46 +1,54 @@
 <div class="container">
+  <h2>Barras</h2>
+
+  <!-- Botones de acción -->
+  <button routerLink="/boliches" class="btn btn-primary mb-3">
+    Atras
+  </button>
   
-    <h2>Barras</h2>
-    <button routerLink="/boliches" class="btn btn-primary mb-3">
-      Atras
-    </button>
-    <button class="btn btn-primary mb-3" (click)="mostrarFormulario = !mostrarFormulario">
-      {{ mostrarFormulario ? 'Cancelar' : 'Crear Barra' }}
-    </button>
-  
-    <div *ngIf="mostrarFormulario" class="mb-4">
-      <form (ngSubmit)="crearBarra()">
-        <div class="form-group">
-          <label for="nombre">Nombre de la Barra</label>
-          <input
-            type="text"
-            id="nombre"
-            class="form-control"
-            [(ngModel)]="nuevaBarra.nombre"
-            name="nombre"
-            required
-          />
-        </div>
-        <button type="submit" class="btn btn-success mt-2" [disabled]="!nuevaBarra.nombre">
-          Guardar Barra
-        </button>
-      </form>
-    </div>
-  
-    <div *ngIf="barras.length === 0" class="alert alert-info">
-      No hay barras registradas para este boliche.
-    </div>
-  
-    <div class="row" *ngIf="barras.length > 0">
-      <div class="col-md-4" *ngFor="let barra of barras">
-        <div class="card mb-3">
-          <div class="card-body">
-            <h5 class="card-title">{{ barra.nombre }}</h5>
-            <p class="card-text">Ventas realizadas: {{ barra.cantidadVentas }}</p>
-            <p class="card-text">Ganancias: ${{ barra.ganancias | number: '1.0-2' }}</p>
-          </div>
+  <button class="btn btn-primary mb-3" (click)="mostrarFormulario = !mostrarFormulario">
+    {{ mostrarFormulario ? 'Cancelar' : 'Crear Barra' }}
+  </button>
+
+  <!-- Formulario para crear barra -->
+  <div *ngIf="mostrarFormulario" class="mb-4">
+    <form (ngSubmit)="crearBarra()">
+      <div class="form-group">
+        <label for="nombre">Nombre de la Barra</label>
+        <input
+          type="text"
+          id="nombre"
+          class="form-control"
+          [(ngModel)]="nuevaBarra.nombre"
+          name="nombre"
+          required
+        />
+      </div>
+      <button type="submit" class="btn btn-success mt-2" [disabled]="!nuevaBarra.nombre">
+        Guardar Barra
+      </button>
+    </form>
+  </div>
+
+  <!-- Mensaje si no hay barras registradas -->
+  <div *ngIf="barras.length === 0" class="alert alert-info">
+    No hay barras registradas para este boliche.
+  </div>
+
+  <!-- Listado de barras -->
+  <div class="row" *ngIf="barras.length > 0">
+    <div class="col-md-4" *ngFor="let barra of barras">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">{{ barra.nombre }}</h5>
+          <p class="card-text">Ventas realizadas: {{ barra.cantidadVentas }}</p>
+          <p class="card-text">Totales: ${{ barra.ganancias | number: '1.0-2' }}</p>
+          <!-- Enlace para redirigir a la página de ventas de la barra -->
+          <a [routerLink]="['/boliche', bolicheId, 'barras', barra.id, 'ventas-barra']" class="btn btn-primary">
+            Ingresar a Ventas
+          </a>
         </div>
       </div>
     </div>
   </div>
-  
+</div>

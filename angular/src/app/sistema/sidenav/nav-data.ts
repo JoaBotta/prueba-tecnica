@@ -1,6 +1,6 @@
 export const navbarData = [
     {
-        RouteLink: 'planta',
+        RouteLink: 'boliches',
         icon: 'fal fa-globe-americas',
         Label: 'Planta'
     },

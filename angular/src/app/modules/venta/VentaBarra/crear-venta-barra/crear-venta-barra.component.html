@@ -1,0 +1,63 @@
+<div class="container">
+    <h1>Crear Venta para la Barra</h1>
+    
+    <!-- Mostrar Barra y Usuario -->
+    <div class="form-group">
+      <label>Boliche: {{ bolicheId }}</label>
+      <br />
+      <label>Barra: {{ barraId }}</label>
+      <br />
+      <label>Usuario: {{ usuario.username }}</label>
+    </div>
+  
+    <!-- Formulario de Venta -->
+    <form (ngSubmit)="crearVenta()">
+      <!-- Selección de la forma de pago -->
+      <div class="form-group">
+        <label for="formaDePago">Forma de Pago</label>
+        <select id="formaDePago" [(ngModel)]="selectedFormaDePago" name="formaDePago" class="form-control">
+          <option *ngFor="let formaDePago of formasDePago" [ngValue]="formaDePago">
+            {{ formaDePago.nombre }}
+          </option>
+        </select>
+      </div>
+  
+      <div class="form-group">
+        <label for="producto">Producto</label>
+        <select id="producto" [(ngModel)]="producto" name="producto" class="form-control">
+          <option *ngFor="let producto of productos" [ngValue]="producto">{{ producto.nombre }}</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="cantidad">Cantidad</label>
+        <input id="cantidad" type="number" [(ngModel)]="cantidad" name="cantidad" class="form-control" min="1" />
+      </div>
+      
+      <!-- Botón para agregar el producto al detalle de la venta -->
+      <button type="button" class="btn btn-primary" (click)="agregarProducto()">Agregar al Detalle</button>
+      
+      <h3>Productos seleccionados:</h3>
+      <ul>
+        <li *ngFor="let item of selectedProductos">
+          {{ item.producto.nombre }} 
+          (x{{ item.cantidad }}) - Subtotal: {{ item.subTotal | currency }}
+        </li>
+      </ul>
+      
+      <h3>Total: {{ totalVenta | currency }}</h3>
+  
+      <button type="submit" class="btn btn-success">Crear Venta</button>
+      
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+    </form>
+  
+    <!-- Imprimir todo el objeto de venta -->
+    <div *ngIf="venta">
+      <h3>Información de la venta creada:</h3>
+      <pre>{{ venta | json }}</pre>
+    </div>
+  </div>
+  

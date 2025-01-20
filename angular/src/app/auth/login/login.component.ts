@@ -28,7 +28,7 @@ export class LoginComponent {
       this.authService.login(this.loginForm.value).subscribe({
         next: (response) => {
           this.authService.saveToken(response.token);
-          this.router.navigate(['/planta']);
+          this.router.navigate(['/boliches']);
         },
         error: (err) => {
           // Manejo de errores del backend

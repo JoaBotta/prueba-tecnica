@@ -50,6 +50,7 @@ import { environment } from 'src/environments/environment';
 export class UsuarioService {
   private apiUrl = `${environment.apiUrl}/api/usuario`;
 
+
   constructor(private http: HttpClient) {}
 
   getUsuario(id: number): Observable<Usuario> {

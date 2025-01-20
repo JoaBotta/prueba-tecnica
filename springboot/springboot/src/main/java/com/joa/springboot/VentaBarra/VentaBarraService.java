@@ -112,4 +112,23 @@ public class VentaBarraService {
                                 .collect(Collectors.toList())))
                 .collect(Collectors.toList());
     }
+
+    public List<VentaBarraResponseDTO> getVentasByBarra(Long barraId) {
+        return ventaBarraRepository.findByBarraId(barraId).stream()
+                .map(ventaBarra -> new VentaBarraResponseDTO(
+                        ventaBarra.getId(),
+                        ventaBarra.getBarra().getNombre(),
+                       ventaBarra.getVendedora().getUsername(),
+                        ventaBarra.getFormaDePago().getNombre(),
+                        ventaBarra.getTotal(),
+                        ventaBarra.getFecha(),
+                        ventaBarra.getDetalleVenta().stream()
+                                .map(detalle -> new DetalleVentaBarraResponseDTO(
+                                        detalle.getId(),
+                                        detalle.getProducto().getNombre(),
+                                        detalle.getCantidad(),
+                                        detalle.getSubTotal()))
+                                .collect(Collectors.toList())))
+                .collect(Collectors.toList());
+    }
 }

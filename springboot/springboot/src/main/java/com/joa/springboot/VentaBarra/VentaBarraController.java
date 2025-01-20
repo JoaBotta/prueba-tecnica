@@ -24,4 +24,9 @@ public class VentaBarraController {
         List<VentaBarraResponseDTO> responseDTOs = ventaBarraService.getAllVentasBarra();
         return ResponseEntity.ok(responseDTOs);
     }
+    @GetMapping("/{barraId}")
+        public ResponseEntity<List<VentaBarraResponseDTO>> getVentasByBarra(@PathVariable Long barraId) {
+            List<VentaBarraResponseDTO> ventas = ventaBarraService.getVentasByBarra(barraId);
+            return ResponseEntity.ok(ventas);
+        }
 }

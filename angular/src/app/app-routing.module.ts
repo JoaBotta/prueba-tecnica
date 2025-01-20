@@ -15,7 +15,8 @@ import { BolicheComponent } from './modules/boliche/boliche.component';
 import { GestionBolicheComponent } from './modules/gestion-boliche/gestion-boliche.component';
 import { BolicheFormComponent } from './modules/boliche/boliche-form/boliche-form.component';
 import { BarrasComponent } from './modules/barras/barras.component';
-
+import { VentasBarraComponent } from './modules/venta/VentaBarra/ventas-barra/ventas-barra.component';
+import { CrearVentaBarraComponent } from './modules/venta/VentaBarra/crear-venta-barra/crear-venta-barra.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -38,9 +39,11 @@ const routes: Routes = [
        { path: 'boliche/:id/gestion', component: GestionBolicheComponent },
        {path: 'boliche/agregar', component: BolicheFormComponent},
        { path: 'boliche/:id/barras', component: BarrasComponent },
-       { path: '', redirectTo: 'planta', pathMatch: 'full' },
+       { path: 'boliche/:bolicheId/barras/:barraId/ventas-barra', component: VentasBarraComponent },
+       { path: 'boliche/:bolicheId/barras/:barraId/ventas-barra/crear', component: CrearVentaBarraComponent },
+       { path: '', redirectTo: 'boliche', pathMatch: 'full' },
 
-      { path: '', redirectTo: 'planta', pathMatch: 'full' },
+      { path: '', redirectTo: 'boliches', pathMatch: 'full' },
     ],
   },
   { path: '', redirectTo: 'login', pathMatch: 'full' },

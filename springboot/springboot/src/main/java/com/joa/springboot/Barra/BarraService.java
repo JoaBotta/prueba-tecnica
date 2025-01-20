@@ -6,7 +6,6 @@ import com.joa.springboot.Boliche.Boliche;
 import com.joa.springboot.Boliche.BolicheRepository;
 
 import java.util.List;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Service

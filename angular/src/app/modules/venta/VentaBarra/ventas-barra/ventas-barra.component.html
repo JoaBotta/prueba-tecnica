@@ -1,0 +1,38 @@
+<div class="container">
+    <h1>Ventas Barra</h1>
+  
+    <!-- Botón para crear una nueva venta -->
+    <a [routerLink]="['/boliche', bolicheId, 'barras', barraId, 'ventas-barra', 'crear']" class="btn btn-primary">
+        Crear Venta
+      </a>
+  
+    <!-- Tabla para mostrar las ventas -->
+    <table class="table table-striped mt-3">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Barra</th>
+          <th>Vendedora</th>
+          <th>Forma de Pago</th>
+          <th>Total</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Mostrar mensaje si no hay ventas -->
+        <tr *ngIf="ventas.length === 0">
+          <td colspan="6" class="text-center">No hay ventas registradas para esta barra.</td>
+        </tr>
+        <!-- Listar las ventas disponibles -->
+        <tr *ngFor="let venta of ventas">
+          <td>{{ venta.id }}</td>
+          <td>{{ venta.barraNombre }}</td>
+          <td>{{ venta.vendedoraNombre }}</td>
+          <td>{{ venta.formaDePago }}</td>
+          <td>{{ venta.total | currency }}</td>
+          <td>{{ venta.fecha | date: 'short' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
