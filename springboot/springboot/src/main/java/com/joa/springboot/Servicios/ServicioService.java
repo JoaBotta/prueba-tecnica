@@ -94,4 +94,17 @@ public class ServicioService {
     public void deleteServicio(Long id) {
         servicioRepository.deleteById(id);
     }
+
+        // Obtener todos los servicios de un boliche
+        public List<ServicioResponseDTO> getServiciosByBoliche(Long bolicheId) {
+                return servicioRepository.findByBolicheId(bolicheId).stream()
+                        .map(servicio -> new ServicioResponseDTO(
+                                servicio.getId(),
+                                servicio.getNombre(),
+                                servicio.getPrecio(),
+                                servicio.getDescripcion(),
+                                servicio.getBoliche() != null ? servicio.getBoliche().getNombre() : null
+                        ))
+                        .collect(Collectors.toList());
+                }
 }

@@ -26,7 +26,6 @@ export class AuthService {
 
   saveToken(token: string): void {
     localStorage.setItem('authToken', token);
-    this.startLogoutTimer(); // Inicia el temporizador al guardar el token
   }
 
   getToken(): string | null {
@@ -39,29 +38,8 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('authToken');
-    this.clearLogoutTimer(); // Limpia el temporizador
     this.router.navigate(['/login']); // Redirige al login
   }
 
-  // Inicia el temporizador para cerrar sesión automáticamente
-  startLogoutTimer(): void {
-    this.clearLogoutTimer(); // Limpia temporizadores anteriores si existen
-    this.logoutTimer = setTimeout(() => {
-      this.logout();
-      alert('Tu sesión ha expirado por inactividad.');
-    }, 15 * 60 * 1000); // 15 minutos en milisegundos
-  }
-
-  // Reinicia el temporizador en actividad del usuario
-  resetLogoutTimer(): void {
-    this.startLogoutTimer();
-  }
-
-  // Limpia el temporizador
-  clearLogoutTimer(): void {
-    if (this.logoutTimer) {
-      clearTimeout(this.logoutTimer);
-      this.logoutTimer = null;
-    }
-  }
+  
 }

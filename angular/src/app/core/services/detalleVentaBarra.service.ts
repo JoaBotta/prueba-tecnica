@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { DetalleVentaBarra } from '@core/model/detalleVentaBarra.model';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +19,6 @@ export class DetalleVentaBarraService {
   listarDetallesVentaBarra(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
   }
-
   eliminarDetalleVentaBarra(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }

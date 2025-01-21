@@ -29,4 +29,10 @@ public class VentaBarraController {
             List<VentaBarraResponseDTO> ventas = ventaBarraService.getVentasByBarra(barraId);
             return ResponseEntity.ok(ventas);
         }
+
+        @GetMapping("/ticket/{ventaId}")
+        public ResponseEntity<VentaBarraTicketDTO> getTicket(@PathVariable Long ventaId) {
+            VentaBarraTicketDTO ticket = ventaBarraService.generateTicket(ventaId);
+            return ResponseEntity.ok(ticket);
+        }
 }

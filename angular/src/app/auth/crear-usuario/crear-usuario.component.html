@@ -1,0 +1,76 @@
+<div class="container">
+    <!-- Sección derecha -->
+    <div class="right-section">
+      <h2>Portal de registro</h2>
+      <p>Completa los campos para crear tu cuenta</p>
+  
+      <!-- Mensaje de advertencia -->
+      <div *ngIf="formSubmitted && registerForm.invalid" class="warning-message">
+        <p>Por favor, complete todos los campos requeridos.</p>
+      </div>
+  
+      <form class="login-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <input formControlName="firstname" type="text" placeholder="Nombre" />
+        <div *ngIf="firstname?.invalid && firstname?.touched" class="error-message">
+          <small *ngIf="firstname?.hasError('required')">El nombre es obligatorio.</small>
+        </div>
+  
+        <input formControlName="lastname" type="text" placeholder="Apellido" />
+        <div *ngIf="lastname?.invalid && lastname?.touched" class="error-message">
+          <small *ngIf="lastname?.hasError('required')">El apellido es obligatorio.</small>
+        </div>
+  
+        <input formControlName="email" type="email" placeholder="Email" />
+        <div *ngIf="email?.invalid && email?.touched" class="error-message">
+          <small *ngIf="email?.hasError('required')">El correo es obligatorio.</small>
+          <small *ngIf="email?.hasError('email')">El correo no tiene un formato válido.</small>
+        </div>
+  
+        <input formControlName="username" type="text" placeholder="Nombre de usuario" />
+        <div *ngIf="username?.invalid && username?.touched" class="error-message">
+          <small *ngIf="username?.hasError('required')">El nombre de usuario es obligatorio.</small>
+        </div>
+  
+        <input formControlName="password" type="password" placeholder="Contraseña" />
+        <div *ngIf="password?.invalid && password?.touched" class="error-message">
+          <small *ngIf="password?.hasError('required')">La contraseña es obligatoria.</small>
+          <small *ngIf="password?.hasError('minlength')">La contraseña debe tener al menos 8 caracteres.</small>
+        </div>
+  
+        <div class="country-select">
+          <label for="country">Seleccionar país:</label>
+          <select id="country" formControlName="country">
+            <option value="" disabled selected>Selecciona tu país</option>
+            <option *ngFor="let country of countries" [value]="country.name">
+              {{ country.name }}
+            </option>
+          </select>
+          <div *ngIf="country?.invalid && country?.touched" class="error-message">
+            <small *ngIf="country?.hasError('required')">El país es obligatorio.</small>
+          </div>
+        </div>
+
+        <!-- Campo para seleccionar el rol -->
+        <div class="role-select">
+          <label for="role">Seleccionar rol:</label>
+          <select id="role" formControlName="role">
+            <option value="" disabled selected>Selecciona tu rol</option>
+            <option *ngFor="let role of roles" [value]="role.value">
+              {{ role.name }}
+            </option>
+          </select>
+          <div *ngIf="role?.invalid && role?.touched" class="error-message">
+            <small *ngIf="role?.hasError('required')">El rol es obligatorio.</small>
+          </div>
+        </div>
+  
+        <button type="submit" [disabled]="registerForm.invalid">Crear cuenta</button>
+      </form>
+  
+      <div class="privacy">
+        Protegido por reCAPTCHA y sujeto a la 
+        <a href="#">Política de Privacidad</a> y 
+        <a href="#">Condiciones</a>.
+      </div>
+    </div>
+</div>

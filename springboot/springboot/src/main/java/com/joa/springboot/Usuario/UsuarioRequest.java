@@ -18,7 +18,7 @@ public class UsuarioRequest {
     private String firstname;
     private String lastname;
     private String country;
-    private String dni;
+    //private String dni;
     private LocalDate fechaNacimiento; 
     private Role role; // Un solo rol
 }

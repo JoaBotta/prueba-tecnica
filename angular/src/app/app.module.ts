@@ -48,6 +48,8 @@ import { BolicheFormComponent } from './modules/boliche/boliche-form/boliche-for
 import { BarrasComponent } from './modules/barras/barras.component';
 import { VentasBarraComponent } from './modules/venta/VentaBarra/ventas-barra/ventas-barra.component';
 import { CrearVentaBarraComponent } from './modules/venta/VentaBarra/crear-venta-barra/crear-venta-barra.component';
+import { TicketComponent } from './modules/venta/ticket/ticket.component';
+import { CrearUsuarioComponent } from './auth/crear-usuario/crear-usuario.component';
 
 
 @NgModule({
@@ -71,7 +73,9 @@ import { CrearVentaBarraComponent } from './modules/venta/VentaBarra/crear-venta
     BolicheFormComponent,
     BarrasComponent,
     VentasBarraComponent,
-    CrearVentaBarraComponent
+    CrearVentaBarraComponent,
+    TicketComponent,
+    CrearUsuarioComponent
     
   ],
   imports: [

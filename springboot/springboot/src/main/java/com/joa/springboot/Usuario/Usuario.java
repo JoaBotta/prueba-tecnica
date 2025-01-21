@@ -52,8 +52,7 @@ public class Usuario implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false, unique = true)
-    private String dni;
+
 
     private LocalDate fechaNacimiento; 
 

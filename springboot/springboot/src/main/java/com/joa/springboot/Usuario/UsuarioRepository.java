@@ -19,7 +19,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
 
     // Buscar usuario por DNI
-    Optional<Usuario> findByDni(String dni);
+    //Optional<Usuario> findByDni(String dni);
 
     // Buscar usuarios por rol
     List<Usuario> findByRole(Role role);

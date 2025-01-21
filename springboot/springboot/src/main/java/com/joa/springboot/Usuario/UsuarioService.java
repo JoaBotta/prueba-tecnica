@@ -68,5 +68,6 @@ public class UsuarioService {
         return usuarioRepository.existsByUsername(username);
     }
 
+    
   
 }

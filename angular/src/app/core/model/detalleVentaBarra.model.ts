@@ -7,4 +7,5 @@ export interface DetalleVentaBarra {
   producto: Producto;
   cantidad: number;
   subTotal: number;
+
 }

@@ -131,4 +131,26 @@ public class VentaBarraService {
                                 .collect(Collectors.toList())))
                 .collect(Collectors.toList());
     }
+
+    public VentaBarraTicketDTO generateTicket(Long ventaId) {
+        VentaBarra venta = ventaBarraRepository.findById(ventaId)
+                .orElseThrow(() -> new RuntimeException("Venta no encontrada con ID: " + ventaId));
+    
+        List<TicketDetalleDTO> detalles = venta.getDetalleVenta().stream()
+                .map(detalle -> new TicketDetalleDTO(
+                        detalle.getProducto().getNombre(),
+                        detalle.getCantidad(),
+                        detalle.getSubTotal()))
+                .collect(Collectors.toList());
+    
+        return new VentaBarraTicketDTO(
+                venta.getId(),
+                venta.getBarra().getNombre(),
+                venta.getVendedora().getUsername(),
+                venta.getFormaDePago().getNombre(),
+                venta.getTotal(),
+                venta.getFecha(),
+                detalles
+        );
+    }
 }

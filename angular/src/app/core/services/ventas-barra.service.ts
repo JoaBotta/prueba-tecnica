@@ -19,6 +19,7 @@ export class VentaBarraService {
     return this.http.get<any[]>(`${this.apiUrl}`);
   }
 
+  
   // Crear una nueva venta
   createVenta(venta: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}`, venta);
