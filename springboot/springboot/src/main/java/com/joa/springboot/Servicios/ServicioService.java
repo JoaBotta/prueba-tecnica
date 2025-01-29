@@ -11,20 +11,20 @@ import java.util.stream.Collectors;
 @Service
 public class ServicioService {
 
-    @Autowired
+    @Autowired 
     private ServicioRepository servicioRepository;
 
     @Autowired
     private BolicheRepository bolicheRepository;
 
-    // Crear un servicio
+    // Crear un servicio asociado a un boliche
     public ServicioResponseDTO createServicio(ServicioRequestDTO requestDTO) {
         Boliche boliche = bolicheRepository.findById(requestDTO.getBolicheId())
                 .orElseThrow(() -> new RuntimeException("Boliche no encontrado con ID: " + requestDTO.getBolicheId()));
 
         Servicio servicio = new Servicio(
                 requestDTO.getNombre(),
-                requestDTO.getPrecio(),
+                requestDTO.getPrecio(), // Asignar el precio al crear el servicio
                 requestDTO.getDescripcion(),
                 boliche
         );
@@ -33,7 +33,7 @@ public class ServicioService {
         return new ServicioResponseDTO(
                 servicio.getId(),
                 servicio.getNombre(),
-                servicio.getPrecio(),
+                servicio.getPrecio(), // Incluye el precio en la respuesta
                 servicio.getDescripcion(),
                 boliche.getNombre()
         );
@@ -45,7 +45,7 @@ public class ServicioService {
                 .map(servicio -> new ServicioResponseDTO(
                         servicio.getId(),
                         servicio.getNombre(),
-                        servicio.getPrecio(),
+                        servicio.getPrecio(), // Incluye el precio en la lista
                         servicio.getDescripcion(),
                         servicio.getBoliche() != null ? servicio.getBoliche().getNombre() : null
                 ))
@@ -60,7 +60,7 @@ public class ServicioService {
         return new ServicioResponseDTO(
                 servicio.getId(),
                 servicio.getNombre(),
-                servicio.getPrecio(),
+                servicio.getPrecio(), // Incluye el precio
                 servicio.getDescripcion(),
                 servicio.getBoliche() != null ? servicio.getBoliche().getNombre() : null
         );
@@ -75,7 +75,7 @@ public class ServicioService {
                 .orElseThrow(() -> new RuntimeException("Boliche no encontrado con ID: " + requestDTO.getBolicheId()));
 
         servicio.setNombre(requestDTO.getNombre());
-        servicio.setPrecio(requestDTO.getPrecio());
+        servicio.setPrecio(requestDTO.getPrecio()); // Actualizar el precio
         servicio.setDescripcion(requestDTO.getDescripcion());
         servicio.setBoliche(boliche);
 
@@ -95,16 +95,16 @@ public class ServicioService {
         servicioRepository.deleteById(id);
     }
 
-        // Obtener todos los servicios de un boliche
-        public List<ServicioResponseDTO> getServiciosByBoliche(Long bolicheId) {
-                return servicioRepository.findByBolicheId(bolicheId).stream()
-                        .map(servicio -> new ServicioResponseDTO(
-                                servicio.getId(),
-                                servicio.getNombre(),
-                                servicio.getPrecio(),
-                                servicio.getDescripcion(),
-                                servicio.getBoliche() != null ? servicio.getBoliche().getNombre() : null
-                        ))
-                        .collect(Collectors.toList());
-                }
+    // Obtener todos los servicios de un boliche
+    public List<ServicioResponseDTO> getServiciosByBoliche(Long bolicheId) {
+        return servicioRepository.findByBolicheId(bolicheId).stream()
+                .map(servicio -> new ServicioResponseDTO(
+                        servicio.getId(),
+                        servicio.getNombre(),
+                        servicio.getPrecio(), // Incluye el precio
+                        servicio.getDescripcion(),
+                        servicio.getBoliche() != null ? servicio.getBoliche().getNombre() : null
+                ))
+                .collect(Collectors.toList());
+    }
 }

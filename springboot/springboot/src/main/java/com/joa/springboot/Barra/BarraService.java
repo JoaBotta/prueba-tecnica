@@ -17,19 +17,23 @@ public class BarraService {
     @Autowired
     private BolicheRepository bolicheRepository;
 
+    // ✅ Crear una barra
     public BarraResponseDTO createBarra(BarraRequestDTO requestDTO) {
-        // Buscar el boliche asociado
         Boliche boliche = bolicheRepository.findById(requestDTO.getBolicheId())
                 .orElseThrow(() -> new RuntimeException("Boliche no encontrado con ID: " + requestDTO.getBolicheId()));
 
-        // Crear una nueva barra asociada al boliche
         Barra barra = new Barra(requestDTO.getNombre(), boliche);
         barra = barraRepository.save(barra);
 
-        return new BarraResponseDTO(barra.getId(), barra.getNombre(),
-                barra.getCantidadVentas(), barra.getGanancias(), boliche.getNombre());
+        return new BarraResponseDTO(
+                barra.getId(), 
+                barra.getNombre(),
+                barra.getCantidadVentas(), 
+                barra.getGanancias(), 
+                boliche.getNombre());
     }
 
+    // ✅ Obtener todas las barras
     public List<BarraResponseDTO> getAllBarras() {
         return barraRepository.findAll().stream()
                 .map(barra -> new BarraResponseDTO(
@@ -41,9 +45,11 @@ public class BarraService {
                 .collect(Collectors.toList());
     }
 
+    // ✅ Obtener una barra por ID
     public BarraResponseDTO getBarraById(Long id) {
         Barra barra = barraRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Barra no encontrada con ID: " + id));
+
         return new BarraResponseDTO(
                 barra.getId(),
                 barra.getNombre(),
@@ -52,16 +58,15 @@ public class BarraService {
                 barra.getBoliche() != null ? barra.getBoliche().getNombre() : null);
     }
 
+    // ✅ Modificar una barra
     public BarraResponseDTO updateBarra(Long id, BarraRequestDTO requestDTO) {
-        // Buscar la barra existente
         Barra barra = barraRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Barra no encontrada con ID: " + id));
 
-        // Buscar el boliche asociado (opcional)
         Boliche boliche = bolicheRepository.findById(requestDTO.getBolicheId())
                 .orElseThrow(() -> new RuntimeException("Boliche no encontrado con ID: " + requestDTO.getBolicheId()));
 
-        // Actualizar los valores
+        // Actualizar valores
         barra.setNombre(requestDTO.getNombre());
         barra.setBoliche(boliche);
         barra = barraRepository.save(barra);
@@ -74,9 +79,15 @@ public class BarraService {
                 boliche.getNombre());
     }
 
+    // ✅ Eliminar una barra
     public void deleteBarra(Long id) {
-        barraRepository.deleteById(id);
+        Barra barra = barraRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Barra no encontrada con ID: " + id));
+        
+        barraRepository.delete(barra);
     }
+
+    // ✅ Obtener todas las barras de un boliche específico
     public List<BarraResponseDTO> getBarrasByBolicheId(Long bolicheId) {
         return barraRepository.findByBolicheId(bolicheId).stream()
                 .map(barra -> new BarraResponseDTO(

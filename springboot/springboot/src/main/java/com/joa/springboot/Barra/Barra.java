@@ -2,6 +2,8 @@ package com.joa.springboot.Barra;
 
 import jakarta.persistence.*;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.joa.springboot.Boliche.Boliche;
 import com.joa.springboot.VentaBarra.VentaBarra;
 
@@ -20,7 +22,8 @@ public class Barra {
     private List<VentaBarra> ventas;
 
     @ManyToOne
-    @JoinColumn(name = "boliche_id", nullable = false) // Relación con Boliche
+    @JoinColumn(name = "boliche_id", nullable = false)
+    @JsonBackReference // Evitamos la serialización infinita
     private Boliche boliche;
 
     // Constructor por defecto
@@ -37,8 +40,13 @@ public class Barra {
         return ventas != null ? ventas.size() : 0;
     }
 
+    // ✅ Corrección aquí: Convertimos BigDecimal a double usando doubleValue()
     public double getGanancias() {
-        return ventas != null ? ventas.stream().mapToDouble(VentaBarra::getTotal).sum() : 0.0;
+        return ventas != null ? ventas.stream()
+                .map(VentaBarra::getTotal)
+                .mapToDouble(total -> total != null ? total.doubleValue() : 0.0)
+                .sum()
+                : 0.0;
     }
 
     // Getters y Setters

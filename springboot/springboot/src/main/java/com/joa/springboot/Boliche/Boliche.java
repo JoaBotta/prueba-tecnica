@@ -2,7 +2,10 @@ package com.joa.springboot.Boliche;
 
 import jakarta.persistence.*;
 import com.joa.springboot.Servicios.Servicio;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.joa.springboot.Barra.Barra;
+import com.joa.springboot.Evento.Evento;
 
 import java.util.List;
 
@@ -30,10 +33,16 @@ public class Boliche {
     private int capacidadMaxima;
 
     @OneToMany(mappedBy = "boliche", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Servicio> servicios; // Relación con servicios
+    @JsonIgnore // Evita que se serialicen los servicios dentro del boliche
+    private List<Servicio> servicios;
 
     @OneToMany(mappedBy = "boliche", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Barra> barras; // Relación con servicios
+    @JsonManagedReference // Manejamos la relación aquí
+    private List<Barra> barras;
+
+    @OneToMany(mappedBy = "boliche", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore // Evita que se serialicen los eventos dentro del boliche
+    private List<Evento> eventos;
 
     // Constructor por defecto
     public Boliche() {}
@@ -110,5 +119,13 @@ public class Boliche {
 
     public void setBarras(List<Barra> barras) {
         this.barras = barras;
+    }
+
+    public List<Evento> getEventos() {
+        return eventos;
+    }
+
+    public void setEventos(List<Evento> eventos) {
+        this.eventos = eventos;
     }
 }

@@ -1,5 +1,6 @@
 package com.joa.springboot.VentaBarra;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import com.joa.springboot.DetalleVentaBarra.DetalleVentaBarraResponseDTO;
@@ -9,7 +10,7 @@ public class VentaBarraResponseDTO {
     private String barraNombre;
     private String vendedoraNombre;
     private String formaDePago;
-    private double total;
+    private BigDecimal total;
     private LocalDateTime fecha;
     private List<DetalleVentaBarraResponseDTO> detalleVenta;
 
@@ -19,7 +20,7 @@ public class VentaBarraResponseDTO {
             String barraNombre, 
             String vendedoraNombre, 
             String formaDePago, 
-            double total, 
+            BigDecimal total, 
             LocalDateTime fecha, 
             List<DetalleVentaBarraResponseDTO> detalleVenta) {
         this.id = id;
@@ -64,11 +65,11 @@ public class VentaBarraResponseDTO {
         this.formaDePago = formaDePago;
     }
 
-    public double getTotal() {
+    public BigDecimal getTotal() {
         return total;
     }
 
-    public void setTotal(double total) {
+    public void setTotal(BigDecimal total) {
         this.total = total;
     }
 

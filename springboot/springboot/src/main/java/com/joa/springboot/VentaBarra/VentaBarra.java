@@ -1,12 +1,13 @@
 package com.joa.springboot.VentaBarra;
 
 import jakarta.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-import com.joa.springboot.Barra.*;
-import com.joa.springboot.DetalleVentaBarra.*;
-import com.joa.springboot.Usuario.*;
-import com.joa.springboot.FormaDePago.*;
+import com.joa.springboot.Barra.Barra;
+import com.joa.springboot.DetalleVentaBarra.DetalleVentaBarra;
+import com.joa.springboot.Usuario.Usuario;
+import com.joa.springboot.FormaDePago.FormaDePago;
 
 @Entity
 @Table(name = "ventas_barra")
@@ -31,8 +32,8 @@ public class VentaBarra {
     @JoinColumn(name = "forma_pago_id", nullable = false)
     private FormaDePago formaDePago;
 
-    @Column(nullable = false)
-    private double total;
+    @Column(nullable = false, precision = 10, scale = 2)
+    private BigDecimal total;
 
     @Column(nullable = false)
     private LocalDateTime fecha;
@@ -40,6 +41,7 @@ public class VentaBarra {
     // Constructor por defecto
     public VentaBarra() {
         this.fecha = LocalDateTime.now();
+        this.total = BigDecimal.ZERO;
     }
 
     // Constructor con parámetros
@@ -48,16 +50,19 @@ public class VentaBarra {
         this.vendedora = vendedora;
         this.formaDePago = formaDePago;
         this.fecha = LocalDateTime.now();
-        this.total = 0.0; // Se calcula a partir de los detalles
+        this.total = BigDecimal.ZERO;
     }
 
     // Métodos
     public void calcularTotal() {
-        this.total = detalleVenta != null ? detalleVenta.stream().mapToDouble(DetalleVentaBarra::getSubTotal).sum() : 0.0;
+        this.total = detalleVenta != null
+                ? detalleVenta.stream()
+                              .map(DetalleVentaBarra::getSubTotal)
+                              .reduce(BigDecimal.ZERO, BigDecimal::add)
+                : BigDecimal.ZERO;
     }
 
     // Getters y Setters
-
     public Long getId() {
         return id;
     }
@@ -99,11 +104,11 @@ public class VentaBarra {
         this.formaDePago = formaDePago;
     }
 
-    public double getTotal() {
+    public BigDecimal getTotal() {
         return total;
     }
 
-    public void setTotal(double total) {
+    public void setTotal(BigDecimal total) {
         this.total = total;
     }
 
@@ -113,17 +118,5 @@ public class VentaBarra {
 
     public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
-    }
-
-    @Override
-    public String toString() {
-        return "VentaBarra{" +
-                "id=" + id +
-                ", barra=" + barra.getNombre() +
-                ", vendedora=" + vendedora.getUsername() +
-                ", formaDePago=" + formaDePago.getNombre() +
-                ", total=" + total +
-                ", fecha=" + fecha +
-                '}';
     }
 }

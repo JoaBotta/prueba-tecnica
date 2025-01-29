@@ -16,7 +16,7 @@ public class Servicio {
     private String nombre;
 
     @Column(nullable = false)
-    private BigDecimal precio;
+    private BigDecimal precio; // Asegúrate de que el precio esté definido como BigDecimal
 
     private String descripcion;
 
@@ -30,12 +30,11 @@ public class Servicio {
     // Constructor con parámetros
     public Servicio(String nombre, BigDecimal precio, String descripcion, Boliche boliche) {
         this.nombre = nombre;
-        this.precio = precio;
+        this.precio = precio; // Asigna el precio
         this.descripcion = descripcion;
         this.boliche = boliche;
     }
 
-    // Getters y Setters
     // Getters y Setters
     public Long getId() {
         return id;
@@ -75,17 +74,5 @@ public class Servicio {
 
     public void setBoliche(Boliche boliche) {
         this.boliche = boliche;
-    }
-    // Métodos omitidos para brevedad...
-
-    @Override
-    public String toString() {
-        return "Servicio{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", precio=" + precio +
-                ", descripcion='" + descripcion + '\'' +
-                ", boliche=" + (boliche != null ? boliche.getNombre() : null) +
-                '}';
     }
 }

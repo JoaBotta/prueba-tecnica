@@ -4,9 +4,9 @@ import java.math.BigDecimal;
 
 public class ServicioRequestDTO {
     private String nombre;
-    private BigDecimal precio;
     private String descripcion;
     private Long bolicheId; // ID del boliche asociado
+    private BigDecimal precio; // Precio del servicio
 
     // Getters y Setters
     public String getNombre() {
@@ -15,14 +15,6 @@ public class ServicioRequestDTO {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public BigDecimal getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(BigDecimal precio) {
-        this.precio = precio;
     }
 
     public String getDescripcion() {
@@ -39,5 +31,13 @@ public class ServicioRequestDTO {
 
     public void setBolicheId(Long bolicheId) {
         this.bolicheId = bolicheId;
+    }
+
+    public BigDecimal getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(BigDecimal precio) {
+        this.precio = precio;
     }
 }

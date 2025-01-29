@@ -25,12 +25,11 @@ public class DetalleVentaBarra {
     @Column(nullable = false)
     private int cantidad;
 
-    @Column(nullable = false)
-    private double subTotal;
+    @Column(nullable = false, precision = 10, scale = 2)
+    private BigDecimal subTotal;
 
     // Constructor por defecto
-    public DetalleVentaBarra() {
-    }
+    public DetalleVentaBarra() {}
 
     // Constructor con parámetros
     public DetalleVentaBarra(VentaBarra ventaBarra, Producto producto, int cantidad) {
@@ -40,9 +39,20 @@ public class DetalleVentaBarra {
         this.subTotal = calcularSubTotal();
     }
 
+    // Constructor con subtotal
+    public DetalleVentaBarra(VentaBarra ventaBarra, Producto producto, int cantidad, BigDecimal subTotal) {
+        this.ventaBarra = ventaBarra;
+        this.producto = producto;
+        this.cantidad = cantidad;
+        this.subTotal = subTotal;
+    }
+
     // Método para calcular el subtotal
-    public double calcularSubTotal() {
-        return producto.getPrecioUnitario().multiply(BigDecimal.valueOf(cantidad)).doubleValue();
+    private BigDecimal calcularSubTotal() {
+        if (producto != null && producto.getPrecioUnitario() != null) {
+            return producto.getPrecioUnitario().multiply(BigDecimal.valueOf(cantidad));
+        }
+        return BigDecimal.ZERO;
     }
 
     // Getters y Setters
@@ -80,22 +90,11 @@ public class DetalleVentaBarra {
         this.subTotal = calcularSubTotal(); // Recalcular subtotal si cambia la cantidad
     }
 
-    public double getSubTotal() {
+    public BigDecimal getSubTotal() {
         return subTotal;
     }
 
-    public void setSubTotal(double subTotal) {
+    public void setSubTotal(BigDecimal subTotal) {
         this.subTotal = subTotal;
-    }
-
-    @Override
-    public String toString() {
-        return "DetalleVentaBarra{" +
-                "id=" + id +
-                ", ventaBarra=" + (ventaBarra != null ? ventaBarra.getId() : "null") +
-                ", producto=" + (producto != null ? producto.getNombre() : "null") +
-                ", cantidad=" + cantidad +
-                ", subTotal=" + subTotal +
-                '}';
     }
 }

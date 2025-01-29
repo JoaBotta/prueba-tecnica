@@ -2,6 +2,7 @@ package com.joa.springboot.VentaBarra;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,8 +12,8 @@ import com.joa.springboot.Usuario.Usuario;
 import com.joa.springboot.Usuario.UsuarioRepository;
 import com.joa.springboot.FormaDePago.FormaDePago;
 import com.joa.springboot.FormaDePago.FormaDePagoRepository;
-import com.joa.springboot.Producto.ProductoRepository;
 import com.joa.springboot.Producto.Producto;
+import com.joa.springboot.Producto.ProductoRepository;
 import com.joa.springboot.DetalleVentaBarra.DetalleVentaBarra;
 import com.joa.springboot.DetalleVentaBarra.DetalleVentaBarraResponseDTO;
 
@@ -34,45 +35,31 @@ public class VentaBarraService {
     @Autowired
     private ProductoRepository productoRepository;
 
-    /**
-     * Método para crear una nueva VentaBarra.
-     * @param requestDTO Objeto con los datos de la venta.
-     * @return DTO de respuesta con los detalles de la venta creada.
-     */
     public VentaBarraResponseDTO createVentaBarra(VentaBarraRequestDTO requestDTO) {
-        // Buscar la barra asociada
-        Barra barra = barraRepository.findById(requestDTO.getBarraId())
+        final Barra barra = barraRepository.findById(requestDTO.getBarraId())
                 .orElseThrow(() -> new RuntimeException("Barra no encontrada"));
 
-        // Buscar el usuario vendedor asociado
-        Usuario vendedora = usuarioRepository.findById(requestDTO.getVendedoraId())
-        .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        final Usuario vendedora = usuarioRepository.findById(requestDTO.getVendedoraId())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-        // Buscar la forma de pago asociada
-        FormaDePago formaDePago = formaDePagoRepository.findById(requestDTO.getFormaDePagoId())
+        final FormaDePago formaDePago = formaDePagoRepository.findById(requestDTO.getFormaDePagoId())
                 .orElseThrow(() -> new RuntimeException("Forma de Pago no encontrada"));
 
-        // Crear la instancia de VentaBarra
-        VentaBarra ventaBarra = new VentaBarra(barra, vendedora, formaDePago);
-        final VentaBarra ventaBarraFinal = ventaBarra;
+        final VentaBarra ventaBarra = ventaBarraRepository.save(new VentaBarra(barra, vendedora, formaDePago));
 
-        // Resolver los productos y crear los detalles de venta
         List<DetalleVentaBarra> detalles = requestDTO.getDetalleVenta().stream()
                 .map(detalleDTO -> {
                     Producto producto = productoRepository.findById(detalleDTO.getproductoId())
                             .orElseThrow(() -> new RuntimeException("Producto no encontrado con ID: " + detalleDTO.getproductoId()));
-                    return new DetalleVentaBarra(ventaBarraFinal, producto, detalleDTO.getCantidad());
+
+                    return new DetalleVentaBarra(ventaBarra, producto, detalleDTO.getCantidad());
                 })
                 .collect(Collectors.toList());
 
-        // Asignar los detalles a la venta y calcular el total
         ventaBarra.setDetalleVenta(detalles);
         ventaBarra.calcularTotal();
+        ventaBarraRepository.save(ventaBarra);
 
-        // Guardar la venta en el repositorio
-        ventaBarra = ventaBarraRepository.save(ventaBarra);
-
-        // Crear y devolver el DTO de respuesta
         return new VentaBarraResponseDTO(
                 ventaBarra.getId(),
                 barra.getNombre(),
@@ -85,15 +72,11 @@ public class VentaBarraService {
                                 detalle.getId(),
                                 detalle.getProducto().getNombre(),
                                 detalle.getCantidad(),
-                                detalle.getSubTotal()))
+                                detalle.getSubTotal().doubleValue()))
                         .collect(Collectors.toList())
         );
     }
 
-    /**
-     * Método para obtener todas las ventas de barra registradas.
-     * @return Lista de DTOs de respuesta con los detalles de las ventas.
-     */
     public List<VentaBarraResponseDTO> getAllVentasBarra() {
         return ventaBarraRepository.findAll().stream()
                 .map(ventaBarra -> new VentaBarraResponseDTO(
@@ -108,7 +91,7 @@ public class VentaBarraService {
                                         detalle.getId(),
                                         detalle.getProducto().getNombre(),
                                         detalle.getCantidad(),
-                                        detalle.getSubTotal()))
+                                        detalle.getSubTotal().doubleValue()))
                                 .collect(Collectors.toList())))
                 .collect(Collectors.toList());
     }
@@ -118,7 +101,7 @@ public class VentaBarraService {
                 .map(ventaBarra -> new VentaBarraResponseDTO(
                         ventaBarra.getId(),
                         ventaBarra.getBarra().getNombre(),
-                       ventaBarra.getVendedora().getUsername(),
+                        ventaBarra.getVendedora().getUsername(),
                         ventaBarra.getFormaDePago().getNombre(),
                         ventaBarra.getTotal(),
                         ventaBarra.getFecha(),
@@ -127,30 +110,12 @@ public class VentaBarraService {
                                         detalle.getId(),
                                         detalle.getProducto().getNombre(),
                                         detalle.getCantidad(),
-                                        detalle.getSubTotal()))
+                                        detalle.getSubTotal().doubleValue()))
                                 .collect(Collectors.toList())))
                 .collect(Collectors.toList());
     }
 
     public VentaBarraTicketDTO generateTicket(Long ventaId) {
-        VentaBarra venta = ventaBarraRepository.findById(ventaId)
-                .orElseThrow(() -> new RuntimeException("Venta no encontrada con ID: " + ventaId));
-    
-        List<TicketDetalleDTO> detalles = venta.getDetalleVenta().stream()
-                .map(detalle -> new TicketDetalleDTO(
-                        detalle.getProducto().getNombre(),
-                        detalle.getCantidad(),
-                        detalle.getSubTotal()))
-                .collect(Collectors.toList());
-    
-        return new VentaBarraTicketDTO(
-                venta.getId(),
-                venta.getBarra().getNombre(),
-                venta.getVendedora().getUsername(),
-                venta.getFormaDePago().getNombre(),
-                venta.getTotal(),
-                venta.getFecha(),
-                detalles
-        );
+        throw new UnsupportedOperationException("El método 'generateTicket' aún no está implementado.");
     }
 }

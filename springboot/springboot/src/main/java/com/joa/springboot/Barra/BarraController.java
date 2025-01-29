@@ -31,17 +31,21 @@ public class BarraController {
         return ResponseEntity.ok(responseDTO);
     }
 
+    // ✅ Modificar una barra
     @PutMapping("/{id}")
     public ResponseEntity<BarraResponseDTO> updateBarra(@PathVariable Long id, @RequestBody BarraRequestDTO requestDTO) {
         BarraResponseDTO responseDTO = barraService.updateBarra(id, requestDTO);
         return ResponseEntity.ok(responseDTO);
     }
 
+    // ✅ Eliminar una barra
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBarra(@PathVariable Long id) {
         barraService.deleteBarra(id);
         return ResponseEntity.noContent().build();
     }
+
+    // ✅ Obtener todas las barras de un boliche específico
     @GetMapping("/boliches/{bolicheId}/barras")
     public ResponseEntity<List<BarraResponseDTO>> getBarrasByBolicheId(@PathVariable Long bolicheId) {
         List<BarraResponseDTO> responseDTOs = barraService.getBarrasByBolicheId(bolicheId);
