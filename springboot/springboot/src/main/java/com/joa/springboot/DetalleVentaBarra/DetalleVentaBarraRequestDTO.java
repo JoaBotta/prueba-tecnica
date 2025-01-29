@@ -5,11 +5,12 @@ public class DetalleVentaBarraRequestDTO {
     private int cantidad;
 
     // Getters y Setters
-    public Long getproductoId() {
+
+    public Long getProductoId() {  // Cambiado a getProductoId
         return productoId;
     }
 
-    public void setproductoId(Long productoId) {
+    public void setProductoId(Long productoId) {  // Cambiado a setProductoId
         this.productoId = productoId;
     }
 

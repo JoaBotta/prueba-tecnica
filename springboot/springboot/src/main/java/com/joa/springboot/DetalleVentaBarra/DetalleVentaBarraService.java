@@ -20,8 +20,8 @@ public class DetalleVentaBarraService {
     }
 
     public DetalleVentaBarraResponseDTO createDetalleVentaBarra(DetalleVentaBarraRequestDTO requestDTO) {
-        Producto producto = productoRepository.findById(requestDTO.getproductoId())
-                .orElseThrow(() -> new RuntimeException("Producto no encontrado con ID: " + requestDTO.getproductoId()));
+        Producto producto = productoRepository.findById(requestDTO.getProductoId())
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado con ID: " + requestDTO.getProductoId()));
 
         DetalleVentaBarra detalleVentaBarra = new DetalleVentaBarra(null, producto, requestDTO.getCantidad());
         detalleVentaBarra = detalleVentaBarraRepository.save(detalleVentaBarra);

@@ -49,8 +49,8 @@ public class VentaBarraService {
 
         List<DetalleVentaBarra> detalles = requestDTO.getDetalleVenta().stream()
                 .map(detalleDTO -> {
-                    Producto producto = productoRepository.findById(detalleDTO.getproductoId())
-                            .orElseThrow(() -> new RuntimeException("Producto no encontrado con ID: " + detalleDTO.getproductoId()));
+                    Producto producto = productoRepository.findById(detalleDTO.getProductoId())
+                            .orElseThrow(() -> new RuntimeException("Producto no encontrado con ID: " + detalleDTO.getProductoId()));
 
                     return new DetalleVentaBarra(ventaBarra, producto, detalleDTO.getCantidad());
                 })
