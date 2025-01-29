@@ -26,6 +26,6 @@ export class VentaBarraService {
   }
 
   getVentasByBarra(barraId: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/${barraId}`);
+    return this.http.get<any[]>(`${this.apiUrl}/barra/${barraId}`);
   }
 }
