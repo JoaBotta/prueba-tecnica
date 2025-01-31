@@ -1,16 +1,24 @@
 package com.joa.springboot.DetalleVentaBarra;
 
 public class DetalleVentaBarraRequestDTO {
+    private Long ventaBarraId;
     private Long productoId;
     private int cantidad;
 
     // Getters y Setters
+    public Long getVentaBarraId() {
+        return ventaBarraId;
+    }
 
-    public Long getProductoId() {  // Cambiado a getProductoId
+    public void setVentaBarraId(Long ventaBarraId) {
+        this.ventaBarraId = ventaBarraId;
+    }
+
+    public Long getProductoId() {
         return productoId;
     }
 
-    public void setProductoId(Long productoId) {  // Cambiado a setProductoId
+    public void setProductoId(Long productoId) {
         this.productoId = productoId;
     }
 

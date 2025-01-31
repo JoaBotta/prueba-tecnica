@@ -1,13 +1,15 @@
 package com.joa.springboot.DetalleVentaBarra;
 
+import java.math.BigDecimal;
+
 public class DetalleVentaBarraResponseDTO {
     private Long id;
     private String productoNombre;
     private int cantidad;
-    private double subTotal;
+    private BigDecimal subTotal;
 
     // Constructor
-    public DetalleVentaBarraResponseDTO(Long id, String productoNombre, int cantidad, double subTotal) {
+    public DetalleVentaBarraResponseDTO(Long id, String productoNombre, int cantidad, BigDecimal subTotal) {
         this.id = id;
         this.productoNombre = productoNombre;
         this.cantidad = cantidad;
@@ -23,11 +25,11 @@ public class DetalleVentaBarraResponseDTO {
         this.id = id;
     }
 
-    public String getproductoNombre() {
+    public String getProductoNombre() {
         return productoNombre;
     }
 
-    public void setproductoNombre(String productoNombre) {
+    public void setProductoNombre(String productoNombre) {
         this.productoNombre = productoNombre;
     }
 
@@ -39,11 +41,11 @@ public class DetalleVentaBarraResponseDTO {
         this.cantidad = cantidad;
     }
 
-    public double getSubTotal() {
+    public BigDecimal getSubTotal() {
         return subTotal;
     }
 
-    public void setSubTotal(double subTotal) {
+    public void setSubTotal(BigDecimal subTotal) {
         this.subTotal = subTotal;
     }
 }

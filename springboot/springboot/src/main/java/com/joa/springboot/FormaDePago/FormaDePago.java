@@ -2,7 +2,8 @@ package com.joa.springboot.FormaDePago;
 
 import jakarta.persistence.*;
 import java.util.List;
-import com.joa.springboot.VentaBarra.*;
+import com.joa.springboot.VentaBarra.VentaBarra;
+import com.joa.springboot.VentaEntrada.VentaEntrada;
 
 @Entity
 @Table(name = "formas_de_pago")
@@ -16,7 +17,10 @@ public class FormaDePago {
     private String nombre;
 
     @OneToMany(mappedBy = "formaDePago", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<VentaBarra> ventas;
+    private List<VentaBarra> ventasBarra;
+
+    @OneToMany(mappedBy = "formaDePago", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<VentaEntrada> ventasEntrada; // Relación con VentaEntrada
 
     // Constructor por defecto
     public FormaDePago() {}
@@ -27,36 +31,17 @@ public class FormaDePago {
     }
 
     // Getters y Setters
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public List<VentaBarra> getVentas() {
-        return ventas;
-    }
-
-    public void setVentas(List<VentaBarra> ventas) {
-        this.ventas = ventas;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
+    public List<VentaBarra> getVentasBarra() { return ventasBarra; }
+    public void setVentasBarra(List<VentaBarra> ventasBarra) { this.ventasBarra = ventasBarra; }
+    public List<VentaEntrada> getVentasEntrada() { return ventasEntrada; }
+    public void setVentasEntrada(List<VentaEntrada> ventasEntrada) { this.ventasEntrada = ventasEntrada; }
 
     @Override
     public String toString() {
-        return "FormaDePago{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                '}';
+        return "FormaDePago{" + "id=" + id + ", nombre='" + nombre + '\'' + '}';
     }
 }

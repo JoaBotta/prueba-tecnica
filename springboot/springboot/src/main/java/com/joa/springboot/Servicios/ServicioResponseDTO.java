@@ -3,23 +3,22 @@ package com.joa.springboot.Servicios;
 import java.math.BigDecimal;
 
 public class ServicioResponseDTO {
-
     private Long id;
     private String nombre;
-    private BigDecimal precio; // Cambiado a BigDecimal para mantener consistencia
+    private BigDecimal precio;
     private String descripcion;
     private String bolicheNombre;
 
-    // Constructor
+    // ✅ Constructor
     public ServicioResponseDTO(Long id, String nombre, BigDecimal precio, String descripcion, String bolicheNombre) {
         this.id = id;
         this.nombre = nombre;
-        this.precio = precio; // Asignar el precio como BigDecimal
+        this.precio = precio;
         this.descripcion = descripcion;
         this.bolicheNombre = bolicheNombre;
     }
 
-    // Getters y Setters
+    // ✅ Getters y Setters
     public Long getId() {
         return id;
     }
@@ -37,11 +36,11 @@ public class ServicioResponseDTO {
     }
 
     public BigDecimal getPrecio() {
-        return precio; // Getter para el precio
+        return precio;
     }
 
     public void setPrecio(BigDecimal precio) {
-        this.precio = precio; // Setter para el precio
+        this.precio = precio;
     }
 
     public String getDescripcion() {

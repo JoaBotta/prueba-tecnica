@@ -3,22 +3,28 @@ package com.joa.springboot.Boliche;
 import java.util.List;
 
 public class BolicheResponseDTO {
-
     private Long id;
     private String nombre;
     private String provincia;
     private String ciudad;
     private String calle;
     private int capacidadMaxima;
+    private List<String> servicios;
+    private List<String> barras;
+    private List<String> puntoventa;
 
     // Constructor
-    public BolicheResponseDTO(Long id, String nombre, String provincia, String ciudad, String calle, int capacidadMaxima, String servicioNombre) {
+    public BolicheResponseDTO(Long id, String nombre, String provincia, String ciudad, 
+                              String calle, int capacidadMaxima, List<String> servicios, List<String> barras,List<String> puntoventa) {
         this.id = id;
         this.nombre = nombre;
         this.provincia = provincia;
         this.ciudad = ciudad;
         this.calle = calle;
         this.capacidadMaxima = capacidadMaxima;
+        this.servicios = servicios;
+        this.barras = barras;
+        this.puntoventa = puntoventa;
     }
 
     // Getters y Setters
@@ -68,5 +74,28 @@ public class BolicheResponseDTO {
 
     public void setCapacidadMaxima(int capacidadMaxima) {
         this.capacidadMaxima = capacidadMaxima;
+    }
+
+    public List<String> getServicios() {
+        return servicios;
+    }
+
+    public void setServicios(List<String> servicios) {
+        this.servicios = servicios;
+    }
+
+    public List<String> getBarras() {
+        return barras;
+    }
+
+    public void setBarras(List<String> barras) {
+        this.barras = barras;
+    }
+    public List<String> getpuntoventa() {
+        return puntoventa;
+    }
+
+    public void setpuntoventa(List<String> puntoventa) {
+        this.puntoventa = puntoventa;
     }
 }

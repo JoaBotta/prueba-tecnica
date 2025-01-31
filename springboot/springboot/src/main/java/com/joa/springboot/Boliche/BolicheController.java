@@ -29,8 +29,11 @@ public class BolicheController {
     public ResponseEntity<BolicheResponseDTO> getBolicheById(@PathVariable Long id) {
         BolicheResponseDTO responseDTO = bolicheService.getBolicheById(id);
         return ResponseEntity.ok(responseDTO);
-
     }
 
-    
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteBoliche(@PathVariable Long id) {
+        bolicheService.deleteBoliche(id);
+        return ResponseEntity.noContent().build();
+    }
 }

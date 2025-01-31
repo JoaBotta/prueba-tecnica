@@ -1,5 +1,5 @@
 package com.joa.springboot.Boliche;
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class BolicheRequestDTO {
@@ -8,8 +8,8 @@ public class BolicheRequestDTO {
     private String ciudad;
     private String calle;
     private int capacidadMaxima;
-    private List<Long> barraIds = new ArrayList<>(); // Inicializado como vacío
-    private List<Long> servicioIds = new ArrayList<>(); // Inicializado como vacío
+    private List<Long> barraIds;
+    private List<Long> servicioIds;
 
     // Getters y Setters
     public String getNombre() {

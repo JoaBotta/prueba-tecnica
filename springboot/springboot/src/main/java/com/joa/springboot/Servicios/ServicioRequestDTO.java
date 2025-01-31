@@ -5,10 +5,10 @@ import java.math.BigDecimal;
 public class ServicioRequestDTO {
     private String nombre;
     private String descripcion;
-    private Long bolicheId; // ID del boliche asociado
-    private BigDecimal precio; // Precio del servicio
+    private Long bolicheId;
+    private BigDecimal precio;
 
-    // Getters y Setters
+    // ✅ Getters y Setters
     public String getNombre() {
         return nombre;
     }

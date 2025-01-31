@@ -25,9 +25,21 @@ public class DetalleVentaBarraController {
         return ResponseEntity.ok(responseDTOs);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<DetalleVentaBarraResponseDTO> getDetalleVentaBarraById(@PathVariable Long id) {
+        DetalleVentaBarraResponseDTO responseDTO = detalleVentaBarraService.getDetalleVentaBarraById(id);
+        return ResponseEntity.ok(responseDTO);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteDetalleVentaBarra(@PathVariable Long id) {
         detalleVentaBarraService.deleteDetalleVentaBarra(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/venta/{ventaBarraId}")
+    public ResponseEntity<List<DetalleVentaBarraResponseDTO>> getDetallesByVentaBarra(@PathVariable Long ventaBarraId) {
+        List<DetalleVentaBarraResponseDTO> responseDTOs = detalleVentaBarraService.getDetallesByVentaBarra(ventaBarraId);
+        return ResponseEntity.ok(responseDTOs);
     }
 }

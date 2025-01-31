@@ -15,13 +15,8 @@ public class VentaBarraResponseDTO {
     private List<DetalleVentaBarraResponseDTO> detalleVenta;
 
     // Constructor
-    public VentaBarraResponseDTO(
-            Long id, 
-            String barraNombre, 
-            String vendedoraNombre, 
-            String formaDePago, 
-            BigDecimal total, 
-            LocalDateTime fecha, 
+    public VentaBarraResponseDTO(Long id, String barraNombre, String vendedoraNombre, 
+            String formaDePago, BigDecimal total, LocalDateTime fecha, 
             List<DetalleVentaBarraResponseDTO> detalleVenta) {
         this.id = id;
         this.barraNombre = barraNombre;
@@ -32,57 +27,58 @@ public class VentaBarraResponseDTO {
         this.detalleVenta = detalleVenta;
     }
 
-    // Getters y Setters
+    // Getters
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getBarraNombre() {
         return barraNombre;
     }
 
-    public void setBarraNombre(String barraNombre) {
-        this.barraNombre = barraNombre;
-    }
-
     public String getVendedoraNombre() {
         return vendedoraNombre;
-    }
-
-    public void setVendedoraNombre(String vendedoraNombre) {
-        this.vendedoraNombre = vendedoraNombre;
     }
 
     public String getFormaDePago() {
         return formaDePago;
     }
 
-    public void setFormaDePago(String formaDePago) {
-        this.formaDePago = formaDePago;
-    }
-
     public BigDecimal getTotal() {
         return total;
-    }
-
-    public void setTotal(BigDecimal total) {
-        this.total = total;
     }
 
     public LocalDateTime getFecha() {
         return fecha;
     }
 
-    public void setFecha(LocalDateTime fecha) {
-        this.fecha = fecha;
-    }
-
     public List<DetalleVentaBarraResponseDTO> getDetalleVenta() {
         return detalleVenta;
+    }
+
+    // Setters
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setBarraNombre(String barraNombre) {
+        this.barraNombre = barraNombre;
+    }
+
+    public void setVendedoraNombre(String vendedoraNombre) {
+        this.vendedoraNombre = vendedoraNombre;
+    }
+
+    public void setFormaDePago(String formaDePago) {
+        this.formaDePago = formaDePago;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+
+    public void setFecha(LocalDateTime fecha) {
+        this.fecha = fecha;
     }
 
     public void setDetalleVenta(List<DetalleVentaBarraResponseDTO> detalleVenta) {

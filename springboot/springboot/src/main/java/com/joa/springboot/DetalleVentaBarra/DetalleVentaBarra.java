@@ -39,14 +39,6 @@ public class DetalleVentaBarra {
         this.subTotal = calcularSubTotal();
     }
 
-    // Constructor con subtotal
-    public DetalleVentaBarra(VentaBarra ventaBarra, Producto producto, int cantidad, BigDecimal subTotal) {
-        this.ventaBarra = ventaBarra;
-        this.producto = producto;
-        this.cantidad = cantidad;
-        this.subTotal = subTotal;
-    }
-
     // Método para calcular el subtotal
     private BigDecimal calcularSubTotal() {
         if (producto != null && producto.getPrecioUnitario() != null) {
@@ -78,7 +70,7 @@ public class DetalleVentaBarra {
 
     public void setProducto(Producto producto) {
         this.producto = producto;
-        this.subTotal = calcularSubTotal(); // Recalcular subtotal si cambia el producto
+        this.subTotal = calcularSubTotal();
     }
 
     public int getCantidad() {
@@ -87,7 +79,7 @@ public class DetalleVentaBarra {
 
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
-        this.subTotal = calcularSubTotal(); // Recalcular subtotal si cambia la cantidad
+        this.subTotal = calcularSubTotal();
     }
 
     public BigDecimal getSubTotal() {

@@ -11,62 +11,44 @@ import java.util.stream.Collectors;
 @Service
 public class ServicioService {
 
-    @Autowired 
+    @Autowired
     private ServicioRepository servicioRepository;
 
     @Autowired
     private BolicheRepository bolicheRepository;
 
-    // Crear un servicio asociado a un boliche
+    // ✅ Crear un servicio asociado a un boliche
     public ServicioResponseDTO createServicio(ServicioRequestDTO requestDTO) {
         Boliche boliche = bolicheRepository.findById(requestDTO.getBolicheId())
                 .orElseThrow(() -> new RuntimeException("Boliche no encontrado con ID: " + requestDTO.getBolicheId()));
 
         Servicio servicio = new Servicio(
                 requestDTO.getNombre(),
-                requestDTO.getPrecio(), // Asignar el precio al crear el servicio
+                requestDTO.getPrecio(),
                 requestDTO.getDescripcion(),
                 boliche
         );
         servicio = servicioRepository.save(servicio);
 
-        return new ServicioResponseDTO(
-                servicio.getId(),
-                servicio.getNombre(),
-                servicio.getPrecio(), // Incluye el precio en la respuesta
-                servicio.getDescripcion(),
-                boliche.getNombre()
-        );
+        return mapToDTO(servicio);
     }
 
-    // Obtener todos los servicios
+    // ✅ Obtener todos los servicios
     public List<ServicioResponseDTO> getAllServicios() {
         return servicioRepository.findAll().stream()
-                .map(servicio -> new ServicioResponseDTO(
-                        servicio.getId(),
-                        servicio.getNombre(),
-                        servicio.getPrecio(), // Incluye el precio en la lista
-                        servicio.getDescripcion(),
-                        servicio.getBoliche() != null ? servicio.getBoliche().getNombre() : null
-                ))
+                .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
 
-    // Obtener un servicio por su ID
+    // ✅ Obtener un servicio por su ID
     public ServicioResponseDTO getServicioById(Long id) {
         Servicio servicio = servicioRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Servicio no encontrado con ID: " + id));
 
-        return new ServicioResponseDTO(
-                servicio.getId(),
-                servicio.getNombre(),
-                servicio.getPrecio(), // Incluye el precio
-                servicio.getDescripcion(),
-                servicio.getBoliche() != null ? servicio.getBoliche().getNombre() : null
-        );
+        return mapToDTO(servicio);
     }
 
-    // Actualizar un servicio
+    // ✅ Actualizar un servicio
     public ServicioResponseDTO updateServicio(Long id, ServicioRequestDTO requestDTO) {
         Servicio servicio = servicioRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Servicio no encontrado con ID: " + id));
@@ -75,36 +57,35 @@ public class ServicioService {
                 .orElseThrow(() -> new RuntimeException("Boliche no encontrado con ID: " + requestDTO.getBolicheId()));
 
         servicio.setNombre(requestDTO.getNombre());
-        servicio.setPrecio(requestDTO.getPrecio()); // Actualizar el precio
+        servicio.setPrecio(requestDTO.getPrecio());
         servicio.setDescripcion(requestDTO.getDescripcion());
         servicio.setBoliche(boliche);
 
         servicio = servicioRepository.save(servicio);
 
+        return mapToDTO(servicio);
+    }
+
+    // ✅ Eliminar un servicio
+    public void deleteServicio(Long id) {
+        servicioRepository.deleteById(id);
+    }
+
+    // ✅ Obtener todos los servicios de un boliche
+    public List<ServicioResponseDTO> getServiciosByBoliche(Long bolicheId) {
+        return servicioRepository.findByBolicheId(bolicheId).stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
+
+    // ✅ Método privado para mapear a DTO
+    private ServicioResponseDTO mapToDTO(Servicio servicio) {
         return new ServicioResponseDTO(
                 servicio.getId(),
                 servicio.getNombre(),
                 servicio.getPrecio(),
                 servicio.getDescripcion(),
-                boliche.getNombre()
+                servicio.getBoliche() != null ? servicio.getBoliche().getNombre() : null
         );
-    }
-
-    // Eliminar un servicio
-    public void deleteServicio(Long id) {
-        servicioRepository.deleteById(id);
-    }
-
-    // Obtener todos los servicios de un boliche
-    public List<ServicioResponseDTO> getServiciosByBoliche(Long bolicheId) {
-        return servicioRepository.findByBolicheId(bolicheId).stream()
-                .map(servicio -> new ServicioResponseDTO(
-                        servicio.getId(),
-                        servicio.getNombre(),
-                        servicio.getPrecio(), // Incluye el precio
-                        servicio.getDescripcion(),
-                        servicio.getBoliche() != null ? servicio.getBoliche().getNombre() : null
-                ))
-                .collect(Collectors.toList());
     }
 }

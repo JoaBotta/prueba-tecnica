@@ -16,12 +16,12 @@ public class Servicio {
     private String nombre;
 
     @Column(nullable = false)
-    private BigDecimal precio; // Asegúrate de que el precio esté definido como BigDecimal
+    private BigDecimal precio;
 
     private String descripcion;
 
     @ManyToOne
-    @JoinColumn(name = "boliche_id", nullable = false) // Relación con Boliche
+    @JoinColumn(name = "boliche_id", nullable = false)
     private Boliche boliche;
 
     // Constructor por defecto
@@ -30,7 +30,7 @@ public class Servicio {
     // Constructor con parámetros
     public Servicio(String nombre, BigDecimal precio, String descripcion, Boliche boliche) {
         this.nombre = nombre;
-        this.precio = precio; // Asigna el precio
+        this.precio = precio;
         this.descripcion = descripcion;
         this.boliche = boliche;
     }

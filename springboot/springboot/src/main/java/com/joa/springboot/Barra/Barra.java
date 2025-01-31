@@ -23,7 +23,7 @@ public class Barra {
 
     @ManyToOne
     @JoinColumn(name = "boliche_id", nullable = false)
-    @JsonBackReference // Evitamos la serialización infinita
+    @JsonBackReference
     private Boliche boliche;
 
     // Constructor por defecto
@@ -40,7 +40,6 @@ public class Barra {
         return ventas != null ? ventas.size() : 0;
     }
 
-    // ✅ Corrección aquí: Convertimos BigDecimal a double usando doubleValue()
     public double getGanancias() {
         return ventas != null ? ventas.stream()
                 .map(VentaBarra::getTotal)
@@ -80,16 +79,5 @@ public class Barra {
 
     public void setBoliche(Boliche boliche) {
         this.boliche = boliche;
-    }
-
-    @Override
-    public String toString() {
-        return "Barra{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", cantidadVentas=" + getCantidadVentas() +
-                ", ganancias=" + getGanancias() +
-                ", boliche=" + (boliche != null ? boliche.getNombre() : "null") +
-                '}';
     }
 }

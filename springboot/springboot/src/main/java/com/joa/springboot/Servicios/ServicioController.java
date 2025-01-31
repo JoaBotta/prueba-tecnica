@@ -42,7 +42,8 @@ public class ServicioController {
         servicioService.deleteServicio(id);
         return ResponseEntity.noContent().build();
     }
-    //quiero crear un endpoint que llame a todos los servicios en base a la id de boliche
+
+    // ✅ Obtener todos los servicios de un boliche específico
     @GetMapping("/boliche/{bolicheId}")
     public ResponseEntity<List<ServicioResponseDTO>> getServiciosByBoliche(@PathVariable Long bolicheId) {
         List<ServicioResponseDTO> servicios = servicioService.getServiciosByBoliche(bolicheId);
