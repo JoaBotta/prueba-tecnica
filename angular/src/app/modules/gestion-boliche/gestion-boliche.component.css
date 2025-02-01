@@ -3,6 +3,18 @@
   background: #e9f1f4;
   padding: 10px;
 }
+.icon i {
+  font-size: 2rem; /* Tamaño del icono */
+  margin-bottom: 10px; /* Espaciado inferior */
+}
+
+.monitoring-card.ok .icon i {
+  color: #28a745; /* Color verde para iconos "ok" */
+}
+
+.monitoring-card.warning .icon i {
+  color: #ffc107; /* Color amarillo para iconos "warning" */
+}
 
 /* Contenedor principal */
 .perfil-container {
