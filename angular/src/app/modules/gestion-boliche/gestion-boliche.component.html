@@ -11,17 +11,18 @@
 
     <div class="monitoring-section">
       <a class="monitoring-card ok" routerLink="/productos">
-        <div class="icon">✔️</div>
-        <h3>Productos</h3>
-        <p>Gestiona los productos del boliche</p>
+        <div class="icon"> 📊 </div>
+        <h3>DashBoard</h3>
+        <p>Mira las ESTADISTICAS</p>
       </a>
       <a class="monitoring-card warning" [routerLink]="['/boliche', bolicheId, 'barras']">
-        <div class="icon">⚠️</div>
+        <div class="icon">🍻</div>
+
         <h3>Barras</h3>
         <p>Crea o administra barras</p>
       </a>
-      <a class="monitoring-card ok" [routerLink]="['/boliche', bolicheId, 'productos']">
-        <div class="icon">✔️</div>
+      <a class="monitoring-card ok" routerLink="/productos">
+        <div class="icon">📦</div>
         <h3>Productos</h3>
         <p>Gestiona los productos del boliche</p>
       </a>

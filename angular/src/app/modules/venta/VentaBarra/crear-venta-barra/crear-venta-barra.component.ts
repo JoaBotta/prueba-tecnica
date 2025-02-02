@@ -10,7 +10,7 @@ import { Barra } from '@core/model/barra.model';
 import { ImpresoraTermicaService } from '@core/services/ImpresoraTermica.Service'; // Importamos el servicio
 import Swal from 'sweetalert2';
 import { BarraService } from 'src/app/core/services/barra.service';
-
+import { Location } from '@angular/common'; // Importa el servicio Location
 @Component({
   selector: 'app-crear-venta-barra',
   templateUrl: './crear-venta-barra.component.html',
@@ -33,7 +33,11 @@ export class CrearVentaBarraComponent implements OnInit {
   cantidad: number = 1; // Establecer un valor inicial para la cantidad
   ventaCreada: boolean = false;
 
+  terminoBusqueda: string = ''; // Variable para el término de búsqueda
+  productosFiltrados: Producto[] = []; // Lista de productos filtrados
+
   constructor(
+    private location: Location, // Inyecta el servicio Location
     private route: ActivatedRoute,
     private ventaBarraService: VentaBarraService,
     private productoService: ProductoService,
@@ -54,15 +58,48 @@ export class CrearVentaBarraComponent implements OnInit {
 
   }
 
+// Función para cancelar la venta y volver atrás
+cancelarVenta(): void {
+  this.location.back(); // Navega hacia atrás en el historial
+}
+  
   cargarProductos(): void {
     this.productoService.listarProductos().subscribe({
       next: (data) => {
         this.productos = data;
+        this.productosFiltrados = data; // Inicialmente, muestra todos los productos
       },
       error: (err) => {
         console.error('Error al cargar productos:', err);
       }
     });
+  }
+
+  // Filtrar productos según el término de búsqueda
+  filtrarProductos(): void {
+    if (this.terminoBusqueda) {
+      this.productosFiltrados = this.productos.filter(producto =>
+        producto.nombre.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
+      );
+    } else {
+      this.productosFiltrados = this.productos; // Si no hay término, muestra todos
+    }
+  }
+
+  // Seleccionar un producto y agregarlo a la lista
+  seleccionarProducto(producto: Producto): void {
+    const productoExistente = this.selectedProductos.find(item => item.producto.id === producto.id);
+
+    if (productoExistente) {
+      productoExistente.cantidad += this.cantidad;
+      productoExistente.subTotal = productoExistente.producto.precioUnitario * productoExistente.cantidad;
+    } else {
+      const subTotal = producto.precioUnitario * this.cantidad;
+      this.selectedProductos.push({ producto, cantidad: this.cantidad, subTotal });
+    }
+
+    this.calcularTotal();
+    this.cantidad = 1; // Reiniciar la cantidad después de agregar
   }
 
   cargarFormasDePago(): void {
@@ -117,6 +154,10 @@ export class CrearVentaBarraComponent implements OnInit {
     this.totalVenta = this.selectedProductos.reduce((acc, item) => acc + item.subTotal, 0);
   }
 
+  eliminarProducto(index: number): void {
+    this.selectedProductos.splice(index, 1);
+    this.calcularTotal();
+  }
   crearVenta(): void {
     const venta = {
       barraId: this.barraId,

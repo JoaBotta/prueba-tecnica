@@ -28,4 +28,9 @@ export class VentaBarraService {
   getVentasByBarra(barraId: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/barra/${barraId}`);
   }
+
+  //eliminar venta
+  deleteVenta(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+  }
 }
