@@ -7,32 +7,39 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/detalles-venta-entrada")
+@RequestMapping("/api/detalles-venta-Entrada")
 public class DetalleVentaEntradaController {
 
     @Autowired
     private DetalleVentaEntradaService detalleVentaEntradaService;
 
-    // ✅ Crear un nuevo detalle de venta de entrada
-    @PostMapping("/{ventaEntradaId}")
-    public ResponseEntity<DetalleVentaEntradaResponseDTO> createDetalleVentaEntrada(
-            @PathVariable Long ventaEntradaId,
-            @RequestBody DetalleVentaEntradaRequestDTO requestDTO) {
-        DetalleVentaEntradaResponseDTO responseDTO = detalleVentaEntradaService.createDetalleVentaEntrada(ventaEntradaId, requestDTO);
+    @PostMapping
+    public ResponseEntity<DetalleVentaEntradaResponseDTO> createDetalleVentaEntrada(@RequestBody DetalleVentaEntradaRequestDTO requestDTO) {
+        DetalleVentaEntradaResponseDTO responseDTO = detalleVentaEntradaService.createDetalleVentaEntrada(requestDTO);
         return ResponseEntity.ok(responseDTO);
     }
 
-    // ✅ Obtener todos los detalles de una venta de entrada
-    @GetMapping("/{ventaEntradaId}")
-    public ResponseEntity<List<DetalleVentaEntradaResponseDTO>> getDetallesByVentaEntrada(@PathVariable Long ventaEntradaId) {
-        List<DetalleVentaEntradaResponseDTO> responseDTOs = detalleVentaEntradaService.getDetallesByVentaEntrada(ventaEntradaId);
+    @GetMapping
+    public ResponseEntity<List<DetalleVentaEntradaResponseDTO>> getAllDetallesVentaEntrada() {
+        List<DetalleVentaEntradaResponseDTO> responseDTOs = detalleVentaEntradaService.getAllDetallesVentaEntrada();
         return ResponseEntity.ok(responseDTOs);
     }
 
-    // ✅ Eliminar un detalle de venta de entrada
+    @GetMapping("/{id}")
+    public ResponseEntity<DetalleVentaEntradaResponseDTO> getDetalleVentaEntradaById(@PathVariable Long id) {
+        DetalleVentaEntradaResponseDTO responseDTO = detalleVentaEntradaService.getDetalleVentaEntradaById(id);
+        return ResponseEntity.ok(responseDTO);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteDetalleVentaEntrada(@PathVariable Long id) {
         detalleVentaEntradaService.deleteDetalleVentaEntrada(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/venta/{ventaEntradaId}")
+    public ResponseEntity<List<DetalleVentaEntradaResponseDTO>> getDetallesByVentaEntrada(@PathVariable Long ventaEntradaId) {
+        List<DetalleVentaEntradaResponseDTO> responseDTOs = detalleVentaEntradaService.getDetallesByVentaEntrada(ventaEntradaId);
+        return ResponseEntity.ok(responseDTOs);
     }
 }

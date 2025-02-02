@@ -4,12 +4,14 @@ import java.math.BigDecimal;
 
 public class DetalleVentaEntradaResponseDTO {
     private Long id;
+    private String entradaNombre;
     private int cantidad;
     private BigDecimal subTotal;
 
     // Constructor
-    public DetalleVentaEntradaResponseDTO(Long id, int cantidad, BigDecimal subTotal) {
+    public DetalleVentaEntradaResponseDTO(Long id, String entradaNombre, int cantidad, BigDecimal subTotal) {
         this.id = id;
+        this.entradaNombre = entradaNombre;
         this.cantidad = cantidad;
         this.subTotal = subTotal;
     }
@@ -23,4 +25,11 @@ public class DetalleVentaEntradaResponseDTO {
 
     public BigDecimal getSubTotal() { return subTotal; }
     public void setSubTotal(BigDecimal subTotal) { this.subTotal = subTotal; }
+    public String getEntradaoNombre() {
+        return entradaNombre;
+    }
+
+    public void setEntradaNombre(String entradaNombre) {
+        this.entradaNombre = entradaNombre;
+    }
 }

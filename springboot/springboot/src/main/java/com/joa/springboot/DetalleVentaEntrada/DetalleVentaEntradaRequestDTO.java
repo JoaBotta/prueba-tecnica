@@ -1,15 +1,26 @@
 package com.joa.springboot.DetalleVentaEntrada;
 
-import java.math.BigDecimal;
-
 public class DetalleVentaEntradaRequestDTO {
+    private Long ventaEntradaId;
     private int cantidad;
-    private BigDecimal precioUnitario;
+    private Long entradaId;
 
     // Getters y Setters
     public int getCantidad() { return cantidad; }
     public void setCantidad(int cantidad) { this.cantidad = cantidad; }
 
-    public BigDecimal getPrecioUnitario() { return precioUnitario; }
-    public void setPrecioUnitario(BigDecimal precioUnitario) { this.precioUnitario = precioUnitario; }
+    public Long getEntradaId() {
+        return entradaId;
+    }
+
+    public void setEntradaId(Long entradaId) {
+        this.entradaId = entradaId;
+    }
+    public Long getVentaEntradaId() {
+        return ventaEntradaId;
+    }
+
+    public void setVentaEntradaId(Long ventaEntradaId) {
+        this.ventaEntradaId = ventaEntradaId;
+    }
 }

@@ -3,6 +3,7 @@ package com.joa.springboot.DetalleVentaEntrada;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 
+import com.joa.springboot.Entrada.Entrada;
 import com.joa.springboot.VentaEntrada.VentaEntrada;
 
 @Entity
@@ -17,6 +18,10 @@ public class DetalleVentaEntrada {
     @JoinColumn(name = "venta_entrada_id", nullable = false)
     private VentaEntrada ventaEntrada;
 
+    @ManyToOne
+    @JoinColumn(name = "entrada_id", nullable = false)
+    private Entrada entrada;
+
     @Column(nullable = false)
     private int cantidad;
 
@@ -27,15 +32,19 @@ public class DetalleVentaEntrada {
     public DetalleVentaEntrada() {}
 
     // Constructor con parámetros
-    public DetalleVentaEntrada(VentaEntrada ventaEntrada, int cantidad, BigDecimal precioUnitario) {
+    public DetalleVentaEntrada(VentaEntrada ventaEntrada, Entrada entrada, int cantidad) {
         this.ventaEntrada = ventaEntrada;
+        this.entrada = entrada;
         this.cantidad = cantidad;
-        this.subTotal = calcularSubTotal(precioUnitario);
+        this.subTotal = calcularSubTotal();
     }
 
     // Método para calcular el subtotal
-    private BigDecimal calcularSubTotal(BigDecimal precioUnitario) {
-        return precioUnitario.multiply(BigDecimal.valueOf(cantidad));
+    private BigDecimal calcularSubTotal() {
+        if (entrada != null && entrada.getPrecio() != null) {
+            return entrada.getPrecio().multiply(BigDecimal.valueOf(cantidad));
+        }
+        return BigDecimal.ZERO;
     }
 
     // Getters y Setters
@@ -45,9 +54,24 @@ public class DetalleVentaEntrada {
     public VentaEntrada getVentaEntrada() { return ventaEntrada; }
     public void setVentaEntrada(VentaEntrada ventaEntrada) { this.ventaEntrada = ventaEntrada; }
 
-    public int getCantidad() { return cantidad; }
-    public void setCantidad(int cantidad) { this.cantidad = cantidad; }
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+        this.subTotal = calcularSubTotal();
+    }
 
     public BigDecimal getSubTotal() { return subTotal; }
     public void setSubTotal(BigDecimal subTotal) { this.subTotal = subTotal; }
+
+    public Entrada getEntrada() {
+        return entrada;
+    }
+
+    public void setEntrada(Entrada entrada) {
+        this.entrada = entrada;
+        this.subTotal = calcularSubTotal();
+    }
 }

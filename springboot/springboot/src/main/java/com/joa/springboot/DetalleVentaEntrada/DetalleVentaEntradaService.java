@@ -2,6 +2,9 @@ package com.joa.springboot.DetalleVentaEntrada;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.joa.springboot.Entrada.Entrada;
+import com.joa.springboot.Entrada.EntradaRepository;
 import com.joa.springboot.VentaEntrada.VentaEntrada;
 import com.joa.springboot.VentaEntrada.VentaEntradaRepository;
 import java.util.List;
@@ -13,41 +16,64 @@ public class DetalleVentaEntradaService {
     @Autowired
     private DetalleVentaEntradaRepository detalleVentaEntradaRepository;
 
+        @Autowired
+    private EntradaRepository entradaRepository;
+
     @Autowired
     private VentaEntradaRepository ventaEntradaRepository;
 
     // ✅ Crear un detalle de venta de entrada
-    public DetalleVentaEntradaResponseDTO createDetalleVentaEntrada(Long ventaEntradaId, DetalleVentaEntradaRequestDTO requestDTO) {
-        VentaEntrada ventaEntrada = ventaEntradaRepository.findById(ventaEntradaId)
-                .orElseThrow(() -> new RuntimeException("Venta de entrada no encontrada con ID: " + ventaEntradaId));
+    public DetalleVentaEntradaResponseDTO createDetalleVentaEntrada(DetalleVentaEntradaRequestDTO requestDTO) {
+        VentaEntrada ventaEntrada = ventaEntradaRepository.findById(requestDTO.getVentaEntradaId())
+                .orElseThrow(() -> new RuntimeException("VentaEntrada no encontrada con ID: " + requestDTO.getVentaEntradaId()));
 
-        DetalleVentaEntrada detalle = new DetalleVentaEntrada(
-                ventaEntrada, 
-                requestDTO.getCantidad(), 
-                requestDTO.getPrecioUnitario()
-        );
+        Entrada entrada = entradaRepository.findById(requestDTO.getEntradaId())
+                .orElseThrow(() -> new RuntimeException("Entrada no encontrado con ID: " + requestDTO.getEntradaId()));
 
-        detalle = detalleVentaEntradaRepository.save(detalle);
+        DetalleVentaEntrada detalleVentaEntrada = new DetalleVentaEntrada(ventaEntrada, entrada, requestDTO.getCantidad());
+        detalleVentaEntrada = detalleVentaEntradaRepository.save(detalleVentaEntrada);
 
         return new DetalleVentaEntradaResponseDTO(
-                detalle.getId(),
-                detalle.getCantidad(),
-                detalle.getSubTotal()
+                detalleVentaEntrada.getId(),
+                entrada.getNombre(),
+                detalleVentaEntrada.getCantidad(),
+                detalleVentaEntrada.getSubTotal()
         );
     }
 
-    // ✅ Obtener detalles de una venta de entrada específica
-    public List<DetalleVentaEntradaResponseDTO> getDetallesByVentaEntrada(Long ventaEntradaId) {
-        return detalleVentaEntradaRepository.findByVentaEntradaId(ventaEntradaId).stream()
+    public List<DetalleVentaEntradaResponseDTO> getAllDetallesVentaEntrada() {
+        return detalleVentaEntradaRepository.findAll().stream()
                 .map(detalle -> new DetalleVentaEntradaResponseDTO(
                         detalle.getId(),
+                        detalle.getEntrada().getNombre(),
                         detalle.getCantidad(),
                         detalle.getSubTotal()))
                 .collect(Collectors.toList());
     }
 
-    // ✅ Eliminar un detalle de venta de entrada
+    public DetalleVentaEntradaResponseDTO getDetalleVentaEntradaById(Long id) {
+        DetalleVentaEntrada detalle = detalleVentaEntradaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Detalle de Venta no encontrado con ID: " + id));
+
+        return new DetalleVentaEntradaResponseDTO(
+                detalle.getId(),
+                detalle.getEntrada().getNombre(),
+                detalle.getCantidad(),
+                detalle.getSubTotal()
+        );
+    }
+
     public void deleteDetalleVentaEntrada(Long id) {
         detalleVentaEntradaRepository.deleteById(id);
+    }
+
+    public List<DetalleVentaEntradaResponseDTO> getDetallesByVentaEntrada(Long ventaEntradaId) {
+        return detalleVentaEntradaRepository.findDetallesByVentaEntrada(ventaEntradaId).stream()
+                .map(detalle -> new DetalleVentaEntradaResponseDTO(
+                        detalle.getId(),
+                        detalle.getEntrada().getNombre(),
+                        detalle.getCantidad(),
+                        detalle.getSubTotal()))
+                .collect(Collectors.toList());
     }
 }
