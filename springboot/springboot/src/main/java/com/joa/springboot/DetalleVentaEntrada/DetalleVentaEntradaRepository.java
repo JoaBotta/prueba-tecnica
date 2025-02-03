@@ -10,5 +10,5 @@ public interface DetalleVentaEntradaRepository extends JpaRepository<DetalleVent
     List<DetalleVentaEntrada> findByVentaEntradaId(Long ventaEntradaId);
     
     @Query("SELECT d FROM DetalleVentaEntrada d WHERE d.ventaEntrada.id = :ventaEntradaId")
-    List<DetalleVentaEntrada> findDetallesByVentaEntrada(@Param("ventaBarraId") Long ventaEntradaId);
+    List<DetalleVentaEntrada> findDetallesByVentaEntrada(@Param("ventaEntradaId") Long ventaEntradaId);
 }
