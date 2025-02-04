@@ -11,7 +11,6 @@ import com.joa.springboot.Usuario.UsuarioRepository;
 import com.joa.springboot.FormaDePago.FormaDePago;
 import com.joa.springboot.FormaDePago.FormaDePagoRepository;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Service
 public class VentaEntradaService {
@@ -41,7 +40,6 @@ public class VentaEntradaService {
 
         VentaEntrada ventaEntrada = new VentaEntrada(puntoDeVenta, empleadoVentas, formaDePago);
         ventaEntrada.setFecha(LocalDateTime.now());
-        ventaEntrada.setQrCode(UUID.randomUUID().toString()); // Generar QR único
 
         ventaEntradaRepository.save(ventaEntrada);
 
@@ -83,7 +81,6 @@ public class VentaEntradaService {
                 ventaEntrada.getFormaDePago().getNombre(),
                 ventaEntrada.getTotal(),
                 ventaEntrada.getFecha(),
-                ventaEntrada.getQrCode(),
                 null
         );
     }

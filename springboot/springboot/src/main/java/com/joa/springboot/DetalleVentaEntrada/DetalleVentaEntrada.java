@@ -3,6 +3,7 @@ package com.joa.springboot.DetalleVentaEntrada;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 
+import com.joa.springboot.VIP.VIP;
 import com.joa.springboot.Entrada.Entrada;
 import com.joa.springboot.VentaEntrada.VentaEntrada;
 
@@ -19,8 +20,12 @@ public class DetalleVentaEntrada {
     private VentaEntrada ventaEntrada;
 
     @ManyToOne
-    @JoinColumn(name = "entrada_id", nullable = false)
+    @JoinColumn(name = "entrada_id", nullable = true)
     private Entrada entrada;
+
+    @ManyToOne
+    @JoinColumn(name = "VIP_id", nullable = true)
+    private VIP VIP;
 
     @Column(nullable = false)
     private int cantidad;
@@ -32,9 +37,10 @@ public class DetalleVentaEntrada {
     public DetalleVentaEntrada() {}
 
     // Constructor con parámetros
-    public DetalleVentaEntrada(VentaEntrada ventaEntrada, Entrada entrada, int cantidad) {
+    public DetalleVentaEntrada(VentaEntrada ventaEntrada, Entrada entrada, VIP VIP, int cantidad) {
         this.ventaEntrada = ventaEntrada;
         this.entrada = entrada;
+        this.VIP = VIP;
         this.cantidad = cantidad;
         this.subTotal = calcularSubTotal();
     }
@@ -43,6 +49,9 @@ public class DetalleVentaEntrada {
     private BigDecimal calcularSubTotal() {
         if (entrada != null && entrada.getPrecio() != null) {
             return entrada.getPrecio().multiply(BigDecimal.valueOf(cantidad));
+        }
+        else if (VIP != null && VIP.getPrecio() != null){
+            return VIP.getPrecio().multiply(BigDecimal.valueOf(cantidad));
         }
         return BigDecimal.ZERO;
     }
@@ -72,6 +81,15 @@ public class DetalleVentaEntrada {
 
     public void setEntrada(Entrada entrada) {
         this.entrada = entrada;
+        this.subTotal = calcularSubTotal();
+    }
+
+    public VIP getVIP() {
+        return VIP;
+    }
+
+    public void setVIP(VIP VIP) {
+        this.VIP = VIP;
         this.subTotal = calcularSubTotal();
     }
 }
