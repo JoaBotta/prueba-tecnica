@@ -5,13 +5,15 @@ import java.math.BigDecimal;
 public class DetalleVentaEntradaResponseDTO {
     private Long id;
     private String entradaNombre;
+    private String QR;
     private int cantidad;
     private BigDecimal subTotal;
 
     // Constructor
-    public DetalleVentaEntradaResponseDTO(Long id, String entradaNombre, int cantidad, BigDecimal subTotal) {
+    public DetalleVentaEntradaResponseDTO(Long id, String entradaNombre, String QR, int cantidad, BigDecimal subTotal) {
         this.id = id;
         this.entradaNombre = entradaNombre;
+        this.QR = QR;
         this.cantidad = cantidad;
         this.subTotal = subTotal;
     }
@@ -25,6 +27,14 @@ public class DetalleVentaEntradaResponseDTO {
 
     public BigDecimal getSubTotal() { return subTotal; }
     public void setSubTotal(BigDecimal subTotal) { this.subTotal = subTotal; }
+    
+    public String getQrCode() {
+        return QR;
+    }
+
+    public void setQrCode(String QR) {
+        this.QR = QR;
+    }
     public String getEntradaoNombre() {
         return entradaNombre;
     }

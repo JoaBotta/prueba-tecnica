@@ -8,7 +8,6 @@ import com.joa.springboot.FormaDePago.FormaDePago;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "ventas_entrada")
@@ -39,14 +38,10 @@ public class VentaEntrada {
     @Column(nullable = false)
     private LocalDateTime fecha;
 
-    @Column(unique = true, nullable = false)
-    private String qrCode;
-
     // Constructor por defecto
     public VentaEntrada() {
         this.fecha = LocalDateTime.now();
         this.total = BigDecimal.ZERO;
-        this.qrCode = UUID.randomUUID().toString(); // Generar un código QR único
     }
 
     // Constructor con parámetros
@@ -56,7 +51,6 @@ public class VentaEntrada {
         this.formaDePago = formaDePago;
         this.fecha = LocalDateTime.now();
         this.total = BigDecimal.ZERO;
-        this.qrCode = UUID.randomUUID().toString(); // Generar QR único
     }
 
     // Métodos
@@ -92,7 +86,4 @@ public class VentaEntrada {
 
     public LocalDateTime getFecha() { return fecha; }
     public void setFecha(LocalDateTime fecha) { this.fecha = fecha; }
-
-    public String getQrCode() { return qrCode; }
-    public void setQrCode(String qrCode) { this.qrCode = qrCode; }
 }

@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.joa.springboot.Entrada.Entrada;
+import com.joa.springboot.VIP.VIP;
+import com.joa.springboot.VIP.VIPRepository;
 import com.joa.springboot.Entrada.EntradaRepository;
 import com.joa.springboot.VentaEntrada.VentaEntrada;
 import com.joa.springboot.VentaEntrada.VentaEntradaRepository;
@@ -20,6 +22,9 @@ public class DetalleVentaEntradaService {
     private EntradaRepository entradaRepository;
 
     @Autowired
+    private VIPRepository VIPRepository;
+
+    @Autowired
     private VentaEntradaRepository ventaEntradaRepository;
 
     // ✅ Crear un detalle de venta de entrada
@@ -30,12 +35,16 @@ public class DetalleVentaEntradaService {
         Entrada entrada = entradaRepository.findById(requestDTO.getEntradaId())
                 .orElseThrow(() -> new RuntimeException("Entrada no encontrado con ID: " + requestDTO.getEntradaId()));
 
-        DetalleVentaEntrada detalleVentaEntrada = new DetalleVentaEntrada(ventaEntrada, entrada, requestDTO.getCantidad());
+        VIP VIP = VIPRepository.findById(requestDTO.getEntradaId())
+                .orElseThrow(() -> new RuntimeException("VIP no encontrado con ID: " + requestDTO.getVIPId()));
+
+        DetalleVentaEntrada detalleVentaEntrada = new DetalleVentaEntrada(ventaEntrada, entrada, VIP, requestDTO.getCantidad());
         detalleVentaEntrada = detalleVentaEntradaRepository.save(detalleVentaEntrada);
 
         return new DetalleVentaEntradaResponseDTO(
                 detalleVentaEntrada.getId(),
                 entrada.getNombre(),
+                VIP.getQrCode(),
                 detalleVentaEntrada.getCantidad(),
                 detalleVentaEntrada.getSubTotal()
         );
@@ -46,6 +55,7 @@ public class DetalleVentaEntradaService {
                 .map(detalle -> new DetalleVentaEntradaResponseDTO(
                         detalle.getId(),
                         detalle.getEntrada().getNombre(),
+                        detalle.getVIP().getQrCode(),
                         detalle.getCantidad(),
                         detalle.getSubTotal()))
                 .collect(Collectors.toList());
@@ -58,6 +68,7 @@ public class DetalleVentaEntradaService {
         return new DetalleVentaEntradaResponseDTO(
                 detalle.getId(),
                 detalle.getEntrada().getNombre(),
+                detalle.getVIP().getQrCode(),
                 detalle.getCantidad(),
                 detalle.getSubTotal()
         );
@@ -72,6 +83,7 @@ public class DetalleVentaEntradaService {
                 .map(detalle -> new DetalleVentaEntradaResponseDTO(
                         detalle.getId(),
                         detalle.getEntrada().getNombre(),
+                        detalle.getVIP().getQrCode(),
                         detalle.getCantidad(),
                         detalle.getSubTotal()))
                 .collect(Collectors.toList());

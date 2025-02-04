@@ -4,6 +4,7 @@ public class DetalleVentaEntradaRequestDTO {
     private Long ventaEntradaId;
     private int cantidad;
     private Long entradaId;
+    private Long VIPId;
 
     // Getters y Setters
     public int getCantidad() { return cantidad; }
@@ -16,6 +17,15 @@ public class DetalleVentaEntradaRequestDTO {
     public void setEntradaId(Long entradaId) {
         this.entradaId = entradaId;
     }
+
+    public Long getVIPId() {
+        return VIPId;
+    }
+
+    public void setVIPId(Long VIPId) {
+        this.VIPId = VIPId;
+    }
+
     public Long getVentaEntradaId() {
         return ventaEntradaId;
     }
