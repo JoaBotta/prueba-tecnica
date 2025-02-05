@@ -1,0 +1,65 @@
+<div class="container">
+    <h2>Puntos de Venta</h2>
+  
+    <!-- Botones de acción -->
+    <button routerLink="/boliches" class="btn btn-primary mb-3">
+      Atras
+    </button>
+  
+    <button class="btn btn-primary mb-3" (click)="mostrarFormulario = !mostrarFormulario">
+      {{ mostrarFormulario ? 'Cancelar' : 'Crear Punto de Venta' }}
+    </button>
+  
+    <!-- Formulario para crear punto de venta -->
+    <div *ngIf="mostrarFormulario" class="mb-4">
+      <form (ngSubmit)="crearPuntoDeVenta()">
+        <div class="form-group">
+          <label for="nombre">Nombre del Punto de Venta</label>
+          <input
+            type="text"
+            id="nombre"
+            class="form-control"
+            [(ngModel)]="nuevoPuntoDeVenta.nombre"
+            name="nombre"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="seguridadNombre">Nombre del Responsable de Seguridad</label>
+          <input
+            type="text"
+            id="seguridadNombre"
+            class="form-control"
+            [(ngModel)]="nuevoPuntoDeVenta.seguridadNombre"
+            name="seguridadNombre"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-success mt-2" [disabled]="!nuevoPuntoDeVenta.nombre || !nuevoPuntoDeVenta.seguridadNombre">
+          Guardar Punto de Venta
+        </button>
+      </form>
+    </div>
+  
+    <!-- Mensaje si no hay puntos de venta registrados -->
+    <div *ngIf="puntosDeVenta.length === 0" class="alert alert-info">
+      No hay puntos de venta registrados para este boliche.
+    </div>
+  
+    <!-- Listado de puntos de venta -->
+    <div class="row" *ngIf="puntosDeVenta.length > 0">
+      <div class="col-md-4" *ngFor="let punto of puntosDeVenta">
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title">{{ punto.nombre }}</h5>
+            <p class="card-text">Boliche: {{ punto.bolicheNombre }}</p>
+            <p class="card-text">Seguridad: {{ punto.seguridadNombre }}</p>
+            <!-- Botón para eliminar el punto de venta -->
+            <button (click)="eliminarPuntoDeVenta(punto.id)" class="btn btn-danger">
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
