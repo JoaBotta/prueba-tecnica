@@ -9,7 +9,11 @@ public class VentaEntradaRequestDTO {
     private Long formaDePagoId;
     private List<DetalleVentaEntradaRequestDTO> detalleVentaEntrada;
 
-    // Getters y Setters
+    // 🔹 Campos adicionales para entrada VIP
+    private String nombreComprador;
+    private String correoElectronico;
+    private String telefono;
+
     public Long getPuntoVentaId() { return puntoVentaId; }
     public void setPuntoVentaId(Long puntoVentaId) { this.puntoVentaId = puntoVentaId; }
 
@@ -23,4 +27,13 @@ public class VentaEntradaRequestDTO {
     public void setDetalleVentaEntrada(List<DetalleVentaEntradaRequestDTO> detalleVentaEntrada) { 
         this.detalleVentaEntrada = detalleVentaEntrada;
     }
+
+    public String getNombreComprador() { return nombreComprador; }
+    public void setNombreComprador(String nombreComprador) { this.nombreComprador = nombreComprador; }
+
+    public String getCorreoElectronico() { return correoElectronico; }
+    public void setCorreoElectronico(String correoElectronico) { this.correoElectronico = correoElectronico; }
+
+    public String getTelefono() { return telefono; }
+    public void setTelefono(String telefono) { this.telefono = telefono; }
 }

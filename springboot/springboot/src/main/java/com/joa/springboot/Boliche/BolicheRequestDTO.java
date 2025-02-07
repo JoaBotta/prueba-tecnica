@@ -10,6 +10,7 @@ public class BolicheRequestDTO {
     private int capacidadMaxima;
     private List<Long> barraIds;
     private List<Long> servicioIds;
+    private List<Long> puntoVentaIds;
 
     // Getters y Setters
     public String getNombre() {
@@ -66,5 +67,13 @@ public class BolicheRequestDTO {
 
     public void setServicioIds(List<Long> servicioIds) {
         this.servicioIds = servicioIds;
+    }
+
+    public List<Long> getPuntoVentaIds() {
+        return puntoVentaIds;
+    }
+
+    public void setPuntoVentaIds(List<Long> puntoVentaIds) {
+        this.puntoVentaIds = puntoVentaIds;
     }
 }

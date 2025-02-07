@@ -13,35 +13,25 @@ public class VentaEntradaController {
     @Autowired
     private VentaEntradaService ventaEntradaService;
 
-    // ✅ Crear una venta de entrada (Genera un QR automáticamente)
+    // ✅ Crear una venta de entrada
     @PostMapping
     public ResponseEntity<VentaEntradaResponseDTO> createVentaEntrada(@RequestBody VentaEntradaRequestDTO requestDTO) {
-        VentaEntradaResponseDTO responseDTO = ventaEntradaService.createVentaEntrada(requestDTO);
-        return ResponseEntity.ok(responseDTO);
+        return ResponseEntity.ok(ventaEntradaService.createVentaEntrada(requestDTO));
     }
 
     // ✅ Obtener todas las ventas de entrada
     @GetMapping
     public ResponseEntity<List<VentaEntradaResponseDTO>> getAllVentasEntrada() {
-        List<VentaEntradaResponseDTO> responseDTOs = ventaEntradaService.getAllVentasEntrada();
-        return ResponseEntity.ok(responseDTOs);
+        return ResponseEntity.ok(ventaEntradaService.getAllVentasEntrada());
     }
 
     // ✅ Obtener una venta de entrada por ID
     @GetMapping("/{id}")
     public ResponseEntity<VentaEntradaResponseDTO> getVentaEntradaById(@PathVariable Long id) {
-        VentaEntradaResponseDTO responseDTO = ventaEntradaService.getVentaEntradaById(id);
-        return ResponseEntity.ok(responseDTO);
+        return ResponseEntity.ok(ventaEntradaService.getVentaEntradaById(id));
     }
 
-    // ✅ Obtener todas las ventas realizadas en un Punto de Venta específico
-    @GetMapping("/punto-venta/{puntoVentaId}")
-    public ResponseEntity<List<VentaEntradaResponseDTO>> getVentasByPuntoDeVenta(@PathVariable Long puntoVentaId) {
-        List<VentaEntradaResponseDTO> responseDTOs = ventaEntradaService.getVentasByPuntoDeVenta(puntoVentaId);
-        return ResponseEntity.ok(responseDTOs);
-    }
-
-    // ✅ Eliminar una venta de entrada
+    // ✅ Eliminar una venta de entrada por ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteVentaEntrada(@PathVariable Long id) {
         ventaEntradaService.deleteVentaEntrada(id);

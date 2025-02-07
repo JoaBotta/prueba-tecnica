@@ -1,14 +1,35 @@
 package com.joa.springboot.Producto;
 
-import lombok.Data;
-
 import java.math.BigDecimal;
-//
-@Data
+
 public class ProductoResponseDTO {
-    private Long id; // Identificador del producto
-    private String nombre; // Nombre del producto
-    private BigDecimal precioUnitario; // precioUnitario por unidad
-    private String descripcion; // Descripción del producto
-    private Integer stock; // Stock disponible
+    private Long id;
+    private String nombre;
+    private BigDecimal precioUnitario;
+    private String descripcion;
+
+    // Constructor
+    public ProductoResponseDTO(Long id, String nombre, BigDecimal precioUnitario, String descripcion) {
+        this.id = id;
+        this.nombre = nombre;
+        this.precioUnitario = precioUnitario;
+        this.descripcion = descripcion;
+    }
+
+    // Getters
+    public Long getId() {
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public BigDecimal getPrecioUnitario() {
+        return precioUnitario;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
 }

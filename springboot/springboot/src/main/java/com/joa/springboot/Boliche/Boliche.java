@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.joa.springboot.Barra.Barra;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -32,20 +33,24 @@ public class Boliche {
     @Column(nullable = false)
     private int capacidadMaxima;
 
-    @OneToMany(mappedBy = "boliche", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "boliche", cascade = CascadeType.ALL) // Eliminado orphanRemoval = true
     @JsonIgnore
-    private List<Servicio> servicios;
+    private List<Servicio> servicios = new ArrayList<>(); 
 
-    @OneToMany(mappedBy = "boliche", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "boliche", cascade = CascadeType.ALL) // Eliminado orphanRemoval = true
     @JsonManagedReference
-    private List<Barra> barras;
+    private List<Barra> barras = new ArrayList<>();
 
-    @OneToMany(mappedBy = "boliche", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "boliche", cascade = CascadeType.ALL) // Eliminado orphanRemoval = true
     @JsonManagedReference
-    private List<PuntoDeVenta> puntoventa;
+    private List<PuntoDeVenta> puntoventa = new ArrayList<>();
 
     // Constructor por defecto
-    public Boliche() {}
+    public Boliche() {
+        this.servicios = new ArrayList<>();
+        this.barras = new ArrayList<>();
+        this.puntoventa = new ArrayList<>();
+    }
 
     // Constructor con parámetros
     public Boliche(String nombre, String provincia, String ciudad, String calle, int capacidadMaxima) {
@@ -54,6 +59,9 @@ public class Boliche {
         this.ciudad = ciudad;
         this.calle = calle;
         this.capacidadMaxima = capacidadMaxima;
+        this.servicios = new ArrayList<>();
+        this.barras = new ArrayList<>();
+        this.puntoventa = new ArrayList<>();
     }
 
     // Getters y Setters
@@ -120,11 +128,12 @@ public class Boliche {
     public void setBarras(List<Barra> barras) {
         this.barras = barras;
     }
-    public List<PuntoDeVenta> getpuntoventa() {
+
+    public List<PuntoDeVenta> getPuntoventa() {
         return puntoventa;
     }
 
-    public void setpuntoventa(List<PuntoDeVenta> puntoventa) {
+    public void setPuntoventa(List<PuntoDeVenta> puntoventa) {
         this.puntoventa = puntoventa;
     }
 }

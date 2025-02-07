@@ -3,7 +3,8 @@ package com.joa.springboot.Producto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-//
+
+import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -13,26 +14,28 @@ public class ProductoController {
     private ProductoService productoService;
 
     @PostMapping
-    public ResponseEntity<Producto> crearproducto(@RequestBody Producto producto) {
-        return ResponseEntity.ok(productoService.crearProducto(producto));
+    public ResponseEntity<ProductoResponseDTO> crearProducto(@Valid @RequestBody ProductoRequestDTO productoDTO) {
+        ProductoResponseDTO responseDTO = productoService.crearProducto(productoDTO);
+        return ResponseEntity.ok(responseDTO);
     }
 
     @GetMapping
-    public ResponseEntity<List<Producto>> listarproductos() {
-        return ResponseEntity.ok(productoService.listarProductos());
+    public ResponseEntity<List<ProductoResponseDTO>> listarproductos() {
+        List<ProductoResponseDTO> productos = productoService.listarProductos();
+        return ResponseEntity.ok(productos);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Producto> obtenerproductoPorId(@PathVariable Long id) {
+    public ResponseEntity<ProductoResponseDTO> obtenerproductoPorId(@PathVariable Long id) {
         return ResponseEntity.ok(productoService.obtenerProductoPorId(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Producto> actualizarproducto(
+    public ResponseEntity<ProductoResponseDTO> actualizarproducto(
             @PathVariable Long id,
-            @RequestBody Producto productoActualizado
+            @Valid @RequestBody ProductoRequestDTO productoDTO
     ) {
-        return ResponseEntity.ok(productoService.actualizarProducto(id, productoActualizado));
+        return ResponseEntity.ok(productoService.actualizarProducto(id, productoDTO));
     }
 
     @DeleteMapping("/{id}")

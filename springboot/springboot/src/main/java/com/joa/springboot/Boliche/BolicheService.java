@@ -82,7 +82,7 @@ public class BolicheService {
                 boliche.getCapacidadMaxima(),
                 boliche.getServicios().stream().map(Servicio::getNombre).collect(Collectors.toList()),
                 boliche.getBarras().stream().map(Barra::getNombre).collect(Collectors.toList()),
-                boliche.getpuntoventa().stream().map(PuntoDeVenta::getNombre).collect(Collectors.toList())
+                boliche.getPuntoventa().stream().map(PuntoDeVenta::getNombre).collect(Collectors.toList())
         );
     }
 }

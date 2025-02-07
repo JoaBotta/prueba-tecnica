@@ -29,22 +29,30 @@ public class VentaEntrada {
     @JoinColumn(name = "forma_pago_id", nullable = false)
     private FormaDePago formaDePago;
 
-    @OneToMany(mappedBy = "ventaEntrada", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "ventaEntrada", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<DetalleVentaEntrada> detalleVentaEntrada;
-
+    
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal total;
 
     @Column(nullable = false)
     private LocalDateTime fecha;
 
-    // Constructor por defecto
+    // 🔹 Campos solo si hay una entrada VIP
+    @Column(nullable = true)
+    private String nombreComprador;
+
+    @Column(nullable = true)
+    private String correoElectronico;
+
+    @Column(nullable = true)
+    private String telefono;
+
     public VentaEntrada() {
         this.fecha = LocalDateTime.now();
         this.total = BigDecimal.ZERO;
     }
 
-    // Constructor con parámetros
     public VentaEntrada(PuntoDeVenta puntoDeVenta, Usuario empleadoVentas, FormaDePago formaDePago) {
         this.puntoDeVenta = puntoDeVenta;
         this.empleadoVentas = empleadoVentas;
@@ -53,13 +61,17 @@ public class VentaEntrada {
         this.total = BigDecimal.ZERO;
     }
 
-    // Métodos
     public void calcularTotal() {
         this.total = detalleVentaEntrada != null
                 ? detalleVentaEntrada.stream()
                                      .map(DetalleVentaEntrada::getSubTotal)
                                      .reduce(BigDecimal.ZERO, BigDecimal::add)
                 : BigDecimal.ZERO;
+    }
+
+    public boolean tieneEntradaVip() {
+        return detalleVentaEntrada != null && detalleVentaEntrada.stream()
+                .anyMatch(detalle -> detalle.getEntrada().getNombre().toLowerCase().contains("VIP"));
     }
 
     // Getters y Setters
@@ -86,4 +98,13 @@ public class VentaEntrada {
 
     public LocalDateTime getFecha() { return fecha; }
     public void setFecha(LocalDateTime fecha) { this.fecha = fecha; }
+
+    public String getNombreComprador() { return nombreComprador; }
+    public void setNombreComprador(String nombreComprador) { this.nombreComprador = nombreComprador; }
+
+    public String getCorreoElectronico() { return correoElectronico; }
+    public void setCorreoElectronico(String correoElectronico) { this.correoElectronico = correoElectronico; }
+
+    public String getTelefono() { return telefono; }
+    public void setTelefono(String telefono) { this.telefono = telefono; }
 }

@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import com.joa.springboot.Producto.Producto;
 import com.joa.springboot.Producto.ProductoRepository;
 import com.joa.springboot.VentaBarra.VentaBarra;
-import com.joa.springboot.VentaBarra.VentaBarraRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,17 +18,15 @@ public class DetalleVentaBarraService {
     @Autowired
     private ProductoRepository productoRepository;
 
-    @Autowired
-    private VentaBarraRepository ventaBarraRepository;
-
-    public DetalleVentaBarraResponseDTO createDetalleVentaBarra(DetalleVentaBarraRequestDTO requestDTO) {
-        VentaBarra ventaBarra = ventaBarraRepository.findById(requestDTO.getVentaBarraId())
-                .orElseThrow(() -> new RuntimeException("VentaBarra no encontrada con ID: " + requestDTO.getVentaBarraId()));
-
+    public DetalleVentaBarraResponseDTO createDetalleVentaBarra(VentaBarra ventaBarra, DetalleVentaBarraRequestDTO requestDTO) {
+        // Buscar el producto asociado
         Producto producto = productoRepository.findById(requestDTO.getProductoId())
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado con ID: " + requestDTO.getProductoId()));
 
+        // Crear el detalle con la venta ya asignada
         DetalleVentaBarra detalleVentaBarra = new DetalleVentaBarra(ventaBarra, producto, requestDTO.getCantidad());
+
+        // Guardar en la base de datos
         detalleVentaBarra = detalleVentaBarraRepository.save(detalleVentaBarra);
 
         return new DetalleVentaBarraResponseDTO(
@@ -75,4 +72,5 @@ public class DetalleVentaBarraService {
                         detalle.getSubTotal()))
                 .collect(Collectors.toList());
     }
+    
 }

@@ -1,45 +1,37 @@
 package com.joa.springboot.DetalleVentaEntrada;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class DetalleVentaEntradaResponseDTO {
     private Long id;
     private String entradaNombre;
-    private String QR;
     private int cantidad;
     private BigDecimal subTotal;
+    private List<String> codigosQr;
 
-    // Constructor
-    public DetalleVentaEntradaResponseDTO(Long id, String entradaNombre, String QR, int cantidad, BigDecimal subTotal) {
+    // 🔹 Constructor para entradas normales (sin QR)
+    public DetalleVentaEntradaResponseDTO(Long id, String entradaNombre, int cantidad, BigDecimal subTotal) {
         this.id = id;
         this.entradaNombre = entradaNombre;
-        this.QR = QR;
         this.cantidad = cantidad;
         this.subTotal = subTotal;
+        this.codigosQr = null; // Se deja en null porque no tiene QR
     }
 
-    // Getters y Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public int getCantidad() { return cantidad; }
-    public void setCantidad(int cantidad) { this.cantidad = cantidad; }
-
-    public BigDecimal getSubTotal() { return subTotal; }
-    public void setSubTotal(BigDecimal subTotal) { this.subTotal = subTotal; }
-    
-    public String getQrCode() {
-        return QR;
-    }
-
-    public void setQrCode(String QR) {
-        this.QR = QR;
-    }
-    public String getEntradaoNombre() {
-        return entradaNombre;
-    }
-
-    public void setEntradaNombre(String entradaNombre) {
+    // 🔹 Constructor para entradas VIP (con QR)
+    public DetalleVentaEntradaResponseDTO(Long id, String entradaNombre, int cantidad, BigDecimal subTotal, List<String> codigosQr) {
+        this.id = id;
         this.entradaNombre = entradaNombre;
+        this.cantidad = cantidad;
+        this.subTotal = subTotal;
+        this.codigosQr = codigosQr;
     }
+
+    // Getters
+    public Long getId() { return id; }
+    public String getEntradaNombre() { return entradaNombre; }
+    public int getCantidad() { return cantidad; }
+    public BigDecimal getSubTotal() { return subTotal; }
+    public List<String> getCodigosQr() { return codigosQr; }
 }

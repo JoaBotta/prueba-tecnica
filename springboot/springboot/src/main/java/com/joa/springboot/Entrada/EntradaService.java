@@ -15,14 +15,13 @@ public class EntradaService {
     public EntradaResponseDTO crearEntrada(EntradaRequestDTO requestDTO) {
         Entrada entrada = new Entrada(requestDTO.getNombre(), requestDTO.getPrecio());
         entrada = entradaRepository.save(entrada);
-
-        return new EntradaResponseDTO(entrada.getId(), entrada.getNombre(), entrada.getPrecio());
+        return mapToDTO(entrada);
     }
 
     // Listar todas las entradas
     public List<EntradaResponseDTO> listarEntrada() {
         return entradaRepository.findAll().stream()
-                .map(entrada -> new EntradaResponseDTO(entrada.getId(), entrada.getNombre(), entrada.getPrecio()))
+                .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
 
@@ -30,8 +29,7 @@ public class EntradaService {
     public EntradaResponseDTO obtenerEntradaPorId(Long id) {
         Entrada entrada = entradaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Entrada no encontrada con ID: " + id));
-
-        return new EntradaResponseDTO(entrada.getId(), entrada.getNombre(), entrada.getPrecio());
+        return mapToDTO(entrada);
     }
 
     // Actualizar una entrada
@@ -41,14 +39,18 @@ public class EntradaService {
 
         entrada.setNombre(requestDTO.getNombre());
         entrada.setPrecio(requestDTO.getPrecio());
-
         entrada = entradaRepository.save(entrada);
 
-        return new EntradaResponseDTO(entrada.getId(), entrada.getNombre(), entrada.getPrecio());
+        return mapToDTO(entrada);
     }
 
     // Eliminar una entrada
     public void eliminarEntrada(Long id) {
         entradaRepository.deleteById(id);
+    }
+
+    // Método para mapear `Entrada` a `EntradaResponseDTO`
+    private EntradaResponseDTO mapToDTO(Entrada entrada) {
+        return new EntradaResponseDTO(entrada.getId(), entrada.getNombre(), entrada.getPrecio());
     }
 }

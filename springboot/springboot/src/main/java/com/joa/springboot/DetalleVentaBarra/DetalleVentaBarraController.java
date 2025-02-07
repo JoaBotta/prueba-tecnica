@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.joa.springboot.VentaBarra.VentaBarra;
+import com.joa.springboot.VentaBarra.VentaBarraService;
+
 import java.util.List;
 
 @RestController
@@ -13,9 +16,19 @@ public class DetalleVentaBarraController {
     @Autowired
     private DetalleVentaBarraService detalleVentaBarraService;
 
-    @PostMapping
-    public ResponseEntity<DetalleVentaBarraResponseDTO> createDetalleVentaBarra(@RequestBody DetalleVentaBarraRequestDTO requestDTO) {
-        DetalleVentaBarraResponseDTO responseDTO = detalleVentaBarraService.createDetalleVentaBarra(requestDTO);
+    @Autowired
+    private VentaBarraService ventaBarraService; // 🔹 Se usa para buscar la venta antes de crear detalles
+
+    @PostMapping("/{ventaBarraId}")
+    public ResponseEntity<DetalleVentaBarraResponseDTO> createDetalleVentaBarra(
+            @PathVariable Long ventaBarraId,
+            @RequestBody DetalleVentaBarraRequestDTO requestDTO) {
+
+        // Buscar la VentaBarra asociada correctamente
+        VentaBarra ventaBarra = ventaBarraService.getVentaByIdEntity(ventaBarraId);
+
+        // Crear el detalle de venta
+        DetalleVentaBarraResponseDTO responseDTO = detalleVentaBarraService.createDetalleVentaBarra(ventaBarra, requestDTO);
         return ResponseEntity.ok(responseDTO);
     }
 

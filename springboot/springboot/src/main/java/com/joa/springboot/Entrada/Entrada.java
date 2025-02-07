@@ -21,9 +21,9 @@ public class Entrada {
     public Entrada() {}
 
     // Constructor con parámetros
-    public Entrada(String nombre, BigDecimal precioUnitario) {
+    public Entrada(String nombre, BigDecimal precio) {
         this.nombre = nombre;
-        this.precio = precioUnitario;
+        this.precio = precio;
     }
 
     // Getters y Setters

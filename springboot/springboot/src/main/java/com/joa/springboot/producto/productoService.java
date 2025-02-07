@@ -2,36 +2,59 @@ package com.joa.springboot.Producto;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-//
+
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductoService {
     @Autowired
     private ProductoRepository productoRepository;
 
-    public Producto crearProducto(Producto producto) {
-        return productoRepository.save(producto);
+    public ProductoResponseDTO crearProducto(ProductoRequestDTO productoDTO) {
+        Producto producto = new Producto(
+            productoDTO.getNombre(),
+            productoDTO.getPrecioUnitario(),
+            productoDTO.getDescripcion()
+        );
+        producto = productoRepository.save(producto);
+        return mapToDTO(producto);
     }
 
-    public List<Producto> listarProductos() {
-        return productoRepository.findAll();
+    public List<ProductoResponseDTO> listarProductos() {
+        return productoRepository.findAll().stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
     }
 
-    public Producto obtenerProductoPorId(Long id) {
-        return productoRepository.findById(id)
+    public ProductoResponseDTO obtenerProductoPorId(Long id) {
+        Producto producto = productoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+        return mapToDTO(producto);
     }
 
-    public Producto actualizarProducto(Long id, Producto productoActualizado) {
-        Producto producto = obtenerProductoPorId(id);
-        producto.setNombre(productoActualizado.getNombre());
-        producto.setPrecioUnitario(productoActualizado.getPrecioUnitario());
-        producto.setDescripcion(productoActualizado.getDescripcion());
-        return productoRepository.save(producto);
+    public ProductoResponseDTO actualizarProducto(Long id, ProductoRequestDTO productoDTO) {
+        Producto producto = productoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+
+        producto.setNombre(productoDTO.getNombre());
+        producto.setPrecioUnitario(productoDTO.getPrecioUnitario());
+        producto.setDescripcion(productoDTO.getDescripcion());
+
+        producto = productoRepository.save(producto);
+        return mapToDTO(producto);
     }
 
     public void eliminarProducto(Long id) {
         productoRepository.deleteById(id);
+    }
+
+    private ProductoResponseDTO mapToDTO(Producto producto) {
+        return new ProductoResponseDTO(
+                producto.getId(),
+                producto.getNombre(),
+                producto.getPrecioUnitario(),
+                producto.getDescripcion()
+        );
     }
 }

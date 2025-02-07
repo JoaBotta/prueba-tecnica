@@ -2,8 +2,7 @@ package com.joa.springboot.DetalleVentaEntrada;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
-
-import com.joa.springboot.VIP.VIP;
+import java.util.List;
 import com.joa.springboot.Entrada.Entrada;
 import com.joa.springboot.VentaEntrada.VentaEntrada;
 
@@ -20,12 +19,8 @@ public class DetalleVentaEntrada {
     private VentaEntrada ventaEntrada;
 
     @ManyToOne
-    @JoinColumn(name = "entrada_id", nullable = true)
+    @JoinColumn(name = "entrada_id", nullable = false)
     private Entrada entrada;
-
-    @ManyToOne
-    @JoinColumn(name = "VIP_id", nullable = true)
-    private VIP VIP;
 
     @Column(nullable = false)
     private int cantidad;
@@ -33,63 +28,30 @@ public class DetalleVentaEntrada {
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal subTotal;
 
-    // Constructor por defecto
+    @ElementCollection
+    @CollectionTable(name = "detalle_venta_qr", joinColumns = @JoinColumn(name = "detalle_venta_id"))
+    @Column(name = "codigo_qr")
+    private List<String> codigosQr; 
+
     public DetalleVentaEntrada() {}
 
-    // Constructor con parámetros
-    public DetalleVentaEntrada(VentaEntrada ventaEntrada, Entrada entrada, VIP VIP, int cantidad) {
+    public DetalleVentaEntrada(VentaEntrada ventaEntrada, Entrada entrada, int cantidad) {
         this.ventaEntrada = ventaEntrada;
         this.entrada = entrada;
-        this.VIP = VIP;
         this.cantidad = cantidad;
         this.subTotal = calcularSubTotal();
     }
 
-    // Método para calcular el subtotal
     private BigDecimal calcularSubTotal() {
-        if (entrada != null && entrada.getPrecio() != null) {
-            return entrada.getPrecio().multiply(BigDecimal.valueOf(cantidad));
-        }
-        else if (VIP != null && VIP.getPrecio() != null){
-            return VIP.getPrecio().multiply(BigDecimal.valueOf(cantidad));
-        }
-        return BigDecimal.ZERO;
+        return entrada != null && entrada.getPrecio() != null ? 
+               entrada.getPrecio().multiply(BigDecimal.valueOf(cantidad)) : 
+               BigDecimal.ZERO;
     }
 
-    // Getters y Setters
     public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
     public VentaEntrada getVentaEntrada() { return ventaEntrada; }
-    public void setVentaEntrada(VentaEntrada ventaEntrada) { this.ventaEntrada = ventaEntrada; }
-
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-        this.subTotal = calcularSubTotal();
-    }
-
+    public Entrada getEntrada() { return entrada; }
+    public int getCantidad() { return cantidad; }
     public BigDecimal getSubTotal() { return subTotal; }
-    public void setSubTotal(BigDecimal subTotal) { this.subTotal = subTotal; }
-
-    public Entrada getEntrada() {
-        return entrada;
-    }
-
-    public void setEntrada(Entrada entrada) {
-        this.entrada = entrada;
-        this.subTotal = calcularSubTotal();
-    }
-
-    public VIP getVIP() {
-        return VIP;
-    }
-
-    public void setVIP(VIP VIP) {
-        this.VIP = VIP;
-        this.subTotal = calcularSubTotal();
-    }
+    public List<String> getCodigosQr() { return codigosQr; }
 }

@@ -3,7 +3,7 @@ package com.joa.springboot.Entrada;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -15,7 +15,7 @@ public class EntradaController {
 
     // Crear entrada
     @PostMapping
-    public ResponseEntity<EntradaResponseDTO> crearEntrada(@RequestBody EntradaRequestDTO requestDTO) {
+    public ResponseEntity<EntradaResponseDTO> crearEntrada(@Valid @RequestBody EntradaRequestDTO requestDTO) {
         return ResponseEntity.ok(entradaService.crearEntrada(requestDTO));
     }
 
@@ -35,7 +35,7 @@ public class EntradaController {
     @PutMapping("/{id}")
     public ResponseEntity<EntradaResponseDTO> actualizarEntrada(
             @PathVariable Long id,
-            @RequestBody EntradaRequestDTO requestDTO
+            @Valid @RequestBody EntradaRequestDTO requestDTO
     ) {
         return ResponseEntity.ok(entradaService.actualizarEntrada(id, requestDTO));
     }

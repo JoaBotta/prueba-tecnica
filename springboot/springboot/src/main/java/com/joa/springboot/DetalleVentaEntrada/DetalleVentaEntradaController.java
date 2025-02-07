@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/detalles-venta-Entrada")
+@RequestMapping("/api/detalles-venta-entrada")
 public class DetalleVentaEntradaController {
 
     @Autowired
@@ -21,25 +21,17 @@ public class DetalleVentaEntradaController {
 
     @GetMapping
     public ResponseEntity<List<DetalleVentaEntradaResponseDTO>> getAllDetallesVentaEntrada() {
-        List<DetalleVentaEntradaResponseDTO> responseDTOs = detalleVentaEntradaService.getAllDetallesVentaEntrada();
-        return ResponseEntity.ok(responseDTOs);
+        return ResponseEntity.ok(detalleVentaEntradaService.getAllDetallesVentaEntrada());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<DetalleVentaEntradaResponseDTO> getDetalleVentaEntradaById(@PathVariable Long id) {
-        DetalleVentaEntradaResponseDTO responseDTO = detalleVentaEntradaService.getDetalleVentaEntradaById(id);
-        return ResponseEntity.ok(responseDTO);
+        return ResponseEntity.ok(detalleVentaEntradaService.getDetalleVentaEntradaById(id));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteDetalleVentaEntrada(@PathVariable Long id) {
         detalleVentaEntradaService.deleteDetalleVentaEntrada(id);
         return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping("/venta/{ventaEntradaId}")
-    public ResponseEntity<List<DetalleVentaEntradaResponseDTO>> getDetallesByVentaEntrada(@PathVariable Long ventaEntradaId) {
-        List<DetalleVentaEntradaResponseDTO> responseDTOs = detalleVentaEntradaService.getDetallesByVentaEntrada(ventaEntradaId);
-        return ResponseEntity.ok(responseDTOs);
     }
 }
