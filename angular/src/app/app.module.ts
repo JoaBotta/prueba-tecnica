@@ -50,6 +50,7 @@ import { VentasBarraComponent } from './modules/venta/VentaBarra/ventas-barra/ve
 import { CrearVentaBarraComponent } from './modules/venta/VentaBarra/crear-venta-barra/crear-venta-barra.component';
 import { TicketComponent } from './modules/venta/ticket/ticket.component';
 import { CrearUsuarioComponent } from './auth/crear-usuario/crear-usuario.component';
+import { PuntoDeVentaComponent } from './modules/punto-de-venta/punto-de-venta.component';
 
 
 @NgModule({
@@ -75,7 +76,8 @@ import { CrearUsuarioComponent } from './auth/crear-usuario/crear-usuario.compon
     VentasBarraComponent,
     CrearVentaBarraComponent,
     TicketComponent,
-    CrearUsuarioComponent
+    CrearUsuarioComponent,
+    PuntoDeVentaComponent
     
   ],
   imports: [

@@ -1,14 +1,18 @@
 <div class="container">
   <h2>Barras</h2>
 
+
   <!-- Botones de acción -->
-  <button routerLink="/boliches" class="btn btn-primary mb-3">
-    Atras
-  </button>
+  <div class="d-flex mb-3">
+    <button [routerLink]="['/boliche', bolicheId, 'gestion']" class="btn btn-danger me-3">
+      Atras
+    </button>
+    
+    <button class="btn btn-primary" (click)="mostrarFormulario = !mostrarFormulario">
+      {{ mostrarFormulario ? 'Cancelar' : 'Crear Barra' }}
+    </button>
+  </div>
   
-  <button class="btn btn-primary mb-3" (click)="mostrarFormulario = !mostrarFormulario">
-    {{ mostrarFormulario ? 'Cancelar' : 'Crear Barra' }}
-  </button>
 
   <!-- Formulario para crear barra -->
   <div *ngIf="mostrarFormulario" class="mb-4">

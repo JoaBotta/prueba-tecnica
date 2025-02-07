@@ -32,8 +32,18 @@ export class AuthService {
     return localStorage.getItem('authToken');
   }
 
-  isAuthenticated(): boolean {
+ /* isAuthenticated(): boolean {
     return !!this.getToken();
+  }*/
+  isAuthenticated(): boolean {
+    const token = this.getToken();
+    if (!token) return false;
+  
+    // Verificar si el token ha expirado
+    const payload = JSON.parse(atob(token.split('.')[1])); // Decodificar el token
+    const isExpired = payload.exp * 1000 < Date.now(); // Comparar con el tiempo actual
+  
+    return !isExpired;
   }
 
   logout(): void {

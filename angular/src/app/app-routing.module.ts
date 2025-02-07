@@ -18,6 +18,7 @@ import { BarrasComponent } from './modules/barras/barras.component';
 import { VentasBarraComponent } from './modules/venta/VentaBarra/ventas-barra/ventas-barra.component';
 import { CrearVentaBarraComponent } from './modules/venta/VentaBarra/crear-venta-barra/crear-venta-barra.component';
 import { CrearUsuarioComponent } from './auth/crear-usuario/crear-usuario.component';
+import { PuntoDeVentaComponent } from './modules/punto-de-venta/punto-de-venta.component'; 
 
 
 const routes: Routes = [
@@ -34,17 +35,17 @@ const routes: Routes = [
       { path: 'historico-planta', component: HistoricosPlantasComponent },
       { path: 'perfil', component: UsuarioDetalleComponent },
        // Rutas de productos
-       { path: 'productos', component: ProductoListaComponent },
-       { path: 'productos/agregar', component: ProductoFormComponent },
-       { path: 'productos/editar/:id', component: ProductoFormComponent },
-       {path: 'boliches', component: BolicheComponent}, 
-       { path: 'boliche/:id/gestion', component: GestionBolicheComponent },
-       {path: 'boliche/agregar', component: BolicheFormComponent},
-       { path: 'boliche/:id/barras', component: BarrasComponent },
-       { path: 'boliche/:bolicheId/barras/:barraId/ventas-barra', component: VentasBarraComponent },
-       { path: 'boliche/:bolicheId/barras/:barraId/ventas-barra/crear', component: CrearVentaBarraComponent },
-       {path: 'boliche/:bolicheId/crear-usuario', component: CrearUsuarioComponent},
-       { path: '', redirectTo: 'boliche', pathMatch: 'full' },
+      { path: 'productos', component: ProductoListaComponent },
+      { path: 'productos/agregar', component: ProductoFormComponent },
+      { path: 'productos/editar/:id', component: ProductoFormComponent },
+      {path: 'boliches', component: BolicheComponent}, 
+      { path: 'boliche/:id/gestion', component: GestionBolicheComponent },
+      {path: 'boliche/agregar', component: BolicheFormComponent},
+      { path: 'boliche/:id/barras', component: BarrasComponent },
+      { path: 'boliche/:bolicheId/barras/:barraId/ventas-barra', component: VentasBarraComponent },
+      { path: 'boliche/:bolicheId/barras/:barraId/ventas-barra/crear', component: CrearVentaBarraComponent },
+      {path: 'boliche/:bolicheId/crear-usuario', component: CrearUsuarioComponent},
+      {path: 'boliche/:bolicheId/puntos-de-venta', component: PuntoDeVentaComponent},
 
       { path: '', redirectTo: 'boliches', pathMatch: 'full' },
     ],

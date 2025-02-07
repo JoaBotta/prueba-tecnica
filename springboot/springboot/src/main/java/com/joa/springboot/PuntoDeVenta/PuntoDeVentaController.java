@@ -34,4 +34,10 @@ public class PuntoDeVentaController {
         puntoDeVentaService.deletePuntoDeVenta(id);
         return ResponseEntity.noContent().build();
     }
+
+    // un controlador para que me muestre todos los puntos de venta de ese boliche
+    @GetMapping("/boliche/{id}")
+    public ResponseEntity<List<PuntoDeVentaResponseDTO>> getPuntosDeVentaByBolicheId(@PathVariable Long id) {
+        return ResponseEntity.ok(puntoDeVentaService.getPuntosDeVentaByBoliche(id));
+    }
 }
