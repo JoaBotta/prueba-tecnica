@@ -3,12 +3,15 @@ package com.joa.springboot.Barra;
 import jakarta.persistence.*;
 import java.util.List;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.joa.springboot.Boliche.Boliche;
 import com.joa.springboot.VentaBarra.VentaBarra;
 
 @Entity
 @Table(name = "barra")
+@CrossOrigin(origins = "http://localhost:4200/")
 public class Barra {
 
     @Id

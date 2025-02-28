@@ -1,5 +1,8 @@
 package com.joa.springboot.Barra;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
+@CrossOrigin(origins = "http://localhost:4200/")
 public class BarraResponseDTO {
     private Long id;
     private String nombre;
