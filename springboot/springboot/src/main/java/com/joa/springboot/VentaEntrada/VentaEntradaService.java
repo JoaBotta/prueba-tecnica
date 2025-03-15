@@ -63,6 +63,7 @@ public class VentaEntradaService {
             DetalleVentaEntrada detalle = new DetalleVentaEntrada(
                     ventaEntrada, 
                     entrada, 
+                    null,  // No es un QR, entonces dejamos esto en null
                     detalleDTO.getCantidad()
             );
             detalles.add(detalle);
