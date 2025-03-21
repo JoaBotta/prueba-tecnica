@@ -1,57 +1,77 @@
 package com.joa.springboot.DetalleVentaEntrada;
 
 import jakarta.persistence.*;
-import java.math.BigDecimal;
 import java.util.List;
-import com.joa.springboot.Entrada.Entrada;
-import com.joa.springboot.VentaEntrada.VentaEntrada;
+import com.joa.springboot.EntradaGenerada.EntradaGenerada;
+import com.joa.springboot.EntradaOnline.EntradaOnline;
+import com.joa.springboot.VentaEntradaOnline.VentaEntradaOnline;
 
 @Entity
-@Table(name = "detalle_venta_entrada")
+@Table(name = "detalle_venta_online")
 public class DetalleVentaEntrada {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "venta_entrada_id", nullable = false)
-    private VentaEntrada ventaEntrada;
+    @ManyToOne(optional = false)
+    private VentaEntradaOnline ventaEntradaOnline;
 
-    @ManyToOne
-    @JoinColumn(name = "entrada_id", nullable = false)
-    private Entrada entrada;
+    @ManyToOne(optional = false)
+    private EntradaOnline entradaOnline;
 
-    @Column(nullable = false)
     private int cantidad;
+    private Double subtotal;
 
-    @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal subTotal;
+    @OneToMany(mappedBy = "detalleVentaEntrada", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<EntradaGenerada> entradasGeneradas;
 
-    @ElementCollection
-    @CollectionTable(name = "detalle_venta_qr", joinColumns = @JoinColumn(name = "detalle_venta_id"))
-    @Column(name = "codigo_qr")
-    private List<String> codigosQr; 
+    // Getters y Setters
+    public Long getId() {
+        return id;
+    }
 
-    public DetalleVentaEntrada() {}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public DetalleVentaEntrada(VentaEntrada ventaEntrada, Entrada entrada, int cantidad) {
-        this.ventaEntrada = ventaEntrada;
-        this.entrada = entrada;
+    public VentaEntradaOnline getVentaEntradaOnline() {
+        return ventaEntradaOnline;
+    }
+
+    public void setVentaEntradaOnline(VentaEntradaOnline ventaEntradaOnline) {
+        this.ventaEntradaOnline = ventaEntradaOnline;
+    }
+
+    public EntradaOnline getEntradaOnline() {
+        return entradaOnline;
+    }
+
+    public void setEntradaOnline(EntradaOnline entradaOnline) {
+        this.entradaOnline = entradaOnline;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
-        this.subTotal = calcularSubTotal();
     }
 
-    private BigDecimal calcularSubTotal() {
-        return entrada != null && entrada.getPrecio() != null ? 
-               entrada.getPrecio().multiply(BigDecimal.valueOf(cantidad)) : 
-               BigDecimal.ZERO;
+    public Double getSubtotal() {
+        return subtotal;
     }
 
-    public Long getId() { return id; }
-    public VentaEntrada getVentaEntrada() { return ventaEntrada; }
-    public Entrada getEntrada() { return entrada; }
-    public int getCantidad() { return cantidad; }
-    public BigDecimal getSubTotal() { return subTotal; }
-    public List<String> getCodigosQr() { return codigosQr; }
+    public void setSubtotal(Double subtotal) {
+        this.subtotal = subtotal;
+    }
+
+    public List<EntradaGenerada> getEntradasGeneradas() {
+        return entradasGeneradas;
+    }
+
+    public void setEntradasGeneradas(List<EntradaGenerada> entradasGeneradas) {
+        this.entradasGeneradas = entradasGeneradas;
+    }
 }

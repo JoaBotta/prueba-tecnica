@@ -2,108 +2,66 @@ package com.joa.springboot.VentaEntrada;
 
 import jakarta.persistence.*;
 import com.joa.springboot.PuntoDeVenta.PuntoDeVenta;
-import com.joa.springboot.Usuario.Usuario;
-import com.joa.springboot.DetalleVentaEntrada.DetalleVentaEntrada;
-import com.joa.springboot.DetalleVentaQrEntrada.DetalleVentaQrEntrada;
 import com.joa.springboot.FormaDePago.FormaDePago;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "ventas_entrada")
-public class VentaEntrada {
+@Table(name = "ventas_entrada_online")
+public abstract class VentaEntrada {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "punto_venta_id", nullable = false)
+    @ManyToOne(optional = false)
     private PuntoDeVenta puntoDeVenta;
 
-    @ManyToOne
-    @JoinColumn(name = "empleado_ventas_id", nullable = false)
-    private Usuario empleadoVentas;
-
-    @ManyToOne
-    @JoinColumn(name = "forma_pago_id", nullable = false)
+    @ManyToOne(optional = false)
     private FormaDePago formaDePago;
 
-    @OneToOne(mappedBy = "ventaEntrada", cascade = CascadeType.ALL, orphanRemoval = true)
-    private DetalleVentaEntrada detalleVentaEntrada;
+    private LocalDateTime fechaHora;
 
-    @OneToOne(mappedBy = "ventaEntrada", cascade = CascadeType.ALL, orphanRemoval = true)
-    private DetalleVentaQrEntrada detalleVentaQrEntrada;
+    private Double totalPrecio;
 
-    @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal total;
+    // Getters y setters
 
-    @Column(nullable = false)
-    private LocalDateTime fecha;
-
-    @Column(nullable = true)
-    private String nombreComprador;
-
-    @Column(nullable = true)
-    private String correoElectronico;
-
-    @Column(nullable = true)
-    private String telefono;
-
-    public VentaEntrada() {
-        this.fecha = LocalDateTime.now();
-        this.total = BigDecimal.ZERO;
+    public Long getId() {
+        return id;
     }
 
-    public VentaEntrada(PuntoDeVenta puntoDeVenta, Usuario empleadoVentas, FormaDePago formaDePago) {
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public PuntoDeVenta getPuntoDeVenta() {
+        return puntoDeVenta;
+    }
+
+    public void setPuntoDeVenta(PuntoDeVenta puntoDeVenta) {
         this.puntoDeVenta = puntoDeVenta;
-        this.empleadoVentas = empleadoVentas;
+    }
+
+    public FormaDePago getFormaDePago() {
+        return formaDePago;
+    }
+
+    public void setFormaDePago(FormaDePago formaDePago) {
         this.formaDePago = formaDePago;
-        this.fecha = LocalDateTime.now();
-        this.total = BigDecimal.ZERO;
     }
 
-    public void calcularTotal() {
-        if (detalleVentaEntrada != null) {
-            this.total = detalleVentaEntrada.getSubTotal();
-        } else if (detalleVentaQrEntrada != null) {
-            this.total = detalleVentaQrEntrada.getSubTotal();
-        } else {
-            this.total = BigDecimal.ZERO;
-        }
+    public LocalDateTime getFechaHora() {
+        return fechaHora;
     }
 
-    public void actualizarDatosComprador(String nombre, String correo, String telefono) {
-        this.nombreComprador = nombre;
-        this.correoElectronico = correo;
-        this.telefono = telefono;
+    public void setFechaHora(LocalDateTime fechaHora) {
+        this.fechaHora = fechaHora;
     }
 
-    public void setDetalleVentaEntrada(DetalleVentaEntrada detalle) {
-        if (this.detalleVentaQrEntrada != null) {
-            throw new IllegalStateException("No se puede asignar DetalleVentaEntrada si ya hay un DetalleVentaQrEntrada.");
-        }
-        this.detalleVentaEntrada = detalle;
-        calcularTotal();
+    public Double getTotalPrecio() {
+        return totalPrecio;
     }
 
-    public void setDetalleVentaQrEntrada(DetalleVentaQrEntrada detalle) {
-        if (this.detalleVentaEntrada != null) {
-            throw new IllegalStateException("No se puede asignar DetalleVentaQrEntrada si ya hay un DetalleVentaEntrada.");
-        }
-        this.detalleVentaQrEntrada = detalle;
-        calcularTotal();
+    public void setTotalPrecio(Double totalPrecio) {
+        this.totalPrecio = totalPrecio;
     }
-
-    public Long getId() { return id; }
-    public PuntoDeVenta getPuntoDeVenta() { return puntoDeVenta; }
-    public Usuario getEmpleadoVentas() { return empleadoVentas; }
-    public FormaDePago getFormaDePago() { return formaDePago; }
-    public DetalleVentaEntrada getDetalleVentaEntrada() { return detalleVentaEntrada; }
-    public DetalleVentaQrEntrada getDetalleVentaQrEntrada() { return detalleVentaQrEntrada; }
-    public BigDecimal getTotal() { return total; }
-    public LocalDateTime getFecha() { return fecha; }
-    public String getNombreComprador() { return nombreComprador; }
-    public String getCorreoElectronico() { return correoElectronico; }
-    public String getTelefono() { return telefono; }
 }

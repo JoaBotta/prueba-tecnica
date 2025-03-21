@@ -1,14 +1,14 @@
-package com.joa.springboot.QrEntrada;
+package com.joa.springboot.EntradaOnline;
 
 import java.math.BigDecimal;
 
-public class QrEntradaResponseDTO {
+public class EntradaOnlineResponseDTO {
     private Long id;
     private String nombre;
     private BigDecimal precio;
 
     // Constructor
-    public QrEntradaResponseDTO(Long id, String nombre, BigDecimal precio) {
+    public EntradaOnlineResponseDTO(Long id, String nombre, BigDecimal precio) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;

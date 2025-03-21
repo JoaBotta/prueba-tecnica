@@ -2,12 +2,15 @@ package com.joa.springboot.DetalleVentaEntrada;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.joa.springboot.Entrada.Entrada;
-import com.joa.springboot.Entrada.EntradaRepository;
-import com.joa.springboot.VentaEntrada.VentaEntrada;
-import com.joa.springboot.VentaEntrada.VentaEntradaRepository;
+
+import com.joa.springboot.EntradaGenerada.EntradaGenerada;
+import com.joa.springboot.EntradaOnline.EntradaOnline;
+import com.joa.springboot.EntradaOnline.EntradaOnlineRepository;
+import com.joa.springboot.VentaEntradaOnline.VentaEntradaOnline;
+
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 public class DetalleVentaEntradaService {
@@ -16,61 +19,41 @@ public class DetalleVentaEntradaService {
     private DetalleVentaEntradaRepository detalleVentaEntradaRepository;
 
     @Autowired
-    private EntradaRepository entradaRepository;
+    private EntradaOnlineRepository entradaOnlineRepository;
 
-    @Autowired
-    private VentaEntradaRepository ventaEntradaRepository;
-
-    // ✅ Crear un nuevo detalle de venta de entrada
-    public DetalleVentaEntradaResponseDTO createDetalleVentaEntrada(DetalleVentaEntradaRequestDTO requestDTO) {
-        VentaEntrada ventaEntrada = ventaEntradaRepository.findById(requestDTO.getEntradaId())
-                .orElseThrow(() -> new RuntimeException("VentaEntrada no encontrada con ID: " + requestDTO.getEntradaId()));
-
-        Entrada entrada = entradaRepository.findById(requestDTO.getEntradaId())
-                .orElseThrow(() -> new RuntimeException("Entrada no encontrada con ID: " + requestDTO.getEntradaId()));
-
-        // Crear el DetalleVentaEntrada y guardarlo en la base de datos
-        DetalleVentaEntrada detalleVentaEntrada = new DetalleVentaEntrada(ventaEntrada, entrada, requestDTO.getCantidad());
-        detalleVentaEntrada = detalleVentaEntradaRepository.save(detalleVentaEntrada);
-
-        return new DetalleVentaEntradaResponseDTO(
-                detalleVentaEntrada.getId(),
-                entrada.getNombre(),
-                detalleVentaEntrada.getCantidad(),
-                detalleVentaEntrada.getSubTotal()
-        );
-    }
-
-    // ✅ Obtener todos los detalles de venta de entrada
-    public List<DetalleVentaEntradaResponseDTO> getAllDetallesVentaEntrada() {
-        return detalleVentaEntradaRepository.findAll().stream()
-                .map(detalle -> new DetalleVentaEntradaResponseDTO(
-                        detalle.getId(),
-                        detalle.getEntrada().getNombre(),
-                        detalle.getCantidad(),
-                        detalle.getSubTotal()
-                ))
-                .collect(Collectors.toList());
-    }
-
-    // ✅ Obtener un detalle de venta por ID
-    public DetalleVentaEntradaResponseDTO getDetalleVentaEntradaById(Long id) {
-        DetalleVentaEntrada detalle = detalleVentaEntradaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Detalle de Venta no encontrado con ID: " + id));
-
-        return new DetalleVentaEntradaResponseDTO(
-                detalle.getId(),
-                detalle.getEntrada().getNombre(),
-                detalle.getCantidad(),
-                detalle.getSubTotal()
-        );
-    }
-
-    // ✅ Eliminar un detalle de venta por ID
-    public void deleteDetalleVentaEntrada(Long id) {
-        if (!detalleVentaEntradaRepository.existsById(id)) {
-            throw new RuntimeException("El detalle de venta con ID " + id + " no existe.");
+    public DetalleVentaEntradaResponseDTO crearDetalleVentaEntrada(VentaEntradaOnline venta, DetalleVentaEntradaRequestDTO dto) {
+        Optional<EntradaOnline> entradaOpt = entradaOnlineRepository.findById(dto.getEntradaId());
+        if (entradaOpt.isEmpty()) {
+            throw new IllegalArgumentException("Entrada no encontrada");
         }
-        detalleVentaEntradaRepository.deleteById(id);
+
+        // Crear detalle de venta
+        DetalleVentaEntrada detalle = new DetalleVentaEntrada();
+        detalle.setVentaEntradaOnline(venta);
+        detalle.setEntradaOnline((EntradaOnline) entradaOpt.get());
+        detalle.setCantidad(dto.getCantidad());
+        detalle.setSubtotal(dto.getSubtotal());
+
+        // Generar QRs únicos por cada entrada
+        List<EntradaGenerada> entradasQR = new ArrayList<>();
+        for (int i = 0; i < dto.getCantidad(); i++) {
+            EntradaGenerada qr = new EntradaGenerada();
+            qr.setDetalleVentaEntrada(detalle);
+            qr.setQrCode("VENTA-" + venta.getId() + "-DETALLE-" + detalle.getId() + "-TICKET-" + (i+1));
+            qr.setUsada(false);
+            entradasQR.add(qr);
+        }
+        detalle.setEntradasGeneradas(entradasQR);
+
+        DetalleVentaEntrada guardado = detalleVentaEntradaRepository.save(detalle);
+
+        // Mapear respuesta
+        DetalleVentaEntradaResponseDTO responseDTO = new DetalleVentaEntradaResponseDTO();
+        responseDTO.setId(guardado.getId());
+        responseDTO.setEntradaId(guardado.getEntradaOnline().getId());
+        responseDTO.setCantidad(guardado.getCantidad());
+        responseDTO.setSubtotal(guardado.getSubtotal());
+
+        return responseDTO;
     }
 }

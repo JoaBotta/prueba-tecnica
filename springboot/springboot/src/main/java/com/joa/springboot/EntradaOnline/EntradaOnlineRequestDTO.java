@@ -1,4 +1,4 @@
-package com.joa.springboot.QrEntrada;
+package com.joa.springboot.EntradaOnline;
 
 import lombok.Data;
 import jakarta.validation.constraints.NotBlank;
@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 @Data
-public class QrEntradaRequestDTO {
+public class EntradaOnlineRequestDTO {
 
     @NotBlank(message = "El nombre no puede estar vacío")
     private String nombre;

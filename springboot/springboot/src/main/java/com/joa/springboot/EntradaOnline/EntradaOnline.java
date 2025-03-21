@@ -1,11 +1,11 @@
-package com.joa.springboot.QrEntrada;
+package com.joa.springboot.EntradaOnline;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "qr_entrada")
-public class QrEntrada {
+@Table(name = "entrada_online")
+public class EntradaOnline {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,8 +17,12 @@ public class QrEntrada {
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal precio;
 
+    // 🔹 Constructor vacío requerido por Hibernate
+    public EntradaOnline() {
+    }
+
     // Constructor con generación automática del código QR
-    public QrEntrada(String nombre, BigDecimal precio) {
+    public EntradaOnline(String nombre, BigDecimal precio) {
         this.nombre = nombre;
         this.precio = precio;
     }
