@@ -8,14 +8,14 @@ public class DetalleVentaEntradaResponseDTO {
     private int cantidad;
     private BigDecimal subTotal;
 
-    // Constructor único que maneja tanto Entrada como QrEntrada
+    // 🔹 Constructor para entradas normales (sin QR)
     public DetalleVentaEntradaResponseDTO(Long id, String entradaNombre, int cantidad, BigDecimal subTotal) {
         this.id = id;
         this.entradaNombre = entradaNombre;
         this.cantidad = cantidad;
         this.subTotal = subTotal;
     }
-
+    // Getters
     public Long getId() { return id; }
     public String getEntradaNombre() { return entradaNombre; }
     public int getCantidad() { return cantidad; }

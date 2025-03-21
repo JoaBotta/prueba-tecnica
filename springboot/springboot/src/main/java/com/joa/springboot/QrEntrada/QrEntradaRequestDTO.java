@@ -13,13 +13,4 @@ public class QrEntradaRequestDTO {
 
     @NotNull(message = "El precio es obligatorio")
     private BigDecimal precio;
-
-    @NotBlank(message = "El nombre del comprador no puede estar vacío")
-    private String nombreComprador;
-
-    @NotBlank(message = "El correo electrónico no puede estar vacío")
-    private String correoElectronico;
-
-    @NotBlank(message = "El teléfono no puede estar vacío")
-    private String telefono;
 }

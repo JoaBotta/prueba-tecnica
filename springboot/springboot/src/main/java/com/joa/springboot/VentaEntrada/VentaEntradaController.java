@@ -13,7 +13,7 @@ public class VentaEntradaController {
     @Autowired
     private VentaEntradaService ventaEntradaService;
 
-    // ✅ Crear una venta de entrada
+    // ✅ Crear una nueva venta de entrada
     @PostMapping
     public ResponseEntity<VentaEntradaResponseDTO> createVentaEntrada(@RequestBody VentaEntradaRequestDTO requestDTO) {
         return ResponseEntity.ok(ventaEntradaService.createVentaEntrada(requestDTO));

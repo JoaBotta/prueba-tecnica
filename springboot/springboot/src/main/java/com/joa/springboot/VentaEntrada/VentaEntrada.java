@@ -4,10 +4,10 @@ import jakarta.persistence.*;
 import com.joa.springboot.PuntoDeVenta.PuntoDeVenta;
 import com.joa.springboot.Usuario.Usuario;
 import com.joa.springboot.DetalleVentaEntrada.DetalleVentaEntrada;
+import com.joa.springboot.DetalleVentaQrEntrada.DetalleVentaQrEntrada;
 import com.joa.springboot.FormaDePago.FormaDePago;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "ventas_entrada")
@@ -29,16 +29,18 @@ public class VentaEntrada {
     @JoinColumn(name = "forma_pago_id", nullable = false)
     private FormaDePago formaDePago;
 
-    @OneToMany(mappedBy = "ventaEntrada", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<DetalleVentaEntrada> detalleVentaEntrada;
-    
+    @OneToOne(mappedBy = "ventaEntrada", cascade = CascadeType.ALL, orphanRemoval = true)
+    private DetalleVentaEntrada detalleVentaEntrada;
+
+    @OneToOne(mappedBy = "ventaEntrada", cascade = CascadeType.ALL, orphanRemoval = true)
+    private DetalleVentaQrEntrada detalleVentaQrEntrada;
+
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal total;
 
     @Column(nullable = false)
     private LocalDateTime fecha;
 
-    // 🔹 Campos solo si hay una entrada VIP
     @Column(nullable = true)
     private String nombreComprador;
 
@@ -62,49 +64,46 @@ public class VentaEntrada {
     }
 
     public void calcularTotal() {
-        this.total = detalleVentaEntrada != null
-                ? detalleVentaEntrada.stream()
-                                     .map(DetalleVentaEntrada::getSubTotal)
-                                     .reduce(BigDecimal.ZERO, BigDecimal::add)
-                : BigDecimal.ZERO;
+        if (detalleVentaEntrada != null) {
+            this.total = detalleVentaEntrada.getSubTotal();
+        } else if (detalleVentaQrEntrada != null) {
+            this.total = detalleVentaQrEntrada.getSubTotal();
+        } else {
+            this.total = BigDecimal.ZERO;
+        }
     }
 
-    public boolean tieneEntradaVip() {
-        return detalleVentaEntrada != null && detalleVentaEntrada.stream()
-                .anyMatch(detalle -> detalle.getEntrada().getNombre().toLowerCase().contains("VIP"));
+    public void actualizarDatosComprador(String nombre, String correo, String telefono) {
+        this.nombreComprador = nombre;
+        this.correoElectronico = correo;
+        this.telefono = telefono;
     }
 
-    // Getters y Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    
-    public PuntoDeVenta getPuntoDeVenta() { return puntoDeVenta; }
-    public void setPuntoDeVenta(PuntoDeVenta puntoDeVenta) { this.puntoDeVenta = puntoDeVenta; }
-
-    public Usuario getEmpleadoVentas() { return empleadoVentas; }
-    public void setEmpleadoVentas(Usuario empleadoVentas) { this.empleadoVentas = empleadoVentas; }
-
-    public FormaDePago getFormaDePago() { return formaDePago; }
-    public void setFormaDePago(FormaDePago formaDePago) { this.formaDePago = formaDePago; }
-
-    public List<DetalleVentaEntrada> getDetalleVentaEntrada() { return detalleVentaEntrada; }
-    public void setDetalleVentaEntrada(List<DetalleVentaEntrada> detalleVentaEntrada) { 
-        this.detalleVentaEntrada = detalleVentaEntrada;
+    public void setDetalleVentaEntrada(DetalleVentaEntrada detalle) {
+        if (this.detalleVentaQrEntrada != null) {
+            throw new IllegalStateException("No se puede asignar DetalleVentaEntrada si ya hay un DetalleVentaQrEntrada.");
+        }
+        this.detalleVentaEntrada = detalle;
         calcularTotal();
     }
 
+    public void setDetalleVentaQrEntrada(DetalleVentaQrEntrada detalle) {
+        if (this.detalleVentaEntrada != null) {
+            throw new IllegalStateException("No se puede asignar DetalleVentaQrEntrada si ya hay un DetalleVentaEntrada.");
+        }
+        this.detalleVentaQrEntrada = detalle;
+        calcularTotal();
+    }
+
+    public Long getId() { return id; }
+    public PuntoDeVenta getPuntoDeVenta() { return puntoDeVenta; }
+    public Usuario getEmpleadoVentas() { return empleadoVentas; }
+    public FormaDePago getFormaDePago() { return formaDePago; }
+    public DetalleVentaEntrada getDetalleVentaEntrada() { return detalleVentaEntrada; }
+    public DetalleVentaQrEntrada getDetalleVentaQrEntrada() { return detalleVentaQrEntrada; }
     public BigDecimal getTotal() { return total; }
-    public void setTotal(BigDecimal total) { this.total = total; }
-
     public LocalDateTime getFecha() { return fecha; }
-    public void setFecha(LocalDateTime fecha) { this.fecha = fecha; }
-
     public String getNombreComprador() { return nombreComprador; }
-    public void setNombreComprador(String nombreComprador) { this.nombreComprador = nombreComprador; }
-
     public String getCorreoElectronico() { return correoElectronico; }
-    public void setCorreoElectronico(String correoElectronico) { this.correoElectronico = correoElectronico; }
-
     public String getTelefono() { return telefono; }
-    public void setTelefono(String telefono) { this.telefono = telefono; }
 }

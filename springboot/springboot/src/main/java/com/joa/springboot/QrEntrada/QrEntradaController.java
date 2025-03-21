@@ -7,30 +7,43 @@ import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/qrentrada")
+@RequestMapping("/api/qrEntrada")
 public class QrEntradaController {
 
     @Autowired
-    private QrEntradaService qrEntradaService;
+    private QrEntradaService QrEntradaService;
 
+    // Crear QrEntrada
     @PostMapping
     public ResponseEntity<QrEntradaResponseDTO> crearQrEntrada(@Valid @RequestBody QrEntradaRequestDTO requestDTO) {
-        return ResponseEntity.ok(qrEntradaService.crearQrEntrada(requestDTO));
+        return ResponseEntity.ok(QrEntradaService.crearQrEntrada(requestDTO));
     }
 
+    // Listar todas las QrEntradas
     @GetMapping
     public ResponseEntity<List<QrEntradaResponseDTO>> listarQrEntrada() {
-        return ResponseEntity.ok(qrEntradaService.listarQrEntrada());
+        return ResponseEntity.ok(QrEntradaService.listarQrEntrada());
     }
 
+    // Obtener una QrEntrada por ID
     @GetMapping("/{id}")
     public ResponseEntity<QrEntradaResponseDTO> obtenerQrEntradaPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(qrEntradaService.obtenerQrEntradaPorId(id));
+        return ResponseEntity.ok(QrEntradaService.obtenerQrEntradaPorId(id));
     }
 
+    // Actualizar una QrEntrada
+    @PutMapping("/{id}")
+    public ResponseEntity<QrEntradaResponseDTO> actualizarQrEntrada(
+            @PathVariable Long id,
+            @Valid @RequestBody QrEntradaRequestDTO requestDTO
+    ) {
+        return ResponseEntity.ok(QrEntradaService.actualizarQrEntrada(id, requestDTO));
+    }
+
+    // Eliminar una QrEntrada
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarQrEntrada(@PathVariable Long id) {
-        qrEntradaService.eliminarQrEntrada(id);
+        QrEntradaService.eliminarQrEntrada(id);
         return ResponseEntity.noContent().build();
     }
 }

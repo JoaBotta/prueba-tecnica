@@ -1,10 +1,11 @@
 package com.joa.springboot.VentaEntrada;
 
-import com.joa.springboot.DetalleVentaEntrada.DetalleVentaEntradaResponseDTO;
+import lombok.Data;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Data
 public class VentaEntradaResponseDTO {
     private Long id;
     private String puntoVentaNombre;
@@ -12,56 +13,57 @@ public class VentaEntradaResponseDTO {
     private String formaDePago;
     private BigDecimal total;
     private LocalDateTime fecha;
-    private List<DetalleVentaEntradaResponseDTO> detallesVentaEntrada; // Renombrado para mejor claridad
+    private String tipoEntrada;
+    private String entradaNombre;
+    private int cantidad;
 
+    // 🔹 Datos del comprador (solo si es una venta QR)
     private String nombreComprador;
     private String correoElectronico;
     private String telefono;
+    
+    // 🔹 Lista de códigos QR (solo si es una venta QR)
+    private List<String> codigosQr;
 
-    // 🔹 Constructor principal
+    // ✅ Constructor para venta normal (sin QR)
     public VentaEntradaResponseDTO(Long id, String puntoVentaNombre, String empleadoVentasNombre, 
                                    String formaDePago, BigDecimal total, LocalDateTime fecha, 
-                                   List<DetalleVentaEntradaResponseDTO> detallesVentaEntrada,
-                                   String nombreComprador, String correoElectronico, String telefono) {
+                                   String tipoEntrada, String entradaNombre, int cantidad) {
         this.id = id;
         this.puntoVentaNombre = puntoVentaNombre;
         this.empleadoVentasNombre = empleadoVentasNombre;
         this.formaDePago = formaDePago;
         this.total = total;
         this.fecha = fecha;
-        this.detallesVentaEntrada = detallesVentaEntrada;
+        this.tipoEntrada = tipoEntrada;
+        this.entradaNombre = entradaNombre;
+        this.cantidad = cantidad;
+
+        // Datos de comprador y códigos QR vacíos para ventas normales
+        this.nombreComprador = null;
+        this.correoElectronico = null;
+        this.telefono = null;
+        this.codigosQr = null;
+    }
+
+    // ✅ Constructor para venta QR (con códigos QR y datos del comprador)
+    public VentaEntradaResponseDTO(Long id, String puntoVentaNombre, String empleadoVentasNombre, 
+                                   String formaDePago, BigDecimal total, LocalDateTime fecha, 
+                                   String tipoEntrada, String entradaNombre, int cantidad,
+                                   String nombreComprador, String correoElectronico, 
+                                   String telefono, List<String> codigosQr) {
+        this.id = id;
+        this.puntoVentaNombre = puntoVentaNombre;
+        this.empleadoVentasNombre = empleadoVentasNombre;
+        this.formaDePago = formaDePago;
+        this.total = total;
+        this.fecha = fecha;
+        this.tipoEntrada = tipoEntrada;
+        this.entradaNombre = entradaNombre;
+        this.cantidad = cantidad;
         this.nombreComprador = nombreComprador;
         this.correoElectronico = correoElectronico;
         this.telefono = telefono;
+        this.codigosQr = codigosQr;
     }
-
-    // 🔹 Constructor para ventas SIN entrada VIP (nombreComprador, correo y teléfono serán null)
-    public VentaEntradaResponseDTO(Long id, String puntoVentaNombre, String empleadoVentasNombre, 
-                                   String formaDePago, BigDecimal total, LocalDateTime fecha, 
-                                   List<DetalleVentaEntradaResponseDTO> detallesVentaEntrada) {
-        this(id, puntoVentaNombre, empleadoVentasNombre, formaDePago, total, fecha, detallesVentaEntrada, null, null, null);
-    }
-
-    // ✅ Getters y Setters necesarios
-    public Long getId() { return id; }
-    public String getPuntoVentaNombre() { return puntoVentaNombre; }
-    public String getEmpleadoVentasNombre() { return empleadoVentasNombre; }
-    public String getFormaDePago() { return formaDePago; }
-    public BigDecimal getTotal() { return total; }
-    public LocalDateTime getFecha() { return fecha; }
-    public List<DetalleVentaEntradaResponseDTO> getDetallesVentaEntrada() { return detallesVentaEntrada; }
-    public String getNombreComprador() { return nombreComprador; }
-    public String getCorreoElectronico() { return correoElectronico; }
-    public String getTelefono() { return telefono; }
-
-    public void setId(Long id) { this.id = id; }
-    public void setPuntoVentaNombre(String puntoVentaNombre) { this.puntoVentaNombre = puntoVentaNombre; }
-    public void setEmpleadoVentasNombre(String empleadoVentasNombre) { this.empleadoVentasNombre = empleadoVentasNombre; }
-    public void setFormaDePago(String formaDePago) { this.formaDePago = formaDePago; }
-    public void setTotal(BigDecimal total) { this.total = total; }
-    public void setFecha(LocalDateTime fecha) { this.fecha = fecha; }
-    public void setDetallesVentaEntrada(List<DetalleVentaEntradaResponseDTO> detallesVentaEntrada) { this.detallesVentaEntrada = detallesVentaEntrada; }
-    public void setNombreComprador(String nombreComprador) { this.nombreComprador = nombreComprador; }
-    public void setCorreoElectronico(String correoElectronico) { this.correoElectronico = correoElectronico; }
-    public void setTelefono(String telefono) { this.telefono = telefono; }
 }
