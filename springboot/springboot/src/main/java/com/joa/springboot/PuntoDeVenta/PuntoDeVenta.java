@@ -6,7 +6,10 @@ import com.joa.springboot.Usuario.Usuario;
 import com.joa.springboot.VentaEntrada.VentaEntrada;
 import java.util.List;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 @Entity
+@CrossOrigin(origins = "http://localhost:4200")
 @Table(name = "punto_de_venta")
 public class PuntoDeVenta {
 
