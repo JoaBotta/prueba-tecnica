@@ -1,23 +1,68 @@
 package com.joa.springboot.DetalleVentaEntrada;
 
-import java.math.BigDecimal;
+import java.util.List;
+
+import com.joa.springboot.EntradaGenerada.EntradaGeneradaResponseDTO;
 
 public class DetalleVentaEntradaResponseDTO {
-    private Long id;
-    private String entradaNombre;
-    private int cantidad;
-    private BigDecimal subTotal;
 
-    // Constructor único que maneja tanto Entrada como QrEntrada
-    public DetalleVentaEntradaResponseDTO(Long id, String entradaNombre, int cantidad, BigDecimal subTotal) {
-        this.id = id;
-        this.entradaNombre = entradaNombre;
-        this.cantidad = cantidad;
-        this.subTotal = subTotal;
+    private Long id;
+    private Long entradaId;
+    private int cantidad;
+    private Double subtotal;
+    private List<EntradaGeneradaResponseDTO> entradasGeneradas;
+
+    // 🔹 Constructor vacío (necesario para frameworks como Jackson)
+    public DetalleVentaEntradaResponseDTO() {
     }
 
-    public Long getId() { return id; }
-    public String getEntradaNombre() { return entradaNombre; }
-    public int getCantidad() { return cantidad; }
-    public BigDecimal getSubTotal() { return subTotal; }
+    // 🔹 Constructor que falta
+    public DetalleVentaEntradaResponseDTO(Long id, Long entradaId, int cantidad, Double subtotal, List<EntradaGeneradaResponseDTO> entradasGeneradas) {
+        this.id = id;
+        this.entradaId = entradaId;
+        this.cantidad = cantidad;
+        this.subtotal = subtotal;
+        this.entradasGeneradas = entradasGeneradas;
+    }
+
+    // Getters y Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getEntradaId() {
+        return entradaId;
+    }
+
+    public void setEntradaId(Long entradaId) {
+        this.entradaId = entradaId;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public Double getSubtotal() {
+        return subtotal;
+    }
+
+    public void setSubtotal(Double subtotal) {
+        this.subtotal = subtotal;
+    }
+
+    public List<EntradaGeneradaResponseDTO> getEntradasGeneradas() {
+        return entradasGeneradas;
+    }
+
+    public void setEntradasGeneradas(List<EntradaGeneradaResponseDTO> entradasGeneradas) {
+        this.entradasGeneradas = entradasGeneradas;
+    }
 }

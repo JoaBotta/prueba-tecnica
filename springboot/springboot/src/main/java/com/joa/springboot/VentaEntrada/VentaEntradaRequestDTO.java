@@ -1,39 +1,47 @@
 package com.joa.springboot.VentaEntrada;
 
-import com.joa.springboot.DetalleVentaEntrada.DetalleVentaEntradaRequestDTO;
-import java.util.List;
+import lombok.Data;
+import java.time.LocalDateTime;
 
+@Data
 public class VentaEntradaRequestDTO {
-    private Long puntoVentaId;
-    private Long empleadoVentasId;
+
+    private Long puntoDeVentaId;
     private Long formaDePagoId;
-    private List<DetalleVentaEntradaRequestDTO> detalleVentaEntrada;
+    private LocalDateTime fechaHora;
+    private Double totalPrecio;
 
-    // 🔹 Campos adicionales para entrada VIP
-    private String nombreComprador;
-    private String correoElectronico;
-    private String telefono;
+    // Getters y setters
 
-    public Long getPuntoVentaId() { return puntoVentaId; }
-    public void setPuntoVentaId(Long puntoVentaId) { this.puntoVentaId = puntoVentaId; }
-
-    public Long getEmpleadoVentasId() { return empleadoVentasId; }
-    public void setEmpleadoVentasId(Long empleadoVentasId) { this.empleadoVentasId = empleadoVentasId; }
-
-    public Long getFormaDePagoId() { return formaDePagoId; }
-    public void setFormaDePagoId(Long formaDePagoId) { this.formaDePagoId = formaDePagoId; }
-
-    public List<DetalleVentaEntradaRequestDTO> getDetalleVentaEntrada() { return detalleVentaEntrada; }
-    public void setDetalleVentaEntrada(List<DetalleVentaEntradaRequestDTO> detalleVentaEntrada) { 
-        this.detalleVentaEntrada = detalleVentaEntrada;
+    public Long getPuntoDeVentaId() {
+        return puntoDeVentaId;
     }
 
-    public String getNombreComprador() { return nombreComprador; }
-    public void setNombreComprador(String nombreComprador) { this.nombreComprador = nombreComprador; }
+    public void setPuntoDeVentaId(Long puntoDeVentaId) {
+        this.puntoDeVentaId = puntoDeVentaId;
+    }
 
-    public String getCorreoElectronico() { return correoElectronico; }
-    public void setCorreoElectronico(String correoElectronico) { this.correoElectronico = correoElectronico; }
+    public Long getFormaDePagoId() {
+        return formaDePagoId;
+    }
 
-    public String getTelefono() { return telefono; }
-    public void setTelefono(String telefono) { this.telefono = telefono; }
+    public void setFormaDePagoId(Long formaDePagoId) {
+        this.formaDePagoId = formaDePagoId;
+    }
+
+    public LocalDateTime getFechaHora() {
+        return fechaHora;
+    }
+
+    public void setFechaHora(LocalDateTime fechaHora) {
+        this.fechaHora = fechaHora;
+    }
+
+    public Double getTotalPrecio() {
+        return totalPrecio;
+    }
+
+    public void setTotalPrecio(Double totalPrecio) {
+        this.totalPrecio = totalPrecio;
+    }
 }

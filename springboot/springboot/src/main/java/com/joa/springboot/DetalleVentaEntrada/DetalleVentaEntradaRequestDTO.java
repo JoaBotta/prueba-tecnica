@@ -1,16 +1,36 @@
 package com.joa.springboot.DetalleVentaEntrada;
 
+import lombok.Data;
+
+@Data
 public class DetalleVentaEntradaRequestDTO {
-    private Long entradaId;   // Puede ser null
-    private Long qrEntradaId; // Puede ser null
+
+    private Long entradaId;
     private int cantidad;
+    private Double subtotal;
 
-    public Long getEntradaId() { return entradaId; }
-    public void setEntradaId(Long entradaId) { this.entradaId = entradaId; }
+    // Getters y Setters
+    public Long getEntradaId() {
+        return entradaId;
+    }
 
-    public Long getQrEntradaId() { return qrEntradaId; }
-    public void setQrEntradaId(Long qrEntradaId) { this.qrEntradaId = qrEntradaId; }
+    public void setEntradaId(Long entradaId) {
+        this.entradaId = entradaId;
+    }
 
-    public int getCantidad() { return cantidad; }
-    public void setCantidad(int cantidad) { this.cantidad = cantidad; }
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public Double getSubtotal() {
+        return subtotal;
+    }
+
+    public void setSubtotal(Double subtotal) {
+        this.subtotal = subtotal;
+    }
 }

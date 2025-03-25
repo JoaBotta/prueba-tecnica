@@ -1,26 +1,21 @@
-package com.joa.springboot.VentaEntrada;
+package com.joa.springboot.VentaEntradaFisica;
 
 import lombok.Data;
 import java.time.LocalDateTime;
+import java.util.List;
+
+import com.joa.springboot.DetalleVentaFisica.DetalleVentaFisicaRequestDTO;
 
 @Data
-public class VentaEntradaResponseDTO {
+public class VentaEntradaFisicaRequestDTO {
 
-    private Long id;
     private Long puntoDeVentaId;
     private Long formaDePagoId;
     private LocalDateTime fechaHora;
     private Double totalPrecio;
+    private List<DetalleVentaFisicaRequestDTO> detalles;
 
-    // Getters y setters
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    // Getters y Setters
 
     public Long getPuntoDeVentaId() {
         return puntoDeVentaId;
@@ -53,4 +48,12 @@ public class VentaEntradaResponseDTO {
     public void setTotalPrecio(Double totalPrecio) {
         this.totalPrecio = totalPrecio;
     }
+    public List<DetalleVentaFisicaRequestDTO> getDetalles() {
+        return detalles;
+    }
+    
+    public void setDetalles(List<DetalleVentaFisicaRequestDTO> detalles) {
+        this.detalles = detalles;
+    }
+    
 }
