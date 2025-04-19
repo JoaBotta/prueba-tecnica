@@ -1,0 +1,14 @@
+<div class="container">
+    <h2>Listado de Entradas</h2>
+    <button routerLink="/entrada/form" mat-raised-button color="primary">Agregar Entrada</button>
+  
+    <mat-list *ngIf="entradas.length > 0">
+      <mat-list-item *ngFor="let entrada of entradas">
+        {{ entrada.nombre }} - ${{ entrada.precio }}
+        <span class="spacer"></span>
+        <button mat-button color="accent" [routerLink]="['/entrada/form', entrada.id]">Editar</button>
+        <button mat-button color="warn" (click)="eliminar(entrada.id!)">Eliminar</button>
+      </mat-list-item>
+    </mat-list>
+  </div>
+  

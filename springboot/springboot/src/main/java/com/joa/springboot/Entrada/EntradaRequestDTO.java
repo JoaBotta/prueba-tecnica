@@ -13,4 +13,8 @@ public class EntradaRequestDTO {
 
     @NotNull(message = "El precio es obligatorio")
     private BigDecimal precio;
+
+    @NotNull(message = "El bolicheId es obligatorio")
+    private Long bolicheId;
+    
 }

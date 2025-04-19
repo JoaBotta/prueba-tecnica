@@ -19,6 +19,10 @@ import { VentasBarraComponent } from './modules/venta/VentaBarra/ventas-barra/ve
 import { CrearVentaBarraComponent } from './modules/venta/VentaBarra/crear-venta-barra/crear-venta-barra.component';
 import { CrearUsuarioComponent } from './auth/crear-usuario/crear-usuario.component';
 import { PuntoDeVentaComponent } from './modules/punto-de-venta/punto-de-venta.component'; 
+import { EntradaListComponent } from './modules/entrada/entrada-list/entrada-list.component';
+import { EntradaFormComponent } from './modules/entrada/entrada-form/entrada-form.component';
+import { EntradaOnlineListComponent } from './modules/entrada/entrada-online-list/entrada-online-list.component';
+import { EntradaOnlineFormComponent } from './modules/entrada/entrada-online-form/entrada-online-form.component';
 
 
 const routes: Routes = [
@@ -46,6 +50,12 @@ const routes: Routes = [
       { path: 'boliche/:bolicheId/barras/:barraId/ventas-barra/crear', component: CrearVentaBarraComponent },
       {path: 'boliche/:bolicheId/crear-usuario', component: CrearUsuarioComponent},
       {path: 'boliche/:bolicheId/puntos-de-venta', component: PuntoDeVentaComponent},
+      {path: 'entrada/list', component: EntradaListComponent},
+      {path: 'entrada/form/:id', component: EntradaFormComponent},
+      {path: 'entrada/form', component: EntradaFormComponent},
+      {path: 'entrada-online/list', component: EntradaOnlineListComponent},
+      {path: 'entrada-online/form/:id', component: EntradaOnlineFormComponent},
+      {path: 'entrada-online/form', component: EntradaOnlineFormComponent},
 
       { path: '', redirectTo: 'boliches', pathMatch: 'full' },
     ],
