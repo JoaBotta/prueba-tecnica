@@ -5,7 +5,8 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-entrada-list',
-  templateUrl: './entrada-list.component.html'
+  templateUrl: './entrada-list.component.html',
+  styleUrls: ['./entrada-list.component.css'],
 })
 export class EntradaListComponent implements OnInit {
   entradas: Entrada[] = [];

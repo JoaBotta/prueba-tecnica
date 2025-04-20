@@ -1,20 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { EntradaOnline } from '@core/model/entradaOnline.model';
 import { EntradaOnlineService } from '@core/services/entradaOnline.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-entrada-online-list',
-  templateUrl: './entrada-online-list.component.html'
+  templateUrl: './entrada-online-list.component.html',
+  styleUrls: ['./entrada-online-list.component.css']
 })
 export class EntradaOnlineListComponent implements OnInit {
   entradas: EntradaOnline[] = [];
 
-  constructor(private service: EntradaOnlineService) {}
+  bolicheId!: number;
+  constructor(private service: EntradaOnlineService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.cargarEntradas();
+    this.bolicheId = Number(this.route.snapshot.paramMap.get('id'));
   }
 
   cargarEntradas(): void {

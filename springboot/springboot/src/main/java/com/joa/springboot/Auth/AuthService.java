@@ -2,7 +2,6 @@ package com.joa.springboot.Auth;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -44,7 +43,10 @@ public class AuthService {
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new IllegalArgumentException("El email ya está registrado: " + request.getEmail());
         }
-    
+
+        // Si no se envía rol, asignamos USER por defecto
+        Role role = request.getRole() != null ? request.getRole() : Role.USER;
+
         Usuario usuario = Usuario.builder()
             .email(request.getEmail())
             .username(request.getUsername())
@@ -52,15 +54,13 @@ public class AuthService {
             .firstname(request.getFirstname())
             .lastname(request.getLastname())
             .country(request.getCountry())
-            .role(Role.USER)
+            .role(role)
             .build();
-    
+
         userRepository.save(usuario);
-    
+
         return AuthResponse.builder()
             .token(jwtService.getToken(usuario))
             .build();
     }
-    
-
 }

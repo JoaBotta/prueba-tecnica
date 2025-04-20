@@ -6,7 +6,8 @@ import { EntradaOnline } from '@core/model/entradaOnline.model';
 
 @Component({
   selector: 'app-entrada-online-form',
-  templateUrl: './entrada-online-form.component.html'
+  templateUrl: './entrada-online-form.component.html',
+  styleUrls: ['./entrada-online-form.component.css']
 })
 export class EntradaOnlineFormComponent implements OnInit {
   form!: FormGroup;

@@ -6,5 +6,6 @@ export interface RegisterRequest {
     lastname: string;
     country: string;
     
+    
   }
   

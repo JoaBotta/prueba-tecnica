@@ -1,19 +1,31 @@
-<div class="container">
-    <h2>{{ esEdicion ? 'Editar Entrada Online' : 'Nueva Entrada Online' }}</h2>
-  
-    <form [formGroup]="form" (ngSubmit)="guardar()">
-      <div class="form-group">
-        <label for="nombre">Nombre</label>
-        <input id="nombre" type="text" class="form-control" formControlName="nombre" required />
-      </div>
-  
-      <div class="form-group">
-        <label for="precio">Precio</label>
-        <input id="precio" type="number" class="form-control" formControlName="precio" required />
-      </div>
-  
-      <button type="submit" class="btn-success">Guardar</button>
-      <button type="button" class="btn-cancelar" routerLink="/entrada-online/list">Cancelar</button>
-    </form>
-  </div>
-  
+<div class="container mt-4">
+  <h2 *ngIf="esEdicion">Editar Entrada Online</h2>
+  <h2 *ngIf="!esEdicion">Nueva Entrada Online</h2>
+
+  <form [formGroup]="form" (ngSubmit)="guardar()">
+    <div class="form-group">
+      <label for="nombre">Nombre</label>
+      <input
+        id="nombre"
+        type="text"
+        class="form-control"
+        formControlName="nombre"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="precio">Precio</label>
+      <input
+        id="precio"
+        type="number"
+        class="form-control"
+        formControlName="precio"
+        required
+      />
+    </div>
+
+    <button type="submit" class="btn btn-success mt-3 me-2">Guardar</button>
+    <button type="button" class="btn btn-danger mt-3" routerLink="/entrada-online/list">Cancelar</button>
+  </form>
+</div>

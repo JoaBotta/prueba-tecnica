@@ -3,9 +3,23 @@
     <div class="header">
       <h2>Lista de Productos</h2>
     </div>
-    <button routerLink="/productos/agregar" class="btn btn-primary mb-3">
-      Agregar Producto
-    </button>
+
+    <div class="alert alert-info">
+      Aquí puedes ver y gestionar todos los productos disponibles. Puedes
+      agregar, editar o eliminar productos según sea necesario.
+    </div>
+    <div class="alert alert-info" *ngIf="productos.length === 0">
+      No hay productos disponibles.
+    </div>
+    <div class="d-flex mb-3">
+      <button routerLink="/boliches" class="btn btn-primary mb-3 me-2">
+        Atras
+      </button>
+      <button routerLink="/productos/agregar" class="btn btn-primary mb-3 me-2">
+        Agregar Producto
+      </button>
+    </div>
+
     
     <table class="table table-bordered">
       <thead>
@@ -23,7 +37,7 @@
           <td data-label="Descripción">{{ producto.descripcion }}</td>
           <td data-label="Acciones">
             <button
-              class="btn btn-warning"
+              class="btn btn-warning me-2"
               [routerLink]="'/productos/editar/' + producto.id"
             >
               Editar

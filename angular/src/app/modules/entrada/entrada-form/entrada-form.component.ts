@@ -6,7 +6,8 @@ import { Entrada } from '@core/model/entrada.model';
 
 @Component({
   selector: 'app-entrada-form',
-  templateUrl: './entrada-form.component.html'
+  templateUrl: './entrada-form.component.html',
+  styleUrls: ['./entrada-form.component.css'],
 })
 export class EntradaFormComponent implements OnInit {
   form!: FormGroup;

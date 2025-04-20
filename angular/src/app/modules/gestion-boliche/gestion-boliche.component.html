@@ -38,15 +38,15 @@
         <h3>Entradas QR</h3>
         <p>Crea o administra las entradas QR</p>
       </a>
-      <a class="monitoring-card warning" [routerLink]="['/boliche', bolicheId, 'barras']">
-        <div class="icon">⚠️</div>
-        <h3>Barras</h3>
-        <p>Crea o administra barras</p>
+      <a class="monitoring-card warning" routerLink="/entrada/list">
+        <div class="icon">🎟️</div>
+        <h3>Entradas fisicas</h3>
+        <p>Crea o administra las entradas fisicas</p>
       </a>
       <a class="monitoring-card ok" [routerLink]="['/boliche', bolicheId, 'productos']">
         <div class="icon">✔️</div>
-        <h3>Productos</h3>
-        <p>Gestiona los productos del boliche</p>
+        <h3>Generar QR</h3>
+        <p>Gestiona los QR para tus clientes</p>
       </a>
       <a class="monitoring-card warning" [routerLink]="['/boliche', bolicheId, 'crear-usuario']">
         <div class="icon">⚠️</div>

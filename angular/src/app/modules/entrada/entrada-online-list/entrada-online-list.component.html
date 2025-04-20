@@ -3,9 +3,24 @@
       <div class="header">
         <h2>Entradas Online</h2>
       </div>
+      <div class="alert alert-info">
+        Aquí puedes ver y gestionar todas las entradas online disponibles.
+        Puedes agregar, editar o eliminar entradas según sea necesario.
+      </div>
+
+      <div class="d-flex mb-3">
+        <button routerLink="/boliches" class="btn btn-primary mb-3 me-2">
+          Atras
+        </button>
       <button routerLink="/entrada-online/form" class="btn btn-primary mb-3">
         Agregar Entrada
       </button>
+      </div>
+
+
+      <div class="alert alert-info" *ngIf="entradas.length === 0">
+        No hay entradas online disponibles.
+      </div>
   
       <table class="table table-bordered" *ngIf="entradas.length > 0">
         <thead>
@@ -20,7 +35,7 @@
             <td data-label="Nombre">{{ entrada.nombre }}</td>
             <td data-label="Precio">${{ entrada.precio }}</td>
             <td data-label="Acciones">
-              <button class="btn btn-warning" [routerLink]="['/entrada-online/form', entrada.id]">
+              <button class="btn btn-warning me-2" [routerLink]="['/entrada-online/form', entrada.id]">
                 Editar
               </button>
               <button class="btn btn-danger" (click)="eliminar(entrada.id!)">
