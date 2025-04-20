@@ -1,14 +1,35 @@
-<div class="container">
-    <h2>Entradas Online</h2>
-    <button routerLink="/entrada-online/form" mat-raised-button color="primary">Agregar Entrada</button>
+<div class="perfil-container">
+    <div class="container mt-4">
+      <div class="header">
+        <h2>Entradas Online</h2>
+      </div>
+      <button routerLink="/entrada-online/form" class="btn btn-primary mb-3">
+        Agregar Entrada
+      </button>
   
-    <mat-list *ngIf="entradas.length > 0">
-      <mat-list-item *ngFor="let entrada of entradas">
-        {{ entrada.nombre }} - ${{ entrada.precio }}
-        <span class="spacer"></span>
-        <button mat-button color="accent" [routerLink]="['/entrada-online/form', entrada.id]">Editar</button>
-        <button mat-button color="warn" (click)="eliminar(entrada.id!)">Eliminar</button>
-      </mat-list-item>
-    </mat-list>
+      <table class="table table-bordered" *ngIf="entradas.length > 0">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let entrada of entradas">
+            <td data-label="Nombre">{{ entrada.nombre }}</td>
+            <td data-label="Precio">${{ entrada.precio }}</td>
+            <td data-label="Acciones">
+              <button class="btn btn-warning" [routerLink]="['/entrada-online/form', entrada.id]">
+                Editar
+              </button>
+              <button class="btn btn-danger" (click)="eliminar(entrada.id!)">
+                Eliminar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
   

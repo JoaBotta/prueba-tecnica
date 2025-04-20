@@ -2,18 +2,18 @@
     <h2>{{ esEdicion ? 'Editar Entrada Online' : 'Nueva Entrada Online' }}</h2>
   
     <form [formGroup]="form" (ngSubmit)="guardar()">
-      <mat-form-field class="full-width">
-        <mat-label>Nombre</mat-label>
-        <input matInput formControlName="nombre" required />
-      </mat-form-field>
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input id="nombre" type="text" class="form-control" formControlName="nombre" required />
+      </div>
   
-      <mat-form-field class="full-width">
-        <mat-label>Precio</mat-label>
-        <input matInput type="number" formControlName="precio" required />
-      </mat-form-field>
+      <div class="form-group">
+        <label for="precio">Precio</label>
+        <input id="precio" type="number" class="form-control" formControlName="precio" required />
+      </div>
   
-      <button mat-raised-button color="primary" type="submit">Guardar</button>
-      <button mat-button routerLink="/entrada-online/list">Cancelar</button>
+      <button type="submit" class="btn-success">Guardar</button>
+      <button type="button" class="btn-cancelar" routerLink="/entrada-online/list">Cancelar</button>
     </form>
   </div>
   
