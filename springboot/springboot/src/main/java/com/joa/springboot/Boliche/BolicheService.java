@@ -7,6 +7,7 @@ import com.joa.springboot.Servicios.ServicioRepository;
 import com.joa.springboot.Barra.Barra;
 import com.joa.springboot.Barra.BarraRepository;
 import com.joa.springboot.PuntoDeVenta.PuntoDeVenta;
+import com.joa.springboot.VentaEntradaOnline.VentaEntradaOnline;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -82,7 +83,8 @@ public class BolicheService {
                 boliche.getCapacidadMaxima(),
                 boliche.getServicios().stream().map(Servicio::getNombre).collect(Collectors.toList()),
                 boliche.getBarras().stream().map(Barra::getNombre).collect(Collectors.toList()),
-                boliche.getPuntoventa().stream().map(PuntoDeVenta::getNombre).collect(Collectors.toList())
+                boliche.getPuntoventa().stream().map(PuntoDeVenta::getNombre).collect(Collectors.toList()),
+                boliche.getVentaEntradaOnline().stream().map(VentaEntradaOnline::getId).collect(Collectors.toList())
         );
     }
 }

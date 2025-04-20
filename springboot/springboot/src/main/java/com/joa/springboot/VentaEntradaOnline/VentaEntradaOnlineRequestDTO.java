@@ -7,24 +7,23 @@ import java.util.List;
 
 @Data
 public class VentaEntradaOnlineRequestDTO {
-
-    private Long puntoDeVentaId;
+    private Long bolicheId;
     private Long formaDePagoId;
     private LocalDateTime fechaHora;
     private Double totalPrecio;
+    
     private String nombreComprador;
     private String correoElectronico;
     private String telefono;
     private List<DetalleVentaEntradaRequestDTO> detalleVentaEntrada;
 
     // Getters y Setters
-
-    public Long getPuntoDeVentaId() {
-        return puntoDeVentaId;
+    public Long getBolicheId() {
+        return bolicheId;
     }
 
-    public void setPuntoDeVentaId(Long puntoDeVentaId) {
-        this.puntoDeVentaId = puntoDeVentaId;
+    public void setBolicheId(Long bolicheId) {
+        this.bolicheId = bolicheId;
     }
 
     public Long getFormaDePagoId() {

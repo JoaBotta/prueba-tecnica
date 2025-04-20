@@ -3,9 +3,7 @@ package com.joa.springboot.VentaEntradaOnline;
 import com.joa.springboot.EntradaOnline.EntradaOnline;
 import com.joa.springboot.EntradaOnline.EntradaOnlineRepository;
 import com.joa.springboot.FormaDePago.FormaDePago;
-import com.joa.springboot.PuntoDeVenta.PuntoDeVenta;
 import com.joa.springboot.FormaDePago.FormaDePagoRepository;
-import com.joa.springboot.PuntoDeVenta.PuntoDeVentaRepository;
 import com.joa.springboot.DetalleVentaEntrada.DetalleVentaEntrada;
 import com.joa.springboot.DetalleVentaEntrada.DetalleVentaEntradaRepository;
 import com.joa.springboot.DetalleVentaEntrada.DetalleVentaEntradaResponseDTO;
@@ -14,9 +12,10 @@ import com.joa.springboot.EntradaGenerada.EntradaGeneradaResponseDTO;
 import com.joa.springboot.EntradaGenerada.EntradaGeneradaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.joa.springboot.Boliche.Boliche;
+import com.joa.springboot.Boliche.BolicheRepository;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -25,9 +24,6 @@ public class VentaEntradaOnlineService {
 
     @Autowired
     private VentaEntradaOnlineRepository ventaEntradaOnlineRepository;
-
-    @Autowired
-    private PuntoDeVentaRepository puntoDeVentaRepository;
 
     @Autowired
     private FormaDePagoRepository formaDePagoRepository;
@@ -41,17 +37,18 @@ public class VentaEntradaOnlineService {
     @Autowired
     private EntradaGeneradaRepository entradaGeneradaRepository;
 
-    public VentaEntradaOnlineResponseDTO crearVentaEntradaOnline(VentaEntradaOnlineRequestDTO dto) {
-        // 1️⃣ Buscar entidades relacionadas
-        PuntoDeVenta puntoDeVenta = puntoDeVentaRepository.findById(dto.getPuntoDeVentaId())
-                .orElseThrow(() -> new IllegalArgumentException("Punto de Venta no encontrado"));
+    @Autowired
+    private BolicheRepository bolicheRepository;
 
+    public VentaEntradaOnlineResponseDTO crearVentaEntradaOnline(VentaEntradaOnlineRequestDTO dto) {
+        Boliche boliche = bolicheRepository.findById(dto.getBolicheId())
+            .orElseThrow(() -> new RuntimeException("Boliche no encontrado"));
+        // 1️⃣ Buscar entidades relacionadas
         FormaDePago formaDePago = formaDePagoRepository.findById(dto.getFormaDePagoId())
                 .orElseThrow(() -> new IllegalArgumentException("Forma de Pago no encontrada"));
-
         // 2️⃣ Crear y guardar la venta online
         VentaEntradaOnline venta = new VentaEntradaOnline();
-        venta.setPuntoDeVenta(puntoDeVenta);
+        venta.setBoliche(boliche);
         venta.setFormaDePago(formaDePago);
         venta.setFechaHora(dto.getFechaHora());
         venta.setTotalPrecio(dto.getTotalPrecio());
@@ -66,7 +63,6 @@ public class VentaEntradaOnlineService {
         for (var detalleDto : dto.getDetalleVentaEntrada()) {
             EntradaOnline entradaOnline = entradaOnlineRepository.findById(detalleDto.getEntradaId())
                     .orElseThrow(() -> new IllegalArgumentException("Entrada no encontrada"));
-
             DetalleVentaEntrada detalle = new DetalleVentaEntrada();
             detalle.setVentaEntradaOnline(venta);
             detalle.setEntradaOnline(entradaOnline);
@@ -121,7 +117,6 @@ public class VentaEntradaOnlineService {
     private VentaEntradaOnlineResponseDTO mapToDTO(VentaEntradaOnline venta) {
         VentaEntradaOnlineResponseDTO responseDTO = new VentaEntradaOnlineResponseDTO();
         responseDTO.setId(venta.getId());
-        responseDTO.setPuntoDeVentaId(venta.getPuntoDeVenta().getId());
         responseDTO.setFormaDePagoId(venta.getFormaDePago().getId());
         responseDTO.setFechaHora(venta.getFechaHora());
         responseDTO.setTotalPrecio(venta.getTotalPrecio());

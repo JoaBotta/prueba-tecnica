@@ -12,10 +12,11 @@ public class BolicheResponseDTO {
     private List<String> servicios;
     private List<String> barras;
     private List<String> puntoventa;
+    private List<Long> ventaentradaonline;
 
     // Constructor
     public BolicheResponseDTO(Long id, String nombre, String provincia, String ciudad, 
-                              String calle, int capacidadMaxima, List<String> servicios, List<String> barras,List<String> puntoventa) {
+                              String calle, int capacidadMaxima, List<String> servicios, List<String> barras,List<String> puntoventa, List<Long> ventaentradaonline) {
         this.id = id;
         this.nombre = nombre;
         this.provincia = provincia;
@@ -25,6 +26,7 @@ public class BolicheResponseDTO {
         this.servicios = servicios;
         this.barras = barras;
         this.puntoventa = puntoventa;
+        this.ventaentradaonline = ventaentradaonline;
     }
 
     // Getters y Setters
@@ -97,5 +99,13 @@ public class BolicheResponseDTO {
 
     public void setpuntoventa(List<String> puntoventa) {
         this.puntoventa = puntoventa;
+    }
+
+    public List<Long> getventaentradaonline() {
+        return ventaentradaonline;
+    }
+
+    public void setventaentradaonline(List<Long> ventaentradaonline) {
+        this.ventaentradaonline = ventaentradaonline;
     }
 }

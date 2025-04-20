@@ -9,16 +9,23 @@ import com.joa.springboot.DetalleVentaEntrada.DetalleVentaEntradaResponseDTO;
 public class VentaEntradaOnlineResponseDTO {
 
     private Long id;
-    private Long puntoDeVentaId;
     private Long formaDePagoId;
     private LocalDateTime fechaHora;
     private Double totalPrecio;
     private String nombreComprador;
     private String correoElectronico;
     private String telefono;
+    private String bolicheNombre;
     private List<DetalleVentaEntradaResponseDTO> detalleVentaEntrada;
 
     // Getters y Setters
+    public String getBolicheNombre() {
+        return bolicheNombre;
+    }
+
+    public void setBolicheNombre(String bolicheNombre) {
+        this.bolicheNombre = bolicheNombre;
+    }
 
     public Long getId() {
         return id;
@@ -26,14 +33,6 @@ public class VentaEntradaOnlineResponseDTO {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getPuntoDeVentaId() {
-        return puntoDeVentaId;
-    }
-
-    public void setPuntoDeVentaId(Long puntoDeVentaId) {
-        this.puntoDeVentaId = puntoDeVentaId;
     }
 
     public Long getFormaDePagoId() {
