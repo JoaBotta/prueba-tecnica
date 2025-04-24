@@ -1,0 +1,20 @@
+<h2>Historial de Asistencias</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Cliente</th>
+      <th>Lista</th>
+      <th>Presente</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let h of historial">
+      <td>{{ h.id }}</td>
+      <td>{{ h.clienteId }}</td>
+      <td>{{ h.listaId }}</td>
+      <td>{{ h.presente ? 'Sí' : 'No' }}</td>
+    </tr>
+  </tbody>
+</table>

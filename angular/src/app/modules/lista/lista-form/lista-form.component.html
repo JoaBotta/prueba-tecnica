@@ -1,0 +1,11 @@
+<h2>Crear Lista</h2>
+
+<form (ngSubmit)="crearLista()">
+  <label for="nombre">Nombre:</label>
+  <input type="text" id="nombre" [(ngModel)]="lista.nombre" name="nombre" required>
+
+  <label for="fecha">Fecha:</label>
+  <input type="date" id="fecha" [(ngModel)]="lista.fecha" name="fecha" required>
+
+  <button type="submit">Guardar</button>
+</form>

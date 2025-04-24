@@ -23,6 +23,12 @@ import { EntradaListComponent } from './modules/entrada/entrada-list/entrada-lis
 import { EntradaFormComponent } from './modules/entrada/entrada-form/entrada-form.component';
 import { EntradaOnlineListComponent } from './modules/entrada/entrada-online-list/entrada-online-list.component';
 import { EntradaOnlineFormComponent } from './modules/entrada/entrada-online-form/entrada-online-form.component';
+import { VentaEntradaOnlineComponent } from './modules/venta-entrada/venta-entrada-online/venta-entrada-online.component'; // Importa el componente de ventas de entradas online
+import { ClienteListComponent } from './modules/clientes/cliente-list/cliente-list.component';
+import { ClienteFormComponent } from './modules/clientes/cliente-form/cliente-form.component';
+import { HistorialComponent } from './modules/historial/historial/historial.component';
+import { ListaListComponent } from './modules/lista/lista-list/lista-list.component';
+import { ListaFormComponent } from './modules/lista/lista-form/lista-form.component';
 
 
 const routes: Routes = [
@@ -56,6 +62,13 @@ const routes: Routes = [
       {path: 'entrada-online/list', component: EntradaOnlineListComponent},
       {path: 'entrada-online/form/:id', component: EntradaOnlineFormComponent},
       {path: 'entrada-online/form', component: EntradaOnlineFormComponent},
+      {path: 'venta-entrada-online', component: VentaEntradaOnlineComponent}, // Ruta para el componente de ventas de entradas online
+      { path: 'listas', component: ListaListComponent },
+      { path: 'listas/nueva', component: ListaFormComponent },
+      { path: 'listas/:id', component: ClienteListComponent },         // Ver clientes de una lista
+      { path: 'listas/:id/agregar-cliente', component: ClienteFormComponent },
+      { path: 'historial', component: HistorialComponent },
+
 
       { path: '', redirectTo: 'boliches', pathMatch: 'full' },
     ],

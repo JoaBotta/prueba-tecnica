@@ -43,6 +43,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Usuario } from '../model/usuario/usuario.model';
 import { environment } from 'src/environments/environment';
+import { RegisterRequest } from '../model/auth/register-request.model';
+
 
 @Injectable({
   providedIn: 'root',
@@ -63,6 +65,9 @@ export class UsuarioService {
   
   getUsuarioActual(): Observable<any> {
     return this.http.get(`${this.apiUrl}/me`);
+  }
+  registerUser(data: RegisterRequest): Observable<any> {
+    return this.http.post(`${this.apiUrl}`, data);
   }
 }
 

@@ -1,0 +1,10 @@
+<h2>Listas de Asistencia</h2>
+
+<ul>
+  <li *ngFor="let lista of listas">
+    {{ lista.nombre }} - {{ lista.fecha }}
+    <a [routerLink]="['/listas', lista.id]">Ver detalles</a>
+  </li>
+</ul>
+
+<a routerLink="/listas/nueva">Crear nueva lista</a>

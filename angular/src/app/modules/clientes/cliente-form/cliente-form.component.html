@@ -1,0 +1,17 @@
+<h3>Agregar Cliente</h3>
+
+<form (ngSubmit)="agregarCliente()">
+  <label for="nombre">Nombre:</label>
+  <input type="text" id="nombre" [(ngModel)]="cliente.nombre" name="nombre" required>
+
+  <label for="apellido">Apellido:</label>
+  <input type="text" id="apellido" [(ngModel)]="cliente.apellido" name="apellido" required>
+
+  <label for="documento">Documento:</label>
+  <input type="text" id="documento" [(ngModel)]="cliente.documento" name="documento">
+
+  <label for="telefono">Teléfono:</label>
+  <input type="text" id="telefono" [(ngModel)]="cliente.telefono" name="telefono">
+
+  <button type="submit">Agregar</button>
+</form>

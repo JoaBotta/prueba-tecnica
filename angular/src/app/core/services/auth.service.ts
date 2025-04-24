@@ -24,6 +24,10 @@ export class AuthService {
     return this.http.post<AuthResponse>(`${this.apiUrl}/register`, request);
   }
 
+  registerUser(data: RegisterRequest): Observable<any> {
+    return this.http.post(`${this.apiUrl}/auth/register`, data);
+  }
+
   saveToken(token: string): void {
     localStorage.setItem('authToken', token);
   }
@@ -50,6 +54,7 @@ export class AuthService {
     localStorage.removeItem('authToken');
     this.router.navigate(['/login']); // Redirige al login
   }
+  
 
   
 }

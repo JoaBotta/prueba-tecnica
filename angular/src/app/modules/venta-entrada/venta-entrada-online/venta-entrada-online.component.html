@@ -1,0 +1,31 @@
+<!-- venta-entrada-online.component.html -->
+<div class="container p-4">
+    <h2 class="text-xl font-bold mb-4">Ventas Online</h2>
+  
+    <div *ngIf="ventas.length > 0; else sinVentas">
+      <div *ngFor="let venta of ventas" class="border p-3 rounded mb-4 shadow">
+        <p><strong>Comprador:</strong> {{ venta.nombreComprador }}</p>
+        <p><strong>Correo:</strong> {{ venta.correoElectronico }}</p>
+        <p><strong>Boliche:</strong> {{ venta.bolicheNombre }}</p>
+        <p><strong>Total:</strong> ${{ venta.totalPrecio }}</p>
+        <button class="bg-blue-500 text-white px-2 py-1 rounded mt-2" (click)="verDetalle(venta.id)">
+          Ver detalle
+        </button>
+      </div>
+    </div>
+  
+    <ng-template #sinVentas>
+      <p>No hay ventas registradas.</p>
+    </ng-template>
+  
+    <div *ngIf="ventaSeleccionada">
+      <h3 class="text-lg font-semibold mt-4">Detalle Venta #{{ ventaSeleccionada.id }}</h3>
+      <p><strong>Fecha:</strong> {{ ventaSeleccionada.fechaHora }}</p>
+      <ul class="list-disc ml-5">
+        <li *ngFor="let detalle of ventaSeleccionada.detalleVentaEntrada">
+          {{ detalle.nombreEntrada }} - Cantidad: {{ detalle.cantidad }} - Total: ${{ detalle.total }}
+        </li>
+      </ul>
+    </div>
+  </div>
+  

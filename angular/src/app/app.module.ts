@@ -55,6 +55,12 @@ import { EntradaListComponent } from './modules/entrada/entrada-list/entrada-lis
 import { EntradaFormComponent } from './modules/entrada/entrada-form/entrada-form.component';
 import { EntradaOnlineListComponent } from './modules/entrada/entrada-online-list/entrada-online-list.component';
 import { EntradaOnlineFormComponent } from './modules/entrada/entrada-online-form/entrada-online-form.component';
+import { VentaEntradaOnlineComponent } from './modules/venta-entrada/venta-entrada-online/venta-entrada-online.component';
+import { ClienteListComponent } from './modules/clientes/cliente-list/cliente-list.component';
+import { ClienteFormComponent } from './modules/clientes/cliente-form/cliente-form.component';
+import { HistorialComponent } from './modules/historial/historial/historial.component';
+import { ListaListComponent } from './modules/lista/lista-list/lista-list.component';
+import { ListaFormComponent } from './modules/lista/lista-form/lista-form.component';
 
 
 @NgModule({
@@ -85,7 +91,13 @@ import { EntradaOnlineFormComponent } from './modules/entrada/entrada-online-for
     EntradaListComponent,
     EntradaFormComponent,
     EntradaOnlineListComponent,
-    EntradaOnlineFormComponent
+    EntradaOnlineFormComponent,
+    VentaEntradaOnlineComponent,
+    ClienteListComponent,
+    ClienteFormComponent,
+    HistorialComponent,
+    ListaListComponent,
+    ListaFormComponent
     
   ],
   imports: [

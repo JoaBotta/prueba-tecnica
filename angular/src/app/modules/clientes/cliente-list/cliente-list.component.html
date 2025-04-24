@@ -1,0 +1,23 @@
+<h2>Lista: {{ lista.nombre }} - {{ lista.fecha }}</h2>
+
+
+<h3>Clientes</h3>
+<ng-container *ngIf="lista as listaCargada">
+    <h2>Lista: {{ listaCargada.nombre }} - {{ listaCargada.fecha }}</h2>
+  
+    <ul *ngIf="listaCargada.clientes && listaCargada.clientes.length > 0; else sinClientes">
+      <li *ngFor="let cliente of listaCargada.clientes">
+        {{ cliente.nombre }} {{ cliente.apellido }}
+        - Tel: {{ cliente.telefono }}
+        - Doc: {{ cliente.documento }}
+        - <strong>{{ cliente.asistencia ? '✔️' : '❌' }}</strong>
+        <button (click)="marcarAsistencia(cliente, true)">Presente</button>
+        <button (click)="marcarAsistencia(cliente, false)">Ausente</button>
+      </li>
+    </ul>
+  </ng-container>
+  
+  <ng-template #sinClientes>
+    <p>No hay clientes en esta lista.</p>
+  </ng-template>
+  
