@@ -2,7 +2,7 @@ package com.joa.springboot.DetalleVentaFisica;
 
 import jakarta.persistence.*;
 import com.joa.springboot.Entrada.Entrada;
-import com.joa.springboot.VentaEntradaFisica.VentaEntradaFisica;
+import com.joa.springboot.VentaEntrada.VentaEntrada;
 
 @Entity
 @Table(name = "detalle_venta_fisica")
@@ -13,10 +13,10 @@ public class DetalleVentaFisica {
     private Long id;
 
     @ManyToOne(optional = false)
-    private VentaEntradaFisica ventaEntradaFisica;
+    private VentaEntrada ventaEntrada;
 
     @ManyToOne(optional = false)
-    private Entrada entradaFisicaId;
+    private Entrada entradaId;
 
     private int cantidad;
     private Double subtotal;
@@ -30,20 +30,20 @@ public class DetalleVentaFisica {
         this.id = id;
     }
 
-    public VentaEntradaFisica getVentaEntradaFisica() {
-        return ventaEntradaFisica;
+    public VentaEntrada getVentaEntrada() {
+        return ventaEntrada;
     }
 
-    public void setVentaEntradaFisica(VentaEntradaFisica ventaEntradaFisica) {
-        this.ventaEntradaFisica = ventaEntradaFisica;
+    public void setVentaEntrada(VentaEntrada ventaEntrada) {
+        this.ventaEntrada = ventaEntrada;
     }
 
     public Entrada getEntradaFisicaId() {
-        return entradaFisicaId;
+        return entradaId;
     }
 
-    public void setEntradaFisicaId(Entrada entradaFisicaId) {
-        this.entradaFisicaId = entradaFisicaId;
+    public void setEntradaFisicaId(Entrada entradaId) {
+        this.entradaId = entradaId;
     }
 
     public int getCantidad() {

@@ -31,8 +31,8 @@ public class DetalleVentaFisicaResponseDTO {
         return entradaFisicaId;
     }
 
-    public void setEntradaFisicaId(Long ventaEntradaFisicaId) {
-        this.entradaFisicaId = ventaEntradaFisicaId;
+    public void setEntradaFisicaId(Long VentaEntradaId) {
+        this.entradaFisicaId = VentaEntradaId;
     }
 
     public int getCantidad() {
