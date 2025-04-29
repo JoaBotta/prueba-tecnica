@@ -6,6 +6,8 @@ public class ClienteDTO {
     private String apellido;
     private String documento;
     private String telefono;
+    private Long estadoId; // NUEVO
+
 
     // Getters y Setters
     public String getNombre() {
@@ -31,6 +33,12 @@ public class ClienteDTO {
     }
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+    public Long getEstadoId() {
+        return estadoId;
+    }
+    public void setEstadoId(Long estadoId) {
+        this.estadoId = estadoId;
     }
 
 }

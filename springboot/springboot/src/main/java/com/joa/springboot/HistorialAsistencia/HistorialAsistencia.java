@@ -1,57 +1,41 @@
 package com.joa.springboot.HistorialAsistencia;
 
-
-import com.joa.springboot.Cliente.Cliente;
-import com.joa.springboot.Lista.Lista;
+import com.joa.springboot.Estado.Estado;
 import jakarta.persistence.*;
 
 @Entity
 public class HistorialAsistencia {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "cliente_id")
-    private Cliente cliente;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "estado_id")
+    private Estado estado;
 
-    @ManyToOne
-    @JoinColumn(name = "lista_id")
-    private Lista lista;
-
-    private boolean presente;
+    // Opcionalmente podés tener otros campos como fecha de asistencia, etc.
+    private String observaciones; // si querés guardar algún detalle extra
 
     // Getters y Setters
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public Estado getEstado() {
+        return estado;
+    }
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public String getObservaciones() {
+        return observaciones;
     }
-
-    public Lista getLista() {
-        return lista;
-    }
-
-    public void setLista(Lista lista) {
-        this.lista = lista;
-    }
-
-    public boolean isPresente() {
-        return presente;
-    }
-
-    public void setPresente(boolean presente) {
-        this.presente = presente;
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
     }
 }
-

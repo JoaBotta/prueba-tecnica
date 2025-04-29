@@ -1,6 +1,7 @@
 package com.joa.springboot.Cliente;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.joa.springboot.Estado.Estado;
 import com.joa.springboot.HistorialAsistencia.HistorialAsistencia;
 import com.joa.springboot.Lista.Lista;
 import jakarta.persistence.*;
@@ -25,21 +26,15 @@ public class Cliente {
 
     private String telefono;
 
-      // Campo presente con valor predeterminado
-      private boolean presente = false; // Valor predeterminado para "presente"
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "estado_id")
+    private Estado estado; // Nueva relación: Cliente ahora tiene un Estado asociado
 
-    //@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
-    //private List<HistorialAsistencia> historialAsistencia;
-
-    @ManyToOne(fetch = FetchType.LAZY) // Lazy loading para evitar la carga de la lista completa
-    @JoinColumn(name = "lista_id") // Nombre de la columna en la tabla cliente que referencia a la lista
-    // Esto es para evitar la referencia circular en la serialización JSON
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lista_id")
+    
     @JsonIgnore
     private Lista lista;
-
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<HistorialAsistencia> historialAsistencia = new ArrayList<>();
-
 
     // Getters y Setters
 
@@ -83,12 +78,12 @@ public class Cliente {
         this.telefono = telefono;
     }
 
-    public List<HistorialAsistencia> getHistorialAsistencia() {
-        return historialAsistencia;
+    public Estado getEstado() {
+        return estado;
     }
 
-    public void setHistorialAsistencia(List<HistorialAsistencia> historialAsistencia) {
-        this.historialAsistencia = historialAsistencia;
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 
     public Lista getLista() {
@@ -99,11 +94,5 @@ public class Cliente {
         this.lista = lista;
     }
 
-    public boolean isPresente() {
-        return presente;
-    }
 
-    public void setPresente(boolean presente) {
-        this.presente = presente;
-    }
 }

@@ -1,52 +1,38 @@
 package com.joa.springboot.HistorialAsistencia;
 
-
+import com.joa.springboot.Estado.Estado;
+import com.joa.springboot.Estado.EstadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/historial-asistencia")
+@CrossOrigin(origins = "*")
 public class HistorialAsistenciaController {
 
-    private final HistorialAsistenciaService historialAsistenciaService;
-    private final HistorialAsistenciaMapper mapper;
+    @Autowired
+    private HistorialAsistenciaRepository historialAsistenciaRepository;
 
     @Autowired
-    public HistorialAsistenciaController(HistorialAsistenciaService historialAsistenciaService, HistorialAsistenciaMapper mapper) {
-        this.historialAsistenciaService = historialAsistenciaService;
-        this.mapper = mapper;
-    }
+    private EstadoRepository estadoRepository;
 
-    @GetMapping
-    public List<HistorialAsistenciaDTO> getAllHistoriales() {
-        return historialAsistenciaService.getAllHistoriales().stream()
-                .map(mapper::toDTO)
-                .collect(Collectors.toList());
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<HistorialAsistenciaDTO> getHistorialById(@PathVariable Long id) {
-        Optional<HistorialAsistencia> historialAsistencia = historialAsistenciaService.getHistorialById(id);
-        return historialAsistencia.map(h -> ResponseEntity.ok(mapper.toDTO(h)))
-                .orElseGet(() -> ResponseEntity.notFound().build());
-    }
-
+    // Crear un nuevo registro de asistencia relacionado a un estado
     @PostMapping
-    public ResponseEntity<HistorialAsistenciaDTO> createHistorial(@RequestBody HistorialAsistenciaDTO historialAsistenciaDTO) {
-        HistorialAsistencia historialAsistencia = mapper.toEntity(historialAsistenciaDTO);
-        HistorialAsistencia savedHistorial = historialAsistenciaService.saveHistorial(historialAsistencia);
-        return new ResponseEntity<>(mapper.toDTO(savedHistorial), HttpStatus.CREATED);
+    public HistorialAsistencia crearHistorialAsistencia(@RequestParam Long estadoId) {
+        Estado estado = estadoRepository.findById(estadoId)
+                .orElseThrow(() -> new RuntimeException("Estado no encontrado"));
+
+        HistorialAsistencia historial = new HistorialAsistencia();
+        historial.setEstado(estado);
+
+        return historialAsistenciaRepository.save(historial);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteHistorial(@PathVariable Long id) {
-        historialAsistenciaService.deleteHistorial(id);
-        return ResponseEntity.noContent().build();
+    // Obtener todos los registros de historial
+    @GetMapping
+    public List<HistorialAsistencia> obtenerTodos() {
+        return historialAsistenciaRepository.findAll();
     }
 }

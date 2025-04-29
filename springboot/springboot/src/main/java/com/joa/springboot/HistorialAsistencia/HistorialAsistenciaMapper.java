@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class HistorialAsistenciaMapper {
-
+/* 
     public HistorialAsistenciaDTO toDTO(HistorialAsistencia historialAsistencia) {
         HistorialAsistenciaDTO dto = new HistorialAsistenciaDTO();
         dto.setId(historialAsistencia.getId());
@@ -22,5 +22,5 @@ public class HistorialAsistenciaMapper {
         // historialAsistencia.setLista(lista);
         historialAsistencia.setPresente(dto.isPresente());
         return historialAsistencia;
-    }
+    }*/
 }
