@@ -2,12 +2,14 @@ package com.joa.springboot.VentaEntrada;
 
 import jakarta.persistence.*;
 import com.joa.springboot.PuntoDeVenta.PuntoDeVenta;
+import com.joa.springboot.DetalleVentaFisica.DetalleVentaFisica;
 import com.joa.springboot.FormaDePago.FormaDePago;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
-@Table(name = "ventas_entrada_online")
-public abstract class VentaEntrada {
+@Table(name = "Venta_Entrada_Fisica")
+public class VentaEntrada {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,8 +25,18 @@ public abstract class VentaEntrada {
 
     private Double totalPrecio;
 
-    // Getters y setters
+    @OneToMany(mappedBy = "ventaEntrada", cascade = CascadeType.ALL)
+    private List<DetalleVentaFisica> detalles;
 
+    // Getters y setters
+    
+    public List<DetalleVentaFisica> getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(List<DetalleVentaFisica> detalles) {
+        this.detalles = detalles;
+    }
     public Long getId() {
         return id;
     }

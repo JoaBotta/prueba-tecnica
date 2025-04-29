@@ -2,8 +2,7 @@ package com.joa.springboot.DetalleVentaFisica;
 
 import com.joa.springboot.Entrada.Entrada;
 import com.joa.springboot.Entrada.EntradaRepository;
-import com.joa.springboot.VentaEntradaFisica.VentaEntradaFisica;
-import com.joa.springboot.VentaEntradaFisica.VentaEntradaFisicaRepository;
+import com.joa.springboot.VentaEntrada.VentaEntradaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -16,21 +15,17 @@ public class DetalleVentaFisicaService {
     private DetalleVentaFisicaRepository detalleVentaFisicaRepository;
 
     @Autowired
-    private VentaEntradaFisicaRepository ventaEntradaFisicaRepository;
+    private VentaEntradaRepository ventaEntradaRepository;
 
     @Autowired
     private EntradaRepository entradaRepository;
 
     // Crear un nuevo detalle de venta física
     public DetalleVentaFisicaResponseDTO crearDetalle(DetalleVentaFisicaRequestDTO dto) {
-        VentaEntradaFisica venta = ventaEntradaFisicaRepository.findById(dto.getVentaEntradaFisicaId())
-                .orElseThrow(() -> new IllegalArgumentException("Venta Física no encontrada"));
-
         Entrada entrada = entradaRepository.findById(dto.getEntradaFisicaId())
                 .orElseThrow(() -> new IllegalArgumentException("Entrada no encontrada"));
 
         DetalleVentaFisica detalle = new DetalleVentaFisica();
-        detalle.setVentaEntradaFisica(venta);
         detalle.setEntradaFisicaId(entrada);
         detalle.setCantidad(dto.getCantidad());
         detalle.setSubtotal(dto.getCantidad() * entrada.getPrecio().doubleValue());
@@ -47,7 +42,7 @@ public class DetalleVentaFisicaService {
 
     // Obtener detalles de una venta física específica
     public List<DetalleVentaFisicaResponseDTO> obtenerDetallesPorVenta(Long ventaId) {
-        List<DetalleVentaFisica> detalles = detalleVentaFisicaRepository.findByVentaEntradaFisicaId(ventaId);
+        List<DetalleVentaFisica> detalles = detalleVentaFisicaRepository.findByVentaEntradaId(ventaId);
         return detalles.stream()
                 .map(detalle -> new DetalleVentaFisicaResponseDTO(
                         detalle.getId(),

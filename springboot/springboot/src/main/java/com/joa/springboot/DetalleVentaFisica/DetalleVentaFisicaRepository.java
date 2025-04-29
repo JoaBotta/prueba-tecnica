@@ -7,5 +7,5 @@ import java.util.List;
 
 @Repository
 public interface DetalleVentaFisicaRepository extends JpaRepository<DetalleVentaFisica, Long> {
-    List<DetalleVentaFisica> findByVentaEntradaFisicaId(Long ventaEntradaFisicaId);
+    List<DetalleVentaFisica> findByVentaEntradaId(Long VentaEntradaId);
 }
