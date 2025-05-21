@@ -12,9 +12,8 @@ public class VentaEntradaOnlineRequestDTO {
     private LocalDateTime fechaHora;
     private Double totalPrecio;
     
-    private String nombreComprador;
-    private String correoElectronico;
-    private String telefono;
+    private Long clienteId;
+
     private List<DetalleVentaEntradaRequestDTO> detalleVentaEntrada;
 
     // Getters y Setters
@@ -50,28 +49,11 @@ public class VentaEntradaOnlineRequestDTO {
         this.totalPrecio = totalPrecio;
     }
 
-    public String getNombreComprador() {
-        return nombreComprador;
+    public Long getClienteId() {
+        return clienteId;
     }
-
-    public void setNombreComprador(String nombreComprador) {
-        this.nombreComprador = nombreComprador;
-    }
-
-    public String getCorreoElectronico() {
-        return correoElectronico;
-    }
-
-    public void setCorreoElectronico(String correoElectronico) {
-        this.correoElectronico = correoElectronico;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setClienteId(Long clienteId) {
+        this.clienteId = clienteId;
     }
 
     public List<DetalleVentaEntradaRequestDTO> getDetalleVentaEntrada() {

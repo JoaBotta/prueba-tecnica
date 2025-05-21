@@ -45,4 +45,9 @@ public class ClienteController {
     ) {
         clienteService.cambiarEstadoCliente(clienteId, nuevoEstadoId);
     }
+    @GetMapping("/{clienteId}/asistencias/presente")
+    public long contarPresencias(@PathVariable Long clienteId) {
+        return clienteService.contarAsistenciasPresente(clienteId);
+    }
+
 }

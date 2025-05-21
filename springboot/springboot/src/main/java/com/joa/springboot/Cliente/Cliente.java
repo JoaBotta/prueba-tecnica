@@ -26,6 +26,8 @@ public class Cliente {
 
     private String telefono;
 
+    private String email;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "estado_id")
     private Estado estado; // Nueva relación: Cliente ahora tiene un Estado asociado
@@ -92,6 +94,14 @@ public class Cliente {
 
     public void setLista(Lista lista) {
         this.lista = lista;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 

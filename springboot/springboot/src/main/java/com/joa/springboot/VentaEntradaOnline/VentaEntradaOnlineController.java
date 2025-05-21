@@ -32,4 +32,12 @@ public class VentaEntradaOnlineController {
         VentaEntradaOnlineResponseDTO venta = ventaEntradaOnlineService.obtenerPorId(id);
         return ResponseEntity.ok(venta);
     }
+
+    // eliminar una venta online por ID
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarVentaOnline(@PathVariable Long id) {
+        ventaEntradaOnlineService.eliminarVenta(id);
+        return ResponseEntity.noContent().build();
+    }
+    
 }

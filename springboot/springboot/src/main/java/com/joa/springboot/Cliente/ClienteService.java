@@ -9,6 +9,7 @@ import com.joa.springboot.Lista.ListaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -41,6 +42,7 @@ public class ClienteService {
         Cliente cliente = new Cliente();
         cliente.setNombre(dto.getNombre());
         cliente.setApellido(dto.getApellido());
+        cliente.setEmail(dto.getEmail()); // Asignamos el email
         cliente.setDocumento(dto.getDocumento());
         cliente.setTelefono(dto.getTelefono());
         cliente.setLista(optionalLista.get());
@@ -65,19 +67,22 @@ public class ClienteService {
 
     // Registrar asistencia (guardar en historial y actualizar estado del cliente)
     public void actualizarHistorialAsistencia(Long clienteId, Long estadoId) {
-        Cliente cliente = clienteRepository.findById(clienteId)
-                .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
-    
-        Estado estado = estadoRepository.findById(estadoId)
-                .orElseThrow(() -> new RuntimeException("Estado no encontrado"));
-    
-        HistorialAsistencia historial = new HistorialAsistencia();
-        historial.setEstado(estado);
-        historialAsistenciaRepository.save(historial);
-    
-        cliente.setEstado(estado);
-        clienteRepository.save(cliente);
-    }
+    Cliente cliente = clienteRepository.findById(clienteId)
+            .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
+
+    Estado estado = estadoRepository.findById(estadoId)
+            .orElseThrow(() -> new RuntimeException("Estado no encontrado"));
+
+    HistorialAsistencia historial = new HistorialAsistencia();
+    historial.setCliente(cliente);
+    historial.setEstado(estado);
+    historial.setFechaHora(LocalDateTime.now());
+
+    historialAsistenciaRepository.save(historial);
+
+    cliente.setEstado(estado);
+    clienteRepository.save(cliente);
+}
     // Cambiar directamente el estado actual de un cliente
     public void cambiarEstadoCliente(Long clienteId, Long nuevoEstadoId) {
         Cliente cliente = clienteRepository.findById(clienteId)
@@ -96,10 +101,15 @@ public class ClienteService {
         ClienteResponseDTO response = new ClienteResponseDTO();
         response.setId(cliente.getId());
         response.setNombre(cliente.getNombre());
+        response.setEmail(cliente.getEmail()); // Asignamos el email
         response.setApellido(cliente.getApellido());
         response.setDocumento(cliente.getDocumento());
         response.setTelefono(cliente.getTelefono());
         response.setEstadoNombre(cliente.getEstado() != null ? cliente.getEstado().getNombre() : null);
         return response;
+    }
+
+    public long contarAsistenciasPresente(Long clienteId) {
+        return historialAsistenciaRepository.countByClienteIdAndEstadoNombre(clienteId, "Presente");
     }
 }

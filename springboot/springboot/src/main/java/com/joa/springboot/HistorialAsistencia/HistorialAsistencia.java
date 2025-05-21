@@ -1,7 +1,10 @@
 package com.joa.springboot.HistorialAsistencia;
 
+import com.joa.springboot.Cliente.Cliente;
 import com.joa.springboot.Estado.Estado;
 import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 
 @Entity
 public class HistorialAsistencia {
@@ -10,32 +13,24 @@ public class HistorialAsistencia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "estado_id")
+    @ManyToOne
+    private Cliente cliente;
+
+    @ManyToOne
     private Estado estado;
 
-    // Opcionalmente podés tener otros campos como fecha de asistencia, etc.
-    private String observaciones; // si querés guardar algún detalle extra
+    private LocalDateTime fechaHora; // o LocalDate
 
     // Getters y Setters
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public Estado getEstado() {
-        return estado;
-    }
-    public void setEstado(Estado estado) {
-        this.estado = estado;
-    }
+    public Cliente getCliente() { return cliente; }
+    public void setCliente(Cliente cliente) { this.cliente = cliente; }
 
-    public String getObservaciones() {
-        return observaciones;
-    }
-    public void setObservaciones(String observaciones) {
-        this.observaciones = observaciones;
-    }
+    public Estado getEstado() { return estado; }
+    public void setEstado(Estado estado) { this.estado = estado; }
+
+    public LocalDateTime getFechaHora() { return fechaHora; }
+    public void setFechaHora(LocalDateTime fechaHora) { this.fechaHora = fechaHora; }
 }

@@ -6,8 +6,8 @@ public class ClienteResponseDTO {
     private String apellido;
     private String documento;
     private String telefono;
-    //private Boolean asistencia;
-    private String estadoNombre; // NUEVO
+    private String email;
+    private String estadoNombre;
 
     // Getters y Setters
     public Long getId() {
@@ -16,36 +16,42 @@ public class ClienteResponseDTO {
     public void setId(Long id) {
         this.id = id;
     }
+
     public String getNombre() {
         return nombre;
     }
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
     public String getApellido() {
         return apellido;
     }
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
+
     public String getDocumento() {
         return documento;
     }
     public void setDocumento(String documento) {
         this.documento = documento;
     }
+
     public String getTelefono() {
         return telefono;
     }
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-    /*public Boolean getAsistencia() {
-        return asistencia;
+
+    public String getEmail() {
+        return email;
     }
-    public void setAsistencia(Boolean asistencia) {
-        this.asistencia = asistencia;
-    }*/
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getEstadoNombre() {
         return estadoNombre;
     }
