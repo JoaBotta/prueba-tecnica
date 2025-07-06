@@ -9,14 +9,29 @@ import { ClienteService } from '@core/services/cliente.service';
 })
 export class ClienteFormComponent {
   @Input() listaId!: number;
-  cliente: Cliente = { nombre: '', apellido: '' };
+  cliente: Cliente = {
+    nombre: '',
+    apellido: '',
+    documento: '',
+    telefono: '',
+    email: '',
+    estadoId: 0,
+  };
+
 
   constructor(private clienteService: ClienteService) {}
 
   agregarCliente(): void {
     this.clienteService.agregarCliente(this.listaId, this.cliente).subscribe(() => {
       alert('Cliente agregado');
-      this.cliente = { nombre: '', apellido: '' };
+      this.cliente = {
+      nombre: '',
+      apellido: '',
+      documento: '',
+      telefono: '',
+      email: '',
+      estadoId: 0
+    };
     });
   }
 }

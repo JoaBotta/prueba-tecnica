@@ -7,4 +7,5 @@ export interface Cliente {
   email: string;
   estadoId: number; // solo para enviar
   estadoNombre?: string; // solo para recibir
+  asistencia?: boolean;
 }

@@ -12,7 +12,9 @@ public class VentaEntradaOnlineResponseDTO {
     private Long formaDePagoId;
     private LocalDateTime fechaHora;
     private Double totalPrecio;
-    private long clienteId;
+    private String nombreComprador;
+    private String correoElectronico;
+    private String telefono;
     private String bolicheNombre;
     private List<DetalleVentaEntradaResponseDTO> detalleVentaEntrada;
 
@@ -57,11 +59,28 @@ public class VentaEntradaOnlineResponseDTO {
         this.totalPrecio = totalPrecio;
     }
 
-    public long getClienteId() {
-        return clienteId;
+    public String getNombreComprador() {
+        return nombreComprador;
     }
-    public void setClienteId(long clienteId) {
-        this.clienteId = clienteId;
+
+    public void setNombreComprador(String nombreComprador) {
+        this.nombreComprador = nombreComprador;
+    }
+
+    public String getCorreoElectronico() {
+        return correoElectronico;
+    }
+
+    public void setCorreoElectronico(String correoElectronico) {
+        this.correoElectronico = correoElectronico;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
     public List<DetalleVentaEntradaResponseDTO> getDetalleVentaEntrada() {

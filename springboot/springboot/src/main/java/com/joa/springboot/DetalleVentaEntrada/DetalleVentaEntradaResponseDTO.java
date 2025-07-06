@@ -2,27 +2,24 @@ package com.joa.springboot.DetalleVentaEntrada;
 
 import java.util.List;
 
-import com.joa.springboot.EntradaGenerada.EntradaGeneradaResponseDTO;
-
 public class DetalleVentaEntradaResponseDTO {
 
     private Long id;
     private Long entradaId;
     private int cantidad;
     private Double subtotal;
-    private List<EntradaGeneradaResponseDTO> entradasGeneradas;
+    private List<String> codigosQR;
 
     // 🔹 Constructor vacío (necesario para frameworks como Jackson)
     public DetalleVentaEntradaResponseDTO() {
     }
 
     // 🔹 Constructor que falta
-    public DetalleVentaEntradaResponseDTO(Long id, Long entradaId, int cantidad, Double subtotal, List<EntradaGeneradaResponseDTO> entradasGeneradas) {
+    public DetalleVentaEntradaResponseDTO(Long id, Long entradaId, int cantidad, Double subtotal) {
         this.id = id;
         this.entradaId = entradaId;
         this.cantidad = cantidad;
         this.subtotal = subtotal;
-        this.entradasGeneradas = entradasGeneradas;
     }
 
     // Getters y Setters
@@ -57,12 +54,10 @@ public class DetalleVentaEntradaResponseDTO {
     public void setSubtotal(Double subtotal) {
         this.subtotal = subtotal;
     }
-
-    public List<EntradaGeneradaResponseDTO> getEntradasGeneradas() {
-        return entradasGeneradas;
+    public List<String> getCodigosQR() {
+        return codigosQR;
     }
-
-    public void setEntradasGeneradas(List<EntradaGeneradaResponseDTO> entradasGeneradas) {
-        this.entradasGeneradas = entradasGeneradas;
+    public void setCodigosQR(List<String> codigosQR) {
+        this.codigosQR = codigosQR;
     }
 }

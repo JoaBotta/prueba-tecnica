@@ -2,7 +2,6 @@ package com.joa.springboot.VentaEntradaOnline;
 import com.joa.springboot.DetalleVentaEntrada.DetalleVentaEntrada;
 import com.joa.springboot.FormaDePago.FormaDePago;
 import com.joa.springboot.Boliche.Boliche;
-import com.joa.springboot.Cliente.Cliente;
 
 import jakarta.persistence.*;
 
@@ -13,7 +12,7 @@ import java.util.List;
 @DiscriminatorValue("ONLINE")
 public class VentaEntradaOnline {
 
-     @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -24,13 +23,12 @@ public class VentaEntradaOnline {
 
     private Double totalPrecio;
 
-    @ManyToOne(optional = false)
+    private String nombreComprador;
+    private String correoElectronico;
+    private String telefono;
+    @ManyToOne
     @JoinColumn(name = "boliche_id", nullable = false)
     private Boliche boliche;
-
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "cliente_id", nullable = false)
-    private Cliente cliente;
 
     @OneToMany(mappedBy = "ventaEntradaOnline", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DetalleVentaEntrada> detalleVentaEntrada;
@@ -75,12 +73,30 @@ public class VentaEntradaOnline {
         this.totalPrecio = totalPrecio;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public String getNombreComprador() {
+        return nombreComprador;
     }
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+
+    public void setNombreComprador(String nombreComprador) {
+        this.nombreComprador = nombreComprador;
     }
+
+    public String getCorreoElectronico() {
+        return correoElectronico;
+    }
+
+    public void setCorreoElectronico(String correoElectronico) {
+        this.correoElectronico = correoElectronico;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
     public List<DetalleVentaEntrada> getDetalleVentaEntrada() {
         return detalleVentaEntrada;
     }

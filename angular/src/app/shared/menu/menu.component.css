@@ -1,7 +1,7 @@
 /* Navbar principal */
 .navbar {
   display: flex;
-  justify-content: end; /* Para separar el título y los iconos */
+  justify-content: flex-end; /* Para separar el título y los iconos */
   align-items: center;
   padding: 0 1rem;
   background-color: #e9f1f4; /* Color de fondo */

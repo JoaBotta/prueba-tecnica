@@ -3,11 +3,9 @@ package com.joa.springboot.Boliche;
 import jakarta.persistence.*;
 import com.joa.springboot.Servicios.Servicio;
 import com.joa.springboot.PuntoDeVenta.PuntoDeVenta;
-import com.joa.springboot.VentaEntradaOnline.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.joa.springboot.Barra.Barra;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,10 +45,6 @@ public class Boliche {
     @JsonManagedReference
     private List<PuntoDeVenta> puntoventa = new ArrayList<>();
 
-    @OneToMany(mappedBy = "boliche", cascade = CascadeType.ALL) // Eliminado orphanRemoval = true
-    @JsonManagedReference
-    private List<VentaEntradaOnline> ventaentradaonline = new ArrayList<>();
-
     // Constructor por defecto
     public Boliche() {
         this.servicios = new ArrayList<>();
@@ -68,7 +62,6 @@ public class Boliche {
         this.servicios = new ArrayList<>();
         this.barras = new ArrayList<>();
         this.puntoventa = new ArrayList<>();
-        this.ventaentradaonline = new ArrayList<>();
     }
 
     // Getters y Setters
@@ -142,13 +135,5 @@ public class Boliche {
 
     public void setPuntoventa(List<PuntoDeVenta> puntoventa) {
         this.puntoventa = puntoventa;
-    }
-    
-    public List<VentaEntradaOnline> getVentaEntradaOnline() {
-        return ventaentradaonline;
-    }
-
-    public void setVentaEntradaOnline(List<VentaEntradaOnline> ventaentradaonline) {
-        this.ventaentradaonline = ventaentradaonline;
     }
 }
