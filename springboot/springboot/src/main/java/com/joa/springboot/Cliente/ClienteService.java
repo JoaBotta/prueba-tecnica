@@ -4,15 +4,11 @@ import com.joa.springboot.Estado.Estado;
 import com.joa.springboot.Estado.EstadoRepository;
 import com.joa.springboot.HistorialAsistencia.HistorialAsistencia;
 import com.joa.springboot.HistorialAsistencia.HistorialAsistenciaRepository;
-import com.joa.springboot.Lista.Lista;
-import com.joa.springboot.Lista.ListaRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ClienteService {
@@ -21,49 +17,63 @@ public class ClienteService {
     private ClienteRepository clienteRepository;
 
     @Autowired
-    private ListaRepository listaRepository;
-
-    @Autowired
     private EstadoRepository estadoRepository;
 
     @Autowired
     private HistorialAsistenciaRepository historialAsistenciaRepository;
 
-    // Crear un cliente en una lista, asignándole un Estado inicial
-    public ClienteResponseDTO agregarCliente(Long listaId, ClienteDTO dto) {
-        Optional<Lista> optionalLista = listaRepository.findById(listaId);
-        if (optionalLista.isEmpty()) {
-            throw new RuntimeException("Lista no encontrada");
-        }
-
+    // Crear cliente – Service
+    public ClienteResponseDTO crearCliente(ClienteDTO dto) {
         Estado estado = estadoRepository.findById(dto.getEstadoId())
-                .orElseThrow(() -> new RuntimeException("Estado no encontrado"));
+            .orElseThrow(() -> new RuntimeException("Estado no encontrado"));
 
         Cliente cliente = new Cliente();
         cliente.setNombre(dto.getNombre());
         cliente.setApellido(dto.getApellido());
-        cliente.setEmail(dto.getEmail()); // Asignamos el email
         cliente.setDocumento(dto.getDocumento());
         cliente.setTelefono(dto.getTelefono());
-        cliente.setLista(optionalLista.get());
-        cliente.setEstado(estado); // Asignamos el estado actual
+        cliente.setEmail(dto.getEmail());
+        cliente.setEstado(estado);
 
-        clienteRepository.save(cliente);
+        cliente = clienteRepository.save(cliente);
 
-        return convertirAResponseDTO(cliente);
+        return mapToResponseDTO(cliente);
     }
 
-    // Obtener todos los clientes de una lista
-    public List<ClienteResponseDTO> obtenerClientesPorLista(Long listaId) {
-        Lista lista = listaRepository.findById(listaId)
-                .orElseThrow(() -> new RuntimeException("Lista no encontrada"));
+    // Modificar cliente – Service
+    public ClienteResponseDTO actualizarCliente(Long id, ClienteDTO dto) {
+        Cliente cliente = clienteRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
 
-        List<Cliente> clientes = clienteRepository.findByLista(lista);
+        Estado estado = estadoRepository.findById(dto.getEstadoId())
+            .orElseThrow(() -> new RuntimeException("Estado no encontrado"));
 
-        return clientes.stream()
-                .map(this::convertirAResponseDTO)
-                .collect(Collectors.toList());
+        cliente.setNombre(dto.getNombre());
+        cliente.setApellido(dto.getApellido());
+        cliente.setDocumento(dto.getDocumento());
+        cliente.setTelefono(dto.getTelefono());
+        cliente.setEmail(dto.getEmail());
+        cliente.setEstado(estado);
+
+        cliente = clienteRepository.save(cliente);
+
+        return mapToResponseDTO(cliente);
     }
+
+    //Mapeo auxiliar a DTO
+    private ClienteResponseDTO mapToResponseDTO(Cliente cliente) {
+        ClienteResponseDTO dto = new ClienteResponseDTO();
+        dto.setId(cliente.getId());
+        dto.setNombre(cliente.getNombre());
+        dto.setApellido(cliente.getApellido());
+        dto.setDocumento(cliente.getDocumento());
+        dto.setTelefono(cliente.getTelefono());
+        dto.setEmail(cliente.getEmail());
+        dto.setEstadoNombre(cliente.getEstado() != null ? cliente.getEstado().getNombre() : null);
+        return dto;
+    }
+
+
 
     // Registrar asistencia (guardar en historial y actualizar estado del cliente)
     public void actualizarHistorialAsistencia(Long clienteId, Long estadoId) {
@@ -94,19 +104,6 @@ public class ClienteService {
         cliente.setEstado(nuevoEstado);
 
         clienteRepository.save(cliente);
-    }
-
-    // Convertir Cliente -> ClienteResponseDTO
-    private ClienteResponseDTO convertirAResponseDTO(Cliente cliente) {
-        ClienteResponseDTO response = new ClienteResponseDTO();
-        response.setId(cliente.getId());
-        response.setNombre(cliente.getNombre());
-        response.setEmail(cliente.getEmail()); // Asignamos el email
-        response.setApellido(cliente.getApellido());
-        response.setDocumento(cliente.getDocumento());
-        response.setTelefono(cliente.getTelefono());
-        response.setEstadoNombre(cliente.getEstado() != null ? cliente.getEstado().getNombre() : null);
-        return response;
     }
 
     public long contarAsistenciasPresente(Long clienteId) {

@@ -1,8 +1,10 @@
 package com.joa.springboot.Servicios;
 
 import jakarta.persistence.*;
-import com.joa.springboot.Boliche.Boliche;
+
 import java.math.BigDecimal;
+
+import com.joa.springboot.Evento.Evento;
 
 @Entity
 @Table(name = "servicio")
@@ -22,13 +24,13 @@ public class Servicio {
 
     @ManyToOne
     @JoinColumn(name = "boliche_id", nullable = false)
-    private Boliche boliche;
+    private Evento boliche;
 
     // Constructor por defecto
     public Servicio() {}
 
     // Constructor con parámetros
-    public Servicio(String nombre, BigDecimal precio, String descripcion, Boliche boliche) {
+    public Servicio(String nombre, BigDecimal precio, String descripcion, Evento boliche) {
         this.nombre = nombre;
         this.precio = precio;
         this.descripcion = descripcion;
@@ -68,11 +70,11 @@ public class Servicio {
         this.descripcion = descripcion;
     }
 
-    public Boliche getBoliche() {
+    public Evento getBoliche() {
         return boliche;
     }
 
-    public void setBoliche(Boliche boliche) {
+    public void setBoliche(Evento boliche) {
         this.boliche = boliche;
     }
 }

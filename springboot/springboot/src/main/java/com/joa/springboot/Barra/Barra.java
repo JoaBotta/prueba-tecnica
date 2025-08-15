@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.joa.springboot.Boliche.Boliche;
+import com.joa.springboot.Evento.Evento;
 import com.joa.springboot.VentaBarra.VentaBarra;
 
 @Entity
@@ -27,13 +27,13 @@ public class Barra {
     @ManyToOne
     @JoinColumn(name = "boliche_id", nullable = false)
     @JsonBackReference
-    private Boliche boliche;
+    private Evento boliche;
 
     // Constructor por defecto
     public Barra() {}
 
     // Constructor con parámetros
-    public Barra(String nombre, Boliche boliche) {
+    public Barra(String nombre, Evento boliche) {
         this.nombre = nombre;
         this.boliche = boliche;
     }
@@ -76,11 +76,11 @@ public class Barra {
         this.ventas = ventas;
     }
 
-    public Boliche getBoliche() {
+    public Evento getBoliche() {
         return boliche;
     }
 
-    public void setBoliche(Boliche boliche) {
+    public void setBoliche(Evento boliche) {
         this.boliche = boliche;
     }
 }

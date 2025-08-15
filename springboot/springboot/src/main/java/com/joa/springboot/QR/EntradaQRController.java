@@ -14,9 +14,9 @@ public class EntradaQRController {
     @Autowired
     private EntradaQRRepository entradaQRRepository;
 
-    @GetMapping("/detalle/{detalleId}")
-    public List<String> obtenerQRsPorDetalle(@PathVariable Long detalleId) {
-        List<EntradaQR> qrs = entradaQRRepository.findByDetalleVentaEntradaId(detalleId);
+    @GetMapping("/venta/{ventaId}")
+    public List<String> obtenerQRPorVenta(@PathVariable Long ventaId) {
+        List<EntradaQR> qrs = entradaQRRepository.findByVentaEntradaOnline_Id(ventaId);
         return qrs.stream()
                 .map(qr -> "http://localhost:8080/v1/qrcode?text=" + qr.getTextoQR())
                 .collect(Collectors.toList());

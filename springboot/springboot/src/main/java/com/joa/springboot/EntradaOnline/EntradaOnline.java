@@ -17,6 +17,10 @@ public class EntradaOnline {
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal precio;
 
+    @Column(nullable = false)
+    private int stock;
+
+
     // 🔹 Constructor vacío requerido por Hibernate
     public EntradaOnline() {
     }
@@ -34,4 +38,12 @@ public class EntradaOnline {
     
     public BigDecimal getPrecio() { return precio; }
     public void setPrecio(BigDecimal precio) { this.precio = precio; }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
 }

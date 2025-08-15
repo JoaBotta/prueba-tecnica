@@ -1,13 +1,8 @@
 package com.joa.springboot.Cliente;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.joa.springboot.Estado.Estado;
-import com.joa.springboot.HistorialAsistencia.HistorialAsistencia;
-import com.joa.springboot.Lista.Lista;
-import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import jakarta.persistence.*;
 
 @Entity
 public class Cliente {
@@ -22,21 +17,18 @@ public class Cliente {
     @Column(nullable = false)
     private String apellido;
 
+    @Column(nullable = false)
     private String documento;
 
+    @Column(nullable = true)
     private String telefono;
 
+    @Column(nullable = true)
     private String email;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "estado_id")
     private Estado estado; // Nueva relación: Cliente ahora tiene un Estado asociado
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lista_id")
-    
-    @JsonIgnore
-    private Lista lista;
 
     // Getters y Setters
 
@@ -86,14 +78,6 @@ public class Cliente {
 
     public void setEstado(Estado estado) {
         this.estado = estado;
-    }
-
-    public Lista getLista() {
-        return lista;
-    }
-
-    public void setLista(Lista lista) {
-        this.lista = lista;
     }
 
     public String getEmail() {

@@ -1,0 +1,139 @@
+package com.joa.springboot.Evento;
+
+import jakarta.persistence.*;
+import com.joa.springboot.Servicios.Servicio;
+import com.joa.springboot.PuntoDeVenta.PuntoDeVenta;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.joa.springboot.Barra.Barra;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "Evento")
+public class Evento {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, unique = true)
+    private String nombre;
+
+    @Column(nullable = false)
+    private String provincia;
+
+    @Column(nullable = false)
+    private String ciudad;
+
+    @Column(nullable = false)
+    private String calle;
+
+    @Column(nullable = false)
+    private int capacidadMaxima;
+
+    @OneToMany(mappedBy = "boliche", cascade = CascadeType.ALL) // Eliminado orphanRemoval = true
+    @JsonIgnore
+    private List<Servicio> servicios = new ArrayList<>(); 
+
+    @OneToMany(mappedBy = "boliche", cascade = CascadeType.ALL) // Eliminado orphanRemoval = true
+    @JsonManagedReference
+    private List<Barra> barras = new ArrayList<>();
+
+    @OneToMany(mappedBy = "boliche", cascade = CascadeType.ALL) // Eliminado orphanRemoval = true
+    @JsonManagedReference
+    private List<PuntoDeVenta> puntoventa = new ArrayList<>();
+
+    // Constructor por defecto
+    public Evento() {
+        this.servicios = new ArrayList<>();
+        this.barras = new ArrayList<>();
+        this.puntoventa = new ArrayList<>();
+    }
+
+    // Constructor con parámetros
+    public Evento(String nombre, String provincia, String ciudad, String calle, int capacidadMaxima) {
+        this.nombre = nombre;
+        this.provincia = provincia;
+        this.ciudad = ciudad;
+        this.calle = calle;
+        this.capacidadMaxima = capacidadMaxima;
+        this.servicios = new ArrayList<>();
+        this.barras = new ArrayList<>();
+        this.puntoventa = new ArrayList<>();
+    }
+
+    // Getters y Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getProvincia() {
+        return provincia;
+    }
+
+    public void setProvincia(String provincia) {
+        this.provincia = provincia;
+    }
+
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
+    }
+
+    public String getCalle() {
+        return calle;
+    }
+
+    public void setCalle(String calle) {
+        this.calle = calle;
+    }
+
+    public int getCapacidadMaxima() {
+        return capacidadMaxima;
+    }
+
+    public void setCapacidadMaxima(int capacidadMaxima) {
+        this.capacidadMaxima = capacidadMaxima;
+    }
+
+    public List<Servicio> getServicios() {
+        return servicios;
+    }
+
+    public void setServicios(List<Servicio> servicios) {
+        this.servicios = servicios;
+    }
+
+    public List<Barra> getBarras() {
+        return barras;
+    }
+
+    public void setBarras(List<Barra> barras) {
+        this.barras = barras;
+    }
+
+    public List<PuntoDeVenta> getPuntoventa() {
+        return puntoventa;
+    }
+
+    public void setPuntoventa(List<PuntoDeVenta> puntoventa) {
+        this.puntoventa = puntoventa;
+    }
+}

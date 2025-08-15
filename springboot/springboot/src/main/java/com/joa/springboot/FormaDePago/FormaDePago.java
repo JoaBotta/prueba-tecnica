@@ -3,7 +3,7 @@ package com.joa.springboot.FormaDePago;
 import jakarta.persistence.*;
 import java.util.List;
 import com.joa.springboot.VentaBarra.VentaBarra;
-import com.joa.springboot.VentaEntrada.VentaEntrada;
+import com.joa.springboot.VentaEntradaFisica.VentaEntradaFisica;
 
 @Entity
 @Table(name = "formas_de_pago")
@@ -20,7 +20,7 @@ public class FormaDePago {
     private List<VentaBarra> ventasBarra;
 
     @OneToMany(mappedBy = "formaDePago", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<VentaEntrada> ventasEntrada; // Relación con VentaEntrada
+    private List<VentaEntradaFisica> ventasEntrada; // Relación con VentaEntrada
 
     // Constructor por defecto
     public FormaDePago() {}
@@ -37,8 +37,8 @@ public class FormaDePago {
     public void setNombre(String nombre) { this.nombre = nombre; }
     public List<VentaBarra> getVentasBarra() { return ventasBarra; }
     public void setVentasBarra(List<VentaBarra> ventasBarra) { this.ventasBarra = ventasBarra; }
-    public List<VentaEntrada> getVentasEntrada() { return ventasEntrada; }
-    public void setVentasEntrada(List<VentaEntrada> ventasEntrada) { this.ventasEntrada = ventasEntrada; }
+    public List<VentaEntradaFisica> getVentasEntrada() { return ventasEntrada; }
+    public void setVentasEntrada(List<VentaEntradaFisica> ventasEntrada) { this.ventasEntrada = ventasEntrada; }
 
     @Override
     public String toString() {

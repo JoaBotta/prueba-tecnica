@@ -1,9 +1,8 @@
 package com.joa.springboot.Cliente;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/clientes")
@@ -13,20 +12,20 @@ public class ClienteController {
     @Autowired
     private ClienteService clienteService;
 
-    // Crear un nuevo cliente en una lista (requiere estadoId en el ClienteDTO)
-    @PostMapping("/lista/{listaId}")
-    public ClienteResponseDTO agregarCliente(
-            @PathVariable Long listaId,
-            @RequestBody ClienteDTO clienteDTO
-    ) {
-        return clienteService.agregarCliente(listaId, clienteDTO);
+    @PostMapping
+    public ResponseEntity<ClienteResponseDTO> crearCliente(@RequestBody ClienteDTO dto) {
+        ClienteResponseDTO cliente = clienteService.crearCliente(dto);
+        return ResponseEntity.ok(cliente);
     }
 
-    // Obtener todos los clientes de una lista
-    @GetMapping("/lista/{listaId}")
-    public List<ClienteResponseDTO> obtenerClientesDeLista(@PathVariable Long listaId) {
-        return clienteService.obtenerClientesPorLista(listaId);
+    @PutMapping("/{id}")
+    public ResponseEntity<ClienteResponseDTO> actualizarCliente(
+            @PathVariable Long id,
+            @RequestBody ClienteDTO dto) {
+        ClienteResponseDTO cliente = clienteService.actualizarCliente(id, dto);
+        return ResponseEntity.ok(cliente);
     }
+
 
     // Registrar una asistencia para el cliente (crear historial + actualizar estado actual)
     @PutMapping("/{clienteId}/asistencia")

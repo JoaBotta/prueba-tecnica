@@ -1,7 +1,6 @@
 package com.joa.springboot.Planta;
 
 import jakarta.persistence.*;
-import java.util.List;
 
 @Entity
 public class Planta {

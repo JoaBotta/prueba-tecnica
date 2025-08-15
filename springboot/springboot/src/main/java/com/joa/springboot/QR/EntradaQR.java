@@ -1,42 +1,31 @@
 package com.joa.springboot.QR;
 
-import com.joa.springboot.DetalleVentaEntrada.DetalleVentaEntrada;
+import com.joa.springboot.VentaEntradaOnline.VentaEntradaOnline;
+
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "entrada_qr")
 public class EntradaQR {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(optional = false)
-    private DetalleVentaEntrada detalleVentaEntrada;
+    @OneToOne(optional = false)
+    @JoinColumn(name = "venta_entrada_online_id", nullable = false, unique = true)
+    private VentaEntradaOnline ventaEntradaOnline;
 
     private String textoQR; // Contenido codificado del QR (puede ser UUID o token)
 
     // Getters y Setters
-    public Long getId() {
-        return id;
-    }
+    // ✅ Nombres correctos (JavaBean)
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public VentaEntradaOnline getVentaEntradaOnline() { return ventaEntradaOnline; }
+    public void setVentaEntradaOnline(VentaEntradaOnline v) { this.ventaEntradaOnline = v; }
 
-    public DetalleVentaEntrada getDetalleVentaEntrada() {
-        return detalleVentaEntrada;
-    }
-
-    public void setDetalleVentaEntrada(DetalleVentaEntrada detalleVentaEntrada) {
-        this.detalleVentaEntrada = detalleVentaEntrada;
-    }
-
-    public String getTextoQR() {
-        return textoQR;
-    }
-
-    public void setTextoQR(String textoQR) {
-        this.textoQR = textoQR;
-    }
+    public String getTextoQR() { return textoQR; }
+    public void setTextoQR(String textoQR) { this.textoQR = textoQR; }
 }

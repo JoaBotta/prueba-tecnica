@@ -2,8 +2,9 @@ package com.joa.springboot.Barra;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.joa.springboot.Boliche.Boliche;
-import com.joa.springboot.Boliche.BolicheRepository;
+
+import com.joa.springboot.Evento.Evento;
+import com.joa.springboot.Evento.EventoRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,11 +16,11 @@ public class BarraService {
     private BarraRepository barraRepository;
 
     @Autowired
-    private BolicheRepository bolicheRepository;
+    private EventoRepository bolicheRepository;
 
     // ✅ Crear una barra
     public BarraResponseDTO createBarra(BarraRequestDTO requestDTO) {
-        Boliche boliche = bolicheRepository.findById(requestDTO.getBolicheId())
+        Evento boliche = bolicheRepository.findById(requestDTO.getBolicheId())
                 .orElseThrow(() -> new RuntimeException("Boliche no encontrado con ID: " + requestDTO.getBolicheId()));
 
         Barra barra = new Barra(requestDTO.getNombre(), boliche);
@@ -63,7 +64,7 @@ public class BarraService {
         Barra barra = barraRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Barra no encontrada con ID: " + id));
 
-        Boliche boliche = bolicheRepository.findById(requestDTO.getBolicheId())
+        Evento boliche = bolicheRepository.findById(requestDTO.getBolicheId())
                 .orElseThrow(() -> new RuntimeException("Boliche no encontrado con ID: " + requestDTO.getBolicheId()));
 
         // Actualizar valores

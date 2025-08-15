@@ -1,23 +1,26 @@
 package com.joa.springboot.VentaEntradaOnline;
-
 import lombok.Data;
 import java.time.LocalDateTime;
-import com.joa.springboot.DetalleVentaEntrada.DetalleVentaEntradaRequestDTO;
-import java.util.List;
 
 @Data
 public class VentaEntradaOnlineRequestDTO {
     private Long bolicheId;
     private Long formaDePagoId;
+    private Long entradaOnlineId;
     private LocalDateTime fechaHora;
-    private Double totalPrecio;
     
     private String nombreComprador;
     private String correoElectronico;
     private String telefono;
-    private List<DetalleVentaEntradaRequestDTO> detalleVentaEntrada;
 
     // Getters y Setters
+    public Long getEntradaOnlineId() {
+        return entradaOnlineId;
+    }
+    public void setEntradaOnlineId(Long entradaOnlineId) {
+        this.entradaOnlineId = entradaOnlineId;
+    }
+
     public Long getBolicheId() {
         return bolicheId;
     }
@@ -42,14 +45,6 @@ public class VentaEntradaOnlineRequestDTO {
         this.fechaHora = fechaHora;
     }
 
-    public Double getTotalPrecio() {
-        return totalPrecio;
-    }
-
-    public void setTotalPrecio(Double totalPrecio) {
-        this.totalPrecio = totalPrecio;
-    }
-
     public String getNombreComprador() {
         return nombreComprador;
     }
@@ -72,13 +67,5 @@ public class VentaEntradaOnlineRequestDTO {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
-    }
-
-    public List<DetalleVentaEntradaRequestDTO> getDetalleVentaEntrada() {
-        return detalleVentaEntrada;
-    }
-
-    public void setDetalleVentaEntrada(List<DetalleVentaEntradaRequestDTO> detalleVentaEntrada) {
-        this.detalleVentaEntrada = detalleVentaEntrada;
     }
 }

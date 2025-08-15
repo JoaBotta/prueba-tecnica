@@ -4,5 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface EntradaQRRepository extends JpaRepository<EntradaQR, Long> {
-    List<EntradaQR> findByDetalleVentaEntradaId(Long detalleId);
+
+    // 🔹 Nombre exacto del campo + "_Id" para acceder al id
+    List<EntradaQR> findByVentaEntradaOnline_Id(Long ventaId);
 }

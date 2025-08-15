@@ -2,144 +2,145 @@ package com.joa.springboot.VentaEntradaOnline;
 
 import com.joa.springboot.EntradaOnline.EntradaOnline;
 import com.joa.springboot.EntradaOnline.EntradaOnlineRepository;
+import com.joa.springboot.Evento.Evento;
+import com.joa.springboot.Evento.EventoRepository;
 import com.joa.springboot.FormaDePago.FormaDePago;
 import com.joa.springboot.FormaDePago.FormaDePagoRepository;
 import com.joa.springboot.QR.EntradaQR;
 import com.joa.springboot.QR.EntradaQRRepository;
-import com.joa.springboot.DetalleVentaEntrada.DetalleVentaEntrada;
-import com.joa.springboot.DetalleVentaEntrada.DetalleVentaEntradaRepository;
-import com.joa.springboot.DetalleVentaEntrada.DetalleVentaEntradaResponseDTO;
+
+import jakarta.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.joa.springboot.Boliche.Boliche;
-import com.joa.springboot.Boliche.BolicheRepository;
 
 import java.util.List;
-import java.util.ArrayList;
-import java.util.stream.Collectors;
+import java.time.LocalDateTime;
 
 @Service
 public class VentaEntradaOnlineService {
 
     @Autowired
-    private VentaEntradaOnlineRepository ventaEntradaOnlineRepository;
+    private VentaEntradaOnlineRepository ventaRepo;
 
     @Autowired
-    private FormaDePagoRepository formaDePagoRepository;
+    private EventoRepository eventoRepo;
 
     @Autowired
-    private EntradaOnlineRepository entradaOnlineRepository;
+    private FormaDePagoRepository formaDePagoRepo;
+
+    @Autowired
+    private EntradaOnlineRepository entradaOnlineRepo;
 
     @Autowired
     private EntradaQRRepository entradaQRRepository;
 
-
-    @Autowired
-    private BolicheRepository bolicheRepository;
-
-    @Autowired
-    private DetalleVentaEntradaRepository detalleVentaEntradaRepository;
-
-
+    @Transactional
     public VentaEntradaOnlineResponseDTO crearVentaEntradaOnline(VentaEntradaOnlineRequestDTO dto) {
-        Boliche boliche = bolicheRepository.findById(dto.getBolicheId())
-            .orElseThrow(() -> new RuntimeException("Boliche no encontrado"));
+        // 1) Cargar refs requeridas
+        Evento boliche = eventoRepo.findById(dto.getBolicheId())
+            .orElseThrow(() -> new RuntimeException("Evento no encontrado con ID: " + dto.getBolicheId()));
+        FormaDePago formaDePago = formaDePagoRepo.findById(dto.getFormaDePagoId())
+            .orElseThrow(() -> new RuntimeException("Forma de pago no encontrada con ID: " + dto.getFormaDePagoId()));
+        EntradaOnline entrada = entradaOnlineRepo.findById(dto.getEntradaOnlineId())
+            .orElseThrow(() -> new RuntimeException("Entrada no encontrada con ID: " + dto.getEntradaOnlineId()));
 
-        FormaDePago formaDePago = formaDePagoRepository.findById(dto.getFormaDePagoId())
-                .orElseThrow(() -> new IllegalArgumentException("Forma de Pago no encontrada"));
+        // 2) Reservar stock de forma atómica
+        int filas = entradaOnlineRepo.reservarUnidad(entrada.getId());
+        if (filas == 0) {
+            throw new RuntimeException("Stock agotado para esta entrada");
+        }
 
-        // 1️⃣ Crear y guardar la venta
+        // 4) Crear venta
         VentaEntradaOnline venta = new VentaEntradaOnline();
         venta.setBoliche(boliche);
         venta.setFormaDePago(formaDePago);
-        venta.setFechaHora(dto.getFechaHora());
+        venta.setFechaHora(dto.getFechaHora() != null ? dto.getFechaHora() : LocalDateTime.now());
+        venta.setPrecio(entrada.getPrecio()); // BigDecimal recomendado en la entidad
         venta.setNombreComprador(dto.getNombreComprador());
         venta.setCorreoElectronico(dto.getCorreoElectronico());
         venta.setTelefono(dto.getTelefono());
+        venta.setEntradaOnline(entrada);
+        venta = ventaRepo.save(venta);
 
-        venta = ventaEntradaOnlineRepository.save(venta); // Necesitamos el ID de la venta
+        // 4) Crear QR 1:1 con la venta
+        String contenidoQR = "VENTA-" + venta.getId() + "-ENTRADA-" + entrada.getId();
+        EntradaQR qr = new EntradaQR();
+        qr.setVentaEntradaOnline(venta);
+        qr.setTextoQR(contenidoQR);
+        entradaQRRepository.save(qr);
 
-        // 2️⃣ Crear y guardar los detalles (individualmente, para obtener sus IDs)
-        List<DetalleVentaEntrada> detalles = new ArrayList<>();
-        for (var detalleDto : dto.getDetalleVentaEntrada()) {
-            EntradaOnline entradaOnline = entradaOnlineRepository.findById(detalleDto.getEntradaId())
-                    .orElseThrow(() -> new IllegalArgumentException("Entrada no encontrada"));
-
-            DetalleVentaEntrada detalle = new DetalleVentaEntrada();
-            detalle.setVentaEntradaOnline(venta);
-            detalle.setEntradaOnline(entradaOnline);
-            detalle.setCantidad(detalleDto.getCantidad());
-            detalle.setSubtotal(detalleDto.getCantidad() * entradaOnline.getPrecio().doubleValue());
-
-            // 🔹 Guardar individualmente el detalle
-            detalle = detalleVentaEntradaRepository.save(detalle);
-            detalles.add(detalle);
-
-            // 3️⃣ Por cada unidad comprada, generar un QR vinculado al detalle ya persistido
-            for (int i = 0; i < detalle.getCantidad(); i++) {
-                EntradaQR qr = new EntradaQR();
-                qr.setDetalleVentaEntrada(detalle);
-                String contenidoQR = "VENTA-" + venta.getId() + "-DETALLE-" + detalle.getId() + "-NRO-" + (i + 1);
-                qr.setTextoQR(contenidoQR);
-                entradaQRRepository.save(qr);
-            }
-        }
-
-        // 4️⃣ Asociar los detalles a la venta y actualizar total
-        venta.setDetalleVentaEntrada(detalles);
-        venta.setTotalPrecio(detalles.stream().mapToDouble(DetalleVentaEntrada::getSubtotal).sum());
-        ventaEntradaOnlineRepository.save(venta);
-
-        return mapToDTO(venta);
+        // 5) DTO respuesta
+        VentaEntradaOnlineResponseDTO resp = new VentaEntradaOnlineResponseDTO(
+            venta.getId(),
+            formaDePago.getId(),
+            venta.getFechaHora(),
+            venta.getPrecio(),
+            venta.getNombreComprador(),
+            venta.getCorreoElectronico(),
+            venta.getTelefono(),
+            boliche.getNombre(),
+            entrada.getId()
+        );
+        resp.setCodigosQR(List.of("http://localhost:8080/v1/qrcode?text=" + contenidoQR));
+        return resp;
     }
 
-
     public List<VentaEntradaOnlineResponseDTO> obtenerTodas() {
-        List<VentaEntradaOnline> ventas = ventaEntradaOnlineRepository.findAll();
-        return ventas.stream().map(this::mapToDTO).collect(Collectors.toList());
+        List<VentaEntradaOnline> ventas = ventaRepo.findAll();
+
+        return ventas.stream().map(venta -> {
+            VentaEntradaOnlineResponseDTO dto = new VentaEntradaOnlineResponseDTO(
+                venta.getId(),
+                venta.getFormaDePago().getId(),
+                venta.getFechaHora(),
+                venta.getPrecio(),
+                venta.getNombreComprador(),
+                venta.getCorreoElectronico(),
+                venta.getTelefono(),
+                venta.getBoliche().getNombre(),
+                venta.getEntradaOnline().getId()
+            );
+
+            // Buscar códigos QR asociados a la venta
+            List<EntradaQR> qrs = entradaQRRepository.findByVentaEntradaOnline_Id(venta.getId());
+            List<String> codigos = qrs.stream()
+                .map(qr -> "http://localhost:8080/v1/qrcode?text=" + qr.getTextoQR())
+                .toList();
+
+            dto.setCodigosQR(codigos);
+            return dto;
+        }).toList();
     }
 
     public VentaEntradaOnlineResponseDTO obtenerPorId(Long id) {
-        VentaEntradaOnline venta = ventaEntradaOnlineRepository.findById(id)
-            .orElseThrow(() -> new IllegalArgumentException("Venta no encontrada con ID: " + id));
-        return mapToDTO(venta);
+        // 1. Buscar la venta por ID
+        VentaEntradaOnline venta = ventaRepo.findById(id)
+            .orElseThrow(() -> new RuntimeException("Venta no encontrada con ID: " + id));
+
+        // 2. Crear el DTO de respuesta
+        VentaEntradaOnlineResponseDTO dto = new VentaEntradaOnlineResponseDTO(
+            venta.getId(),
+            venta.getFormaDePago().getId(),
+            venta.getFechaHora(),
+            venta.getPrecio(),
+            venta.getNombreComprador(),
+            venta.getCorreoElectronico(),
+            venta.getTelefono(),
+            venta.getBoliche().getNombre(),
+            venta.getEntradaOnline().getId()
+        );
+
+        // 3. Buscar y asignar los códigos QR asociados
+        List<EntradaQR> qrs = entradaQRRepository.findByVentaEntradaOnline_Id(venta.getId());
+        List<String> codigos = qrs.stream()
+            .map(qr -> "http://localhost:8080/v1/qrcode?text=" + qr.getTextoQR())
+            .toList();
+
+        dto.setCodigosQR(codigos);
+
+        return dto;
     }
 
-    private VentaEntradaOnlineResponseDTO mapToDTO(VentaEntradaOnline venta) {
-        VentaEntradaOnlineResponseDTO responseDTO = new VentaEntradaOnlineResponseDTO();
-        responseDTO.setId(venta.getId());
-        responseDTO.setFormaDePagoId(venta.getFormaDePago().getId());
-        responseDTO.setFechaHora(venta.getFechaHora());
-        responseDTO.setTotalPrecio(venta.getTotalPrecio());
-        responseDTO.setNombreComprador(venta.getNombreComprador());
-        responseDTO.setCorreoElectronico(venta.getCorreoElectronico());
-        responseDTO.setTelefono(venta.getTelefono());
-        responseDTO.setBolicheNombre(venta.getBoliche().getNombre()); // si querés el nombre del boliche
-
-        // 🔹 Agregá esta parte para mapear los detalles
-        List<DetalleVentaEntradaResponseDTO> detallesDTO = venta.getDetalleVentaEntrada().stream().map(detalle -> {
-            DetalleVentaEntradaResponseDTO dto = new DetalleVentaEntradaResponseDTO();
-            dto.setId(detalle.getId());
-            dto.setEntradaId(detalle.getEntradaOnline().getId());
-            dto.setCantidad(detalle.getCantidad());
-            dto.setSubtotal(detalle.getSubtotal());
-
-            // 🔹 Obtener los QR desde base de datos
-            List<EntradaQR> codigos = entradaQRRepository.findByDetalleVentaEntradaId(detalle.getId());
-
-            // 🔹 Convertir a URLs
-            List<String> qrUrls = codigos.stream()
-                    .map(qr -> "http://localhost:8080/v1/qrcode?text=" + qr.getTextoQR())
-                    .collect(Collectors.toList());
-
-            dto.setCodigosQR(qrUrls);
-
-            return dto;
-        }).collect(Collectors.toList());
-
-        responseDTO.setDetalleVentaEntrada(detallesDTO);
-
-        return responseDTO;
-    }
 
 }

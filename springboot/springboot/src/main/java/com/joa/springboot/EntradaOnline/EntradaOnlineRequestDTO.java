@@ -13,4 +13,7 @@ public class EntradaOnlineRequestDTO {
 
     @NotNull(message = "El precio es obligatorio")
     private BigDecimal precio;
+
+    @NotNull(message = "El Stock no puede estar Vacio")
+    private int stock;
 }

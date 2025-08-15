@@ -1,7 +1,4 @@
 package com.joa.springboot.Planta;
-
-import com.joa.springboot.Planta.Planta;
-import com.joa.springboot.Planta.PlantaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

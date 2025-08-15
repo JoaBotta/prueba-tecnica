@@ -2,8 +2,9 @@ package com.joa.springboot.Servicios;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.joa.springboot.Boliche.Boliche;
-import com.joa.springboot.Boliche.BolicheRepository;
+
+import com.joa.springboot.Evento.Evento;
+import com.joa.springboot.Evento.EventoRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,11 +16,11 @@ public class ServicioService {
     private ServicioRepository servicioRepository;
 
     @Autowired
-    private BolicheRepository bolicheRepository;
+    private EventoRepository bolicheRepository;
 
     // ✅ Crear un servicio asociado a un boliche
     public ServicioResponseDTO createServicio(ServicioRequestDTO requestDTO) {
-        Boliche boliche = bolicheRepository.findById(requestDTO.getBolicheId())
+        Evento boliche = bolicheRepository.findById(requestDTO.getBolicheId())
                 .orElseThrow(() -> new RuntimeException("Boliche no encontrado con ID: " + requestDTO.getBolicheId()));
 
         Servicio servicio = new Servicio(
@@ -53,7 +54,7 @@ public class ServicioService {
         Servicio servicio = servicioRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Servicio no encontrado con ID: " + id));
 
-        Boliche boliche = bolicheRepository.findById(requestDTO.getBolicheId())
+        Evento boliche = bolicheRepository.findById(requestDTO.getBolicheId())
                 .orElseThrow(() -> new RuntimeException("Boliche no encontrado con ID: " + requestDTO.getBolicheId()));
 
         servicio.setNombre(requestDTO.getNombre());

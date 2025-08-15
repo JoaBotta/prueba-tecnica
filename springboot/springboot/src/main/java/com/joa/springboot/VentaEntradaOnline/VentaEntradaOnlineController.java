@@ -19,14 +19,13 @@ public class VentaEntradaOnlineController {
         VentaEntradaOnlineResponseDTO nuevaVenta = ventaEntradaOnlineService.crearVentaEntradaOnline(dto);
         return ResponseEntity.ok(nuevaVenta);
     }
-    // 🔹 Nuevo: Obtener todas las ventas online
+    
     @GetMapping
     public ResponseEntity<List<VentaEntradaOnlineResponseDTO>> obtenerTodasLasVentasOnline() {
         List<VentaEntradaOnlineResponseDTO> ventas = ventaEntradaOnlineService.obtenerTodas();
         return ResponseEntity.ok(ventas);
     }
 
-    // 🔹 Nuevo: Obtener una venta online por ID
     @GetMapping("/{id}")
     public ResponseEntity<VentaEntradaOnlineResponseDTO> obtenerVentaOnlinePorId(@PathVariable Long id) {
         VentaEntradaOnlineResponseDTO venta = ventaEntradaOnlineService.obtenerPorId(id);

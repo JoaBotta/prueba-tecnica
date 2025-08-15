@@ -1,9 +1,11 @@
 package com.joa.springboot.PuntoDeVenta;
 
 import jakarta.persistence.*;
-import com.joa.springboot.Boliche.Boliche;
+
+import com.joa.springboot.Evento.Evento;
 import com.joa.springboot.Usuario.Usuario;
-import com.joa.springboot.VentaEntrada.VentaEntrada;
+import com.joa.springboot.VentaEntradaFisica.VentaEntradaFisica;
+
 import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,20 +24,20 @@ public class PuntoDeVenta {
 
     @ManyToOne
     @JoinColumn(name = "boliche_id", nullable = false)
-    private Boliche boliche;
+    private Evento boliche;
 
     @ManyToOne
     @JoinColumn(name = "seguridad_id", nullable = false)
     private Usuario seguridad;
 
     @OneToMany(mappedBy = "puntoDeVenta", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<VentaEntrada> ventas;
+    private List<VentaEntradaFisica> ventaFisica;
 
     // Constructor vacío
     public PuntoDeVenta() {}
 
     // Constructor con parámetros
-    public PuntoDeVenta(String nombre, Boliche boliche, Usuario seguridad) {
+    public PuntoDeVenta(String nombre, Evento boliche, Usuario seguridad) {
         this.nombre = nombre;
         this.boliche = boliche;
         this.seguridad = seguridad;
@@ -58,11 +60,11 @@ public class PuntoDeVenta {
         this.nombre = nombre;
     }
 
-    public Boliche getBoliche() {
+    public Evento getBoliche() {
         return boliche;
     }
 
-    public void setBoliche(Boliche boliche) {
+    public void setBoliche(Evento boliche) {
         this.boliche = boliche;
     }
 
@@ -74,11 +76,11 @@ public class PuntoDeVenta {
         this.seguridad = seguridad;
     }
 
-    public List<VentaEntrada> getVentas() {
-        return ventas;
+    public List<VentaEntradaFisica> getVentas() {
+        return ventaFisica;
     }
 
-    public void setVentas(List<VentaEntrada> ventas) {
-        this.ventas = ventas;
+    public void setVentas(List<VentaEntradaFisica> ventaFisica) {
+        this.ventaFisica = ventaFisica;
     }
 }

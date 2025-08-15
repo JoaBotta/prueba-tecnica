@@ -1,50 +1,51 @@
 package com.joa.springboot.VentaEntradaOnline;
-import com.joa.springboot.DetalleVentaEntrada.DetalleVentaEntrada;
+import com.joa.springboot.EntradaOnline.EntradaOnline;
+import com.joa.springboot.Evento.Evento;
 import com.joa.springboot.FormaDePago.FormaDePago;
-import com.joa.springboot.Boliche.Boliche;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
-@DiscriminatorValue("ONLINE")
+@Table(name = "Venta_Entrada_Online")
 public class VentaEntradaOnline {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @ManyToOne(optional = false)
     private FormaDePago formaDePago;
-
     private LocalDateTime fechaHora;
 
-    private Double totalPrecio;
+    @Column(nullable = false, precision = 10, scale = 2)
+    private BigDecimal Precio;
 
     private String nombreComprador;
     private String correoElectronico;
     private String telefono;
+
     @ManyToOne
     @JoinColumn(name = "boliche_id", nullable = false)
-    private Boliche boliche;
+    private Evento boliche;
 
-    @OneToMany(mappedBy = "ventaEntradaOnline", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<DetalleVentaEntrada> detalleVentaEntrada;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "entrada_online_id", nullable = false)  // ← muchas ventas de la misma entrada
+    private EntradaOnline entradaOnline;
+
 
     // Getters y Setters
-    public Boliche getBoliche() {
+    public Evento getBoliche() {
         return boliche;
     }
-
-    public void setBoliche(Boliche boliche) {
+    public void setBoliche(Evento boliche) {
         this.boliche = boliche;
     }
+
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -52,7 +53,6 @@ public class VentaEntradaOnline {
     public FormaDePago getFormaDePago() {
         return formaDePago;
     }
-
     public void setFormaDePago(FormaDePago formaDePago) {
         this.formaDePago = formaDePago;
     }
@@ -60,23 +60,20 @@ public class VentaEntradaOnline {
     public LocalDateTime getFechaHora() {
         return fechaHora;
     }
-
     public void setFechaHora(LocalDateTime fechaHora) {
         this.fechaHora = fechaHora;
     }
 
-    public Double getTotalPrecio() {
-        return totalPrecio;
+    public BigDecimal getPrecio() {
+        return Precio;
     }
-
-    public void setTotalPrecio(Double totalPrecio) {
-        this.totalPrecio = totalPrecio;
+    public void setPrecio(BigDecimal Precio) {
+        this.Precio = Precio;
     }
 
     public String getNombreComprador() {
         return nombreComprador;
     }
-
     public void setNombreComprador(String nombreComprador) {
         this.nombreComprador = nombreComprador;
     }
@@ -84,7 +81,6 @@ public class VentaEntradaOnline {
     public String getCorreoElectronico() {
         return correoElectronico;
     }
-
     public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
     }
@@ -92,16 +88,15 @@ public class VentaEntradaOnline {
     public String getTelefono() {
         return telefono;
     }
-
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
-    public List<DetalleVentaEntrada> getDetalleVentaEntrada() {
-        return detalleVentaEntrada;
+    public EntradaOnline getEntradaOnline() {
+        return entradaOnline;
+    }
+    public void setEntradaOnline(EntradaOnline entradaOnline) {
+        this.entradaOnline = entradaOnline;
     }
 
-    public void setDetalleVentaEntrada(List<DetalleVentaEntrada> detalleVentaEntrada) {
-        this.detalleVentaEntrada = detalleVentaEntrada;
-    }
 }

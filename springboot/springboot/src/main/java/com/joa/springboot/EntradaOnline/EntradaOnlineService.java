@@ -13,9 +13,10 @@ public class EntradaOnlineService {
 
     // Crear una nueva EntradaOnline
     public EntradaOnlineResponseDTO crearEntradaOnline(EntradaOnlineRequestDTO requestDTO) {
-        EntradaOnline EntradaOnline = new EntradaOnline(requestDTO.getNombre(), requestDTO.getPrecio());
-        EntradaOnline = EntradaOnlineRepository.save(EntradaOnline);
-        return mapToDTO(EntradaOnline);
+        EntradaOnline entrada = new EntradaOnline(requestDTO.getNombre(), requestDTO.getPrecio());
+        entrada.setStock(requestDTO.getStock());          // ✅ asignar stock
+        entrada = EntradaOnlineRepository.save(entrada);
+        return mapToDTO(entrada);
     }
 
     // Listar todas las EntradaOnlines
@@ -34,14 +35,14 @@ public class EntradaOnlineService {
 
     // Actualizar una EntradaOnline
     public EntradaOnlineResponseDTO actualizarEntradaOnline(Long id, EntradaOnlineRequestDTO requestDTO) {
-        EntradaOnline EntradaOnline = EntradaOnlineRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("EntradaOnline no encontrada con ID: " + id));
-
-        EntradaOnline.setNombre(requestDTO.getNombre());
-        EntradaOnline.setPrecio(requestDTO.getPrecio());
-        EntradaOnline = EntradaOnlineRepository.save(EntradaOnline);
-
-        return mapToDTO(EntradaOnline);
+        EntradaOnline entrada = EntradaOnlineRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("EntradaOnline no encontrada con ID: " + id));
+    
+        entrada.setNombre(requestDTO.getNombre());
+        entrada.setPrecio(requestDTO.getPrecio());
+        entrada.setStock(requestDTO.getStock());          // ✅ actualizar stock también
+        entrada = EntradaOnlineRepository.save(entrada);
+        return mapToDTO(entrada);
     }
 
     // Eliminar una EntradaOnline
@@ -51,6 +52,6 @@ public class EntradaOnlineService {
 
     // Método para mapear `EntradaOnline` a `EntradaOnlineResponseDTO`
     private EntradaOnlineResponseDTO mapToDTO(EntradaOnline EntradaOnline) {
-        return new EntradaOnlineResponseDTO(EntradaOnline.getId(), EntradaOnline.getNombre(), EntradaOnline.getPrecio());
+        return new EntradaOnlineResponseDTO(EntradaOnline.getId(), EntradaOnline.getNombre(), EntradaOnline.getPrecio(), EntradaOnline.getStock());
     }
 }
